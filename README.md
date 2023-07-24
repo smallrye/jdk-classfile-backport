@@ -20,7 +20,7 @@ If you encounter a bug which has been fixed in this project but not yet released
 Getting started
 ---------------
 
-After adding the appropriate Maven dependency (see above), the easiest entry points are:
+After adding the appropriate Maven dependency (see the Maven release badge above), the easiest entry points are:
 
 For parsing a class:
 
