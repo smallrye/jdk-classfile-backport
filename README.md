@@ -4,7 +4,7 @@ Unofficial JDK Classfile API Backport
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-preview/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-preview)
 
 
-This is a (very) unofficial backport of the new classfile API found in JDK 21 and later. That API is non-public (not even preview) at the time of this writing, so this project gives no compatibility guarnatees and in fact may break compatibility at any time with no notice.
+This is a (very) unofficial backport to JDK 17 of the new classfile API found in JDK 21 and later. That API is non-public (not even preview) at the time of this writing, so this project gives no compatibility guarnatees and in fact may break compatibility at any time with no notice.
 
 However, it should suffice to allow projects to test out the new API and give feedback which could then potentially even be relayed to the upstream project.
 
