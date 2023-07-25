@@ -20,6 +20,8 @@
 
     <packaging>jar</packaging>
 
+    <url>https://github.com/dmlloyd/jdk-classfile-preview</url>
+
     <licenses>
         <license>
             <name>GNU General Public License, version 2, with the Classpath Exception</name>
