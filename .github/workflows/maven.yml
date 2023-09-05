@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Clone project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: jdk-classfile-preview
 
