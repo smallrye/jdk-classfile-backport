@@ -6,7 +6,7 @@
 
     <groupId>io.github.dmlloyd</groupId>
     <artifactId>jdk-classfile-preview</artifactId>
-    <version>21.0.1-SNAPSHOT</version>
+    <version>22.0.0</version>
 
     <name>JDK Classfile API backport (Unofficial)</name>
     <description>An unofficial backport of the JDK Classfile API to Java 17</description>
