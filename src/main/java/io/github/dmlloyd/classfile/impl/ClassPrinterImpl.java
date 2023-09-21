@@ -68,6 +68,7 @@ import io.github.dmlloyd.classfile.constantpool.MethodTypeEntry;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import io.github.dmlloyd.classfile.constantpool.PackageEntry;
+import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 import io.github.dmlloyd.classfile.constantpool.StringEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
@@ -612,9 +613,8 @@ public final class ClassPrinterImpl {
     private static Node[] constantPoolToTree(ConstantPool cp, Verbosity verbosity) {
         if (verbosity == Verbosity.TRACE_ALL) {
             var cpNode = new MapNodeImpl(BLOCK, "constant pool");
-            for (int i = 1; i < cp.entryCount();) {
-                var e = cp.entryByIndex(i);
-                cpNode.with(new MapNodeImpl(FLOW, i)
+            for (PoolEntry e : cp) {
+                cpNode.with(new MapNodeImpl(FLOW, e.index())
                         .with(leaf("tag", switch (e.tag()) {
                             case TAG_UTF8 -> "Utf8";
                             case TAG_INTEGER -> "Integer";
@@ -680,7 +680,6 @@ public final class ClassPrinterImpl {
                             ) :
                             null // not possible
                         ));
-                i += e.width();
             }
             return new Node[]{cpNode};
         } else {

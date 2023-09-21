@@ -32,9 +32,13 @@ import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code SourceDebugExtension} attribute (@@@ need reference).
+ * Models the {@code SourceDebugExtension} attribute.
  * Delivered as a {@link ClassElement} when traversing the elements of
  * a {@link ClassModel}.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface SourceDebugExtensionAttribute
         extends Attribute<SourceDebugExtensionAttribute>, ClassElement

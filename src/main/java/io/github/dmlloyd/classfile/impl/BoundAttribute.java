@@ -26,73 +26,13 @@
 package io.github.dmlloyd.classfile.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import io.github.dmlloyd.classfile.Annotation;
-import io.github.dmlloyd.classfile.AnnotationValue;
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.AttributedElement;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BootstrapMethodEntry;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.Classfile;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.TypeAnnotation;
-import io.github.dmlloyd.classfile.attribute.AnnotationDefaultAttribute;
-import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
-import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
-import io.github.dmlloyd.classfile.attribute.CharacterRangeTableAttribute;
-import io.github.dmlloyd.classfile.attribute.CodeAttribute;
-import io.github.dmlloyd.classfile.attribute.CompilationIDAttribute;
-import io.github.dmlloyd.classfile.attribute.ConstantValueAttribute;
-import io.github.dmlloyd.classfile.attribute.DeprecatedAttribute;
-import io.github.dmlloyd.classfile.attribute.EnclosingMethodAttribute;
-import io.github.dmlloyd.classfile.attribute.ExceptionsAttribute;
-import io.github.dmlloyd.classfile.attribute.InnerClassInfo;
-import io.github.dmlloyd.classfile.attribute.InnerClassesAttribute;
-import io.github.dmlloyd.classfile.attribute.LineNumberInfo;
-import io.github.dmlloyd.classfile.attribute.LineNumberTableAttribute;
-import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
-import io.github.dmlloyd.classfile.attribute.LocalVariableTableAttribute;
-import io.github.dmlloyd.classfile.attribute.LocalVariableTypeInfo;
-import io.github.dmlloyd.classfile.attribute.LocalVariableTypeTableAttribute;
-import io.github.dmlloyd.classfile.attribute.MethodParameterInfo;
-import io.github.dmlloyd.classfile.attribute.MethodParametersAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleExportInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleHashInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleHashesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleMainClassAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleOpenInfo;
-import io.github.dmlloyd.classfile.attribute.ModulePackagesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleProvideInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleRequireInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleResolutionAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleTargetAttribute;
-import io.github.dmlloyd.classfile.attribute.NestHostAttribute;
-import io.github.dmlloyd.classfile.attribute.NestMembersAttribute;
-import io.github.dmlloyd.classfile.attribute.PermittedSubclassesAttribute;
-import io.github.dmlloyd.classfile.attribute.RecordAttribute;
-import io.github.dmlloyd.classfile.attribute.RecordComponentInfo;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleParameterAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleParameterAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.SignatureAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceDebugExtensionAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceFileAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceIDAttribute;
-import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo;
-import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
-import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
-import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.attribute.*;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
@@ -181,15 +121,16 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
         for (int i = 0; p < end; i++, p += 2) {
             entries[i] = classReader.readEntry(p);
         }
-        return (List<E>) Arrays.asList(entries);
+        return (List<E>) List.of(entries);
     }
 
     public static List<Attribute<?>> readAttributes(AttributedElement enclosing, ClassReader reader, int pos,
                                                                   Function<Utf8Entry, AttributeMapper<?>> customAttributes) {
         int size = reader.readU2(pos);
-        var filled = new Attribute<?>[size];
+        var filled = new ArrayList<Attribute<?>>(size);
         int p = pos + 2;
         int cfLen = reader.classfileLength();
+        var apo = ((ClassReaderImpl)reader).context().attributesProcessingOption();
         for (int i = 0; i < size; ++i) {
             Utf8Entry name = reader.readUtf8Entry(p);
             int len = reader.readInt(p + 2);
@@ -203,8 +144,8 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
                 mapper = customAttributes.apply(name);
             }
             if (mapper != null) {
-                filled[i] = (Attribute<?>) mapper.readAttribute(enclosing, reader, p);
-            } else if (((ClassReaderImpl)reader).context().unknownAttributesOption() == Classfile.UnknownAttributesOption.PASS_UNKNOWN_ATTRIBUTES) {
+                filled.add((Attribute)mapper.readAttribute(enclosing, reader, p));
+            } else {
                 AttributeMapper<UnknownAttribute> fakeMapper = new AttributeMapper<>() {
                     @Override
                     public String name() {
@@ -219,54 +160,33 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
 
                     @Override
                     public void writeAttribute(BufWriter buf, UnknownAttribute attr) {
-                        throw new UnsupportedOperationException("Write of unknown attribute " + name() + " not supported");
+                        buf.writeIndex(name);
+                        var cont = attr.contents();
+                        buf.writeInt(cont.length);
+                        buf.writeBytes(cont);
                     }
 
                     @Override
                     public boolean allowMultiple() {
                         return true;
                     }
+
+                    @Override
+                    public AttributeMapper.AttributeStability stability() {
+                        return AttributeStability.UNKNOWN;
+                    }
                 };
-                filled[i] = new BoundUnknownAttribute(reader, fakeMapper, p);
+                filled.add(new BoundUnknownAttribute(reader, fakeMapper, p));
             }
             p += len;
         }
-        return Arrays.asList(filled);
+        return Collections.unmodifiableList(filled);
     }
 
     public static final class BoundUnknownAttribute extends BoundAttribute<UnknownAttribute>
             implements UnknownAttribute {
         public BoundUnknownAttribute(ClassReader cf, AttributeMapper<UnknownAttribute> mapper, int pos) {
             super(cf, mapper, pos);
-        }
-
-        @Override
-        public void writeTo(DirectClassBuilder builder) {
-            checkWriteSupported(builder::canWriteDirect);
-            super.writeTo(builder);
-        }
-
-        @Override
-        public void writeTo(DirectMethodBuilder builder) {
-            checkWriteSupported(builder::canWriteDirect);
-            super.writeTo(builder);
-        }
-
-        @Override
-        public void writeTo(DirectFieldBuilder builder) {
-            checkWriteSupported(builder::canWriteDirect);
-            super.writeTo(builder);
-        }
-
-        @Override
-        public void writeTo(BufWriter buf) {
-            checkWriteSupported(buf::canWriteDirect);
-            super.writeTo(buf);
-        }
-
-        private void checkWriteSupported(Function<ConstantPool, Boolean> condition) {
-            if (!condition.apply(classReader))
-                throw new UnsupportedOperationException("Write of unknown attribute " + attributeName() + " not supported to alien constant pool");
         }
     }
 
@@ -562,7 +482,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
 
         @Override
         public ConstantValueEntry constant() {
-            return (ConstantValueEntry) classReader.readEntry(payloadStart);
+            return classReader.readEntry(payloadStart, ConstantValueEntry.class);
         }
 
     }

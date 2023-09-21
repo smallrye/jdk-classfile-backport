@@ -38,6 +38,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * appear on classes and records the compilation time of the class.  Delivered
  * as a {@link ClassElement} when traversing the elements of
  * a {@link ClassModel}.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface CompilationIDAttribute
         extends Attribute<CompilationIDAttribute>, ClassElement

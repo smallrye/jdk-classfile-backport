@@ -40,6 +40,10 @@ import java.util.List;
  * can appear on classes, methods, and fields. Delivered as a
  * {@link ClassElement}, {@link FieldElement}, or
  * {@link MethodElement} when traversing the corresponding model type.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface RuntimeInvisibleAnnotationsAttribute
     extends Attribute<RuntimeInvisibleAnnotationsAttribute>,

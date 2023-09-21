@@ -42,6 +42,7 @@ import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
  * option to treat the element as a single entity (e.g., an entire method)
  * or to traverse the contents of that element with the methods in this class
  * (e.g., {@link #elements()}, {@link #forEachElement(Consumer)}, etc.)
+ * @param <E> the element type
  */
 public sealed interface CompoundElement<E extends ClassfileElement>
         extends ClassfileElement, Iterable<E>

@@ -40,6 +40,8 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * Delivered as a {@link LineNumber} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
  * {@link Classfile.LineNumbersOption} option.
+ * <p>
+ * The attribute permits multiple instances in a given location.
  */
 public sealed interface LineNumberTableAttribute
         extends Attribute<LineNumberTableAttribute>

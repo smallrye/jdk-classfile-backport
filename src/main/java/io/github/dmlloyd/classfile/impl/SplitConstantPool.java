@@ -28,6 +28,7 @@ import java.lang.constant.ConstantDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.Attributes;
@@ -40,6 +41,7 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.BufWriter;
 import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolException;
 import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
 import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
 import io.github.dmlloyd.classfile.constantpool.FloatEntry;
@@ -101,7 +103,7 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
 
     public SplitConstantPool(ClassReader parent) {
         this.parent = (ClassReaderImpl) parent;
-        this.parentSize = parent.entryCount();
+        this.parentSize = parent.size();
         this.parentBsmSize = parent.bootstrapMethodCount();
         this.size = parentSize;
         this.bsmSize = parentBsmSize;
@@ -110,7 +112,7 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
     }
 
     @Override
-    public int entryCount() {
+    public int size() {
         return size;
     }
 
@@ -121,13 +123,23 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
 
     @Override
     public PoolEntry entryByIndex(int index) {
-        return (index < parentSize)
+        if (index <= 0 || index >= size()) {
+            throw new ConstantPoolException("Bad CP index: " + index);
+        }
+        PoolEntry pe = (index < parentSize)
                ? parent.entryByIndex(index)
                : myEntries[index - parentSize];
+        if (pe == null) {
+            throw new ConstantPoolException("Unusable CP index: " + index);
+        }
+        return pe;
     }
 
     @Override
     public BootstrapMethodEntryImpl bootstrapMethodEntry(int index) {
+        if (index < 0 || index >= bootstrapMethodCount()) {
+            throw new ConstantPoolException("Bad BSM index: " + index);
+        }
         return (index < parentBsmSize)
                ? parent.bootstrapMethodEntry(index)
                : myBsmEntries[index - parentBsmSize];
@@ -170,15 +182,15 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
     @Override
     public void writeTo(BufWriter buf) {
         int writeFrom = 1;
-        if (entryCount() >= 65536) {
-            throw new IllegalArgumentException(String.format("Constant pool is too large %d", entryCount()));
+        if (size() >= 65536) {
+            throw new IllegalArgumentException(String.format("Constant pool is too large %d", size()));
         }
-        buf.writeU2(entryCount());
+        buf.writeU2(size());
         if (parent != null && buf.constantPool().canWriteDirect(this)) {
             parent.writeConstantPoolEntries(buf);
-            writeFrom = parent.entryCount();
+            writeFrom = parent.size();
         }
-        for (int i = writeFrom; i < entryCount(); ) {
+        for (int i = writeFrom; i < size(); ) {
             PoolEntry info = entryByIndex(i);
             info.writeTo(buf);
             i += info.width();

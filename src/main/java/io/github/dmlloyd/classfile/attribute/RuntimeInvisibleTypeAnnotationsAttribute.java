@@ -42,6 +42,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * {@link ClassElement}, {@link FieldElement},
  * {@link MethodElement}, or {@link CodeElement} when traversing
  * the corresponding model type.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface RuntimeInvisibleTypeAnnotationsAttribute
         extends Attribute<RuntimeInvisibleTypeAnnotationsAttribute>,

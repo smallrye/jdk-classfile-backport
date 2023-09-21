@@ -57,6 +57,9 @@ public sealed interface ModuleOpenInfo
      */
     int opensFlagsMask();
 
+    /**
+     * {@return the access flags}
+     */
     default Set<AccessFlag> opensFlags() {
         return AccessFlag.maskToAccessFlags(opensFlagsMask(), AccessFlag.Location.MODULE_OPENS);
     }

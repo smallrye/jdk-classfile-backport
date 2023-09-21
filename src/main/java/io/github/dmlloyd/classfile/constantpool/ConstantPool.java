@@ -25,6 +25,8 @@
 
 package io.github.dmlloyd.classfile.constantpool;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.ClassReader;
 
@@ -32,20 +34,46 @@ import io.github.dmlloyd.classfile.ClassReader;
  * Provides read access to the constant pool and bootstrap method table of a
  * classfile.
  */
-public sealed interface ConstantPool
+public sealed interface ConstantPool extends Iterable<PoolEntry>
         permits ClassReader, ConstantPoolBuilder {
 
     /**
      * {@return the entry at the specified index}
      *
      * @param index the index within the pool of the desired entry
+     * @throws ConstantPoolException if the index is out of range of the
+     *         constant pool, or is considered unusable
      */
     PoolEntry entryByIndex(int index);
 
     /**
      * {@return the number of entries in the constant pool}
+     * {@return the size of the constant pool}
+    */
+    int size();
+
+    /**
+     * {@return an iterator over pool entries}
      */
-    int entryCount();
+    @Override
+    default Iterator<PoolEntry> iterator() {
+        return new Iterator<>() {
+            int index = 1;
+
+            @Override
+            public boolean hasNext() {
+                return index < size();
+            }
+
+            @Override
+            public PoolEntry next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                var e = entryByIndex(index);
+                index += e.width();
+                return e;
+            }
+        };
+    }
 
     /**
      * {@return the {@link BootstrapMethodEntry} at the specified index within
@@ -53,6 +81,8 @@ public sealed interface ConstantPool
      *
      * @param index the index within the bootstrap method table of the desired
      *              entry
+     * @throws ConstantPoolException if the index is out of range of the
+     *         bootstrap methods
      */
     BootstrapMethodEntry bootstrapMethodEntry(int index);
 

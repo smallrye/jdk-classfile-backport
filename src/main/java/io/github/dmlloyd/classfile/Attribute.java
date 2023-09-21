@@ -72,6 +72,7 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * corresponding model type. Additionally, all attributes are accessible
  * directly from the corresponding model type through {@link
  * AttributedElement#findAttribute(AttributeMapper)}.
+ * @param <A> the attribute type
  */
 public sealed interface Attribute<A extends Attribute<A>>
         extends WritableElement<A>

@@ -37,7 +37,6 @@ import io.github.dmlloyd.classfile.TypeAnnotation;
 import static io.github.dmlloyd.classfile.Classfile.*;
 import static io.github.dmlloyd.classfile.TypeAnnotation.TargetInfo.*;
 
-import java.util.Arrays;
 import java.util.List;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
@@ -54,21 +53,21 @@ class AnnotationReader {
             annos[i] = readAnnotation(classReader, pos);
             pos = skipAnnotation(classReader, pos);
         }
-        return Arrays.asList(annos);
+        return List.of(annos);
     }
 
     public static AnnotationValue readElementValue(ClassReader classReader, int p) {
         char tag = (char) classReader.readU1(p);
         ++p;
         return switch (tag) {
-            case AEV_BYTE -> new AnnotationImpl.OfByteImpl((IntegerEntry)classReader.readEntry(p));
-            case AEV_CHAR -> new AnnotationImpl.OfCharacterImpl((IntegerEntry)classReader.readEntry(p));
-            case AEV_DOUBLE -> new AnnotationImpl.OfDoubleImpl((DoubleEntry)classReader.readEntry(p));
-            case AEV_FLOAT -> new AnnotationImpl.OfFloatImpl((FloatEntry)classReader.readEntry(p));
-            case AEV_INT -> new AnnotationImpl.OfIntegerImpl((IntegerEntry)classReader.readEntry(p));
-            case AEV_LONG -> new AnnotationImpl.OfLongImpl((LongEntry)classReader.readEntry(p));
-            case AEV_SHORT -> new AnnotationImpl.OfShortImpl((IntegerEntry)classReader.readEntry(p));
-            case AEV_BOOLEAN -> new AnnotationImpl.OfBooleanImpl((IntegerEntry)classReader.readEntry(p));
+            case AEV_BYTE -> new AnnotationImpl.OfByteImpl(classReader.readEntry(p, IntegerEntry.class));
+            case AEV_CHAR -> new AnnotationImpl.OfCharacterImpl(classReader.readEntry(p, IntegerEntry.class));
+            case AEV_DOUBLE -> new AnnotationImpl.OfDoubleImpl(classReader.readEntry(p, DoubleEntry.class));
+            case AEV_FLOAT -> new AnnotationImpl.OfFloatImpl(classReader.readEntry(p, FloatEntry.class));
+            case AEV_INT -> new AnnotationImpl.OfIntegerImpl(classReader.readEntry(p, IntegerEntry.class));
+            case AEV_LONG -> new AnnotationImpl.OfLongImpl(classReader.readEntry(p, LongEntry.class));
+            case AEV_SHORT -> new AnnotationImpl.OfShortImpl(classReader.readEntry(p, IntegerEntry.class));
+            case AEV_BOOLEAN -> new AnnotationImpl.OfBooleanImpl(classReader.readEntry(p, IntegerEntry.class));
             case AEV_STRING -> new AnnotationImpl.OfStringImpl(classReader.readUtf8Entry(p));
             case AEV_ENUM -> new AnnotationImpl.OfEnumImpl(classReader.readUtf8Entry(p), classReader.readUtf8Entry(p + 2));
             case AEV_CLASS -> new AnnotationImpl.OfClassImpl(classReader.readUtf8Entry(p));
@@ -81,7 +80,7 @@ class AnnotationReader {
                     values[i] = readElementValue(classReader, p);
                     p = skipElementValue(classReader, p);
                 }
-                yield new AnnotationImpl.OfArrayImpl(Arrays.asList(values));
+                yield new AnnotationImpl.OfArrayImpl(List.of(values));
             }
             default -> throw new IllegalArgumentException(
                     "Unexpected tag '%s' in AnnotationValue, pos = %d".formatted(tag, p - 1));
@@ -96,7 +95,7 @@ class AnnotationReader {
             annotations[i] = readTypeAnnotation(classReader, p, lc);
             p = skipTypeAnnotation(classReader, p);
         }
-        return Arrays.asList(annotations);
+        return List.of(annotations);
     }
 
     public static List<List<Annotation>> readParameterAnnotations(ClassReader classReader, int p) {
@@ -106,7 +105,7 @@ class AnnotationReader {
             pas[i] = readAnnotations(classReader, p);
             p = skipAnnotations(classReader, p);
         }
-        return (List<List<Annotation>>) (List) Arrays.asList(pas);
+        return (List<List<Annotation>>) (List) List.of(pas);
     }
 
     private static int skipElementValue(ClassReader classReader, int p) {
@@ -159,7 +158,7 @@ class AnnotationReader {
             annotationElements[i] = new AnnotationImpl.AnnotationElementImpl(elementName, value);
             p = skipElementValue(classReader, p);
         }
-        return Arrays.asList(annotationElements);
+        return List.of(annotationElements);
     }
 
     private static int skipElementValuePairs(ClassReader classReader, int p) {
@@ -260,7 +259,7 @@ class AnnotationReader {
                     classReader.readU2(p + 4));
             p += 6;
         }
-        return Arrays.asList(entries);
+        return List.of(entries);
     }
 
     private static int skipTypeAnnotation(ClassReader classReader, int p) {

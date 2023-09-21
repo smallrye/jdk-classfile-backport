@@ -37,6 +37,8 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * classes, methods, and fields.  Delivered as a  {@link ClassElement},
  * {@link MethodElement}, or  {@link FieldElement} when traversing the elements
  * of a corresponding model.
+ * <p>
+ * The attribute permits multiple instances in a given location.
  */
 public sealed interface SyntheticAttribute
         extends Attribute<SyntheticAttribute>,

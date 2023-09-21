@@ -27,11 +27,13 @@ package io.github.dmlloyd.classfile.impl;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.util.AbstractList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
+import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.Classfile;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
@@ -51,6 +53,15 @@ import static io.github.dmlloyd.classfile.Classfile.ACC_STATIC;
 public class Util {
 
     private Util() {
+    }
+
+    private static final int ATTRIBUTE_STABILITY_COUNT = AttributeMapper.AttributeStability.values().length;
+
+    public static boolean isAttributeAllowed(final Attribute<?> attr,
+                                             final Classfile.AttributesProcessingOption processingOption) {
+        return attr instanceof BoundAttribute
+                ? ATTRIBUTE_STABILITY_COUNT - attr.attributeMapper().stability().ordinal() > processingOption.ordinal()
+                : true;
     }
 
     public static int parameterSlots(MethodTypeDesc mDesc) {
@@ -120,7 +131,7 @@ public class Util {
         for (int i = 0; i < result.length; i++) {
             result[i] = TemporaryConstantPool.INSTANCE.classEntry(list.get(i));
         }
-        return Arrays.asList(result);
+        return List.of(result);
     }
 
     public static List<ModuleEntry> moduleEntryList(List<? extends ModuleDesc> list) {
@@ -128,7 +139,7 @@ public class Util {
         for (int i = 0; i < result.length; i++) {
             result[i] = TemporaryConstantPool.INSTANCE.moduleEntry(TemporaryConstantPool.INSTANCE.utf8Entry(list.get(i).name()));
         }
-        return Arrays.asList(result);
+        return List.of(result);
     }
 
     public static void checkKind(Opcode op, Opcode.Kind k) {

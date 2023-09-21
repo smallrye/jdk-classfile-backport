@@ -41,6 +41,10 @@ import io.github.dmlloyd.classfile.impl.Util;
  * appear on classes to indicate which classes may extend this class.
  * Delivered as a {@link ClassElement} when
  * traversing the elements of a {@link ClassModel}.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface PermittedSubclassesAttribute
         extends Attribute<PermittedSubclassesAttribute>, ClassElement

@@ -24,7 +24,6 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -134,7 +133,7 @@ public final class ClassImpl
                 arr[i] = reader.readClassEntry(pos);
                 pos += 2;
             }
-            this.interfaces = Arrays.asList(arr);
+            this.interfaces = List.of(arr);
         }
         return interfaces;
     }

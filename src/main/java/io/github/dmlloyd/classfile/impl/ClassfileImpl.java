@@ -41,7 +41,7 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 public record ClassfileImpl(StackMapsOption stackMapsOption,
                             DebugElementsOption debugElementsOption,
                             LineNumbersOption lineNumbersOption,
-                            UnknownAttributesOption unknownAttributesOption,
+                            AttributesProcessingOption attributesProcessingOption,
                             ConstantPoolSharingOption constantPoolSharingOption,
                             ShortJumpsOption shortJumpsOption,
                             DeadCodeOption deadCodeOption,
@@ -53,7 +53,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
             StackMapsOption.STACK_MAPS_WHEN_REQUIRED,
             DebugElementsOption.PASS_DEBUG,
             LineNumbersOption.PASS_LINE_NUMBERS,
-            UnknownAttributesOption.PASS_UNKNOWN_ATTRIBUTES,
+            AttributesProcessingOption.PASS_ALL_ATTRIBUTES,
             ConstantPoolSharingOption.SHARED_POOL,
             ShortJumpsOption.FIX_SHORT_JUMPS,
             DeadCodeOption.PATCH_DEAD_CODE,
@@ -72,7 +72,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
         var smo = stackMapsOption;
         var deo = debugElementsOption;
         var lno = lineNumbersOption;
-        var uao = unknownAttributesOption;
+        var apo = attributesProcessingOption;
         var cpso = constantPoolSharingOption;
         var sjo = shortJumpsOption;
         var dco = deadCodeOption;
@@ -83,7 +83,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
             if (o instanceof StackMapsOption oo) smo = oo;
             else if (o instanceof DebugElementsOption oo) deo = oo;
             else if (o instanceof LineNumbersOption oo) lno = oo;
-            else if (o instanceof UnknownAttributesOption oo) uao = oo;
+            else if (o instanceof AttributesProcessingOption oo) apo = oo;
             else if (o instanceof ConstantPoolSharingOption oo) cpso = oo;
             else if (o instanceof ShortJumpsOption oo) sjo = oo;
             else if (o instanceof DeadCodeOption oo) dco = oo;
@@ -91,7 +91,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
             else if (o instanceof ClassHierarchyResolverOption oo) chro = oo;
             else if (o instanceof AttributeMapperOption oo) amo = oo;
         }
-        return new ClassfileImpl(smo, deo, lno, uao, cpso, sjo, dco, dlo, chro, amo);
+        return new ClassfileImpl(smo, deo, lno, apo, cpso, sjo, dco, dlo, chro, amo);
     }
 
     @Override

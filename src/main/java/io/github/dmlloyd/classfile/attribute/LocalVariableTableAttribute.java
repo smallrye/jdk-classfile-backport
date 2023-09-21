@@ -40,6 +40,8 @@ import java.util.List;
  * Delivered as a {@link LocalVariable} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
  * {@link Classfile.DebugElementsOption} option.
+ * <p>
+ * The attribute permits multiple instances in a given location.
  */
 public sealed interface LocalVariableTableAttribute
         extends Attribute<LocalVariableTableAttribute>

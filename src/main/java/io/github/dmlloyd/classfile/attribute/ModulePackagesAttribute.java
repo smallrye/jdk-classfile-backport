@@ -42,6 +42,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * appear on classes that represent module descriptors.
  * Delivered as a {@link ClassElement} when
  * traversing the elements of a {@link ClassModel}.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface ModulePackagesAttribute
         extends Attribute<ModulePackagesAttribute>, ClassElement

@@ -38,6 +38,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * appear on classes to indicate that this class is a record class.
  * Delivered as a {@link ClassElement} when
  * traversing the elements of a {@link ClassModel}.
+ * <p>
+ * The attribute does not permit multiple instances in a given location.
+ * Subsequent occurrence of the attribute takes precedence during the attributed
+ * element build or transformation.
  */
 public sealed interface RecordAttribute extends Attribute<RecordAttribute>, ClassElement
         permits BoundAttribute.BoundRecordAttribute, UnboundAttribute.UnboundRecordAttribute {
