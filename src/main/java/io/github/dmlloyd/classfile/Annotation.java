@@ -34,6 +34,7 @@ import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 
 import java.lang.constant.ClassDesc;
 import java.util.List;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an annotation on a declaration.
@@ -44,7 +45,11 @@ import java.util.List;
  * @see RuntimeInvisibleAnnotationsAttribute
  * @see RuntimeVisibleParameterAnnotationsAttribute
  * @see RuntimeInvisibleParameterAnnotationsAttribute
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Annotation
         extends WritableElement<Annotation>
         permits TypeAnnotation, AnnotationImpl {

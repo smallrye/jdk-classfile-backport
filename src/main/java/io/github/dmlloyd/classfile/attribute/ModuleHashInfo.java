@@ -28,10 +28,14 @@ import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models hash information for a single module in the {@link ModuleHashesAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleHashInfo
         permits UnboundAttribute.UnboundModuleHashInfo {
 

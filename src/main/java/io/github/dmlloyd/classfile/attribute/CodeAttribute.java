@@ -31,6 +31,7 @@ import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code Code} attribute {@jvms 4.7.3}, appears on non-native,
@@ -41,7 +42,10 @@ import io.github.dmlloyd.classfile.impl.BoundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeAttribute extends Attribute<CodeAttribute>, CodeModel
         permits BoundAttribute.BoundCodeAttribute {
 

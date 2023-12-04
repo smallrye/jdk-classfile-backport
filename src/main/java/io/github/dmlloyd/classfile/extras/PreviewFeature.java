@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,29 +22,22 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package io.github.dmlloyd.classfile.constantpool;
 
-import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
-import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
+package io.github.dmlloyd.classfile.extras;
 
-/**
- * Models a {@code CONSTANT_Package_info} constant in the constant pool of a
- * classfile.
- * @jvms 4.4.12 The CONSTANT_Package_info Structure
- *
- * @since 22
- */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
-public sealed interface PackageEntry extends PoolEntry
-        permits AbstractPoolEntry.PackageEntryImpl {
-    /**
-     * {@return the package name}
-     */
-    Utf8Entry name();
+import java.lang.annotation.*;
 
-    /**
-     * {@return a symbolic descriptor for the package name}
-     */
-    PackageDesc asSymbol();
+@Target({ElementType.METHOD,
+         ElementType.CONSTRUCTOR,
+         ElementType.FIELD,
+         ElementType.PACKAGE,
+         ElementType.MODULE,
+         ElementType.TYPE})
+@Retention(RetentionPolicy.CLASS)
+public @interface PreviewFeature {
+    Feature feature();
+
+    enum Feature {
+        CLASSFILE_API,
+    }
 }

@@ -32,6 +32,7 @@ import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import java.util.List;
 
@@ -44,7 +45,12 @@ import java.util.List;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 5.0.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface RuntimeInvisibleAnnotationsAttribute
     extends Attribute<RuntimeInvisibleAnnotationsAttribute>,
             ClassElement, MethodElement, FieldElement

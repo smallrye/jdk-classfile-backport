@@ -26,6 +26,7 @@ package io.github.dmlloyd.classfile.instruction;
 
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single case in a {@code lookupswitch} or {@code tableswitch}
@@ -33,7 +34,10 @@ import io.github.dmlloyd.classfile.impl.AbstractInstruction;
  *
  * @see LookupSwitchInstruction
  * @see TableSwitchInstruction
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface SwitchCase
         permits AbstractInstruction.SwitchCaseImpl {
 

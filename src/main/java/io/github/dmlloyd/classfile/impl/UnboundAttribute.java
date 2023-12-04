@@ -935,13 +935,4 @@ public abstract sealed class UnboundAttribute<T extends Attribute<T>>
             return List.of();
         }
     }
-
-    public static abstract sealed class CustomAttribute<T extends CustomAttribute<T>>
-            extends UnboundAttribute<T>
-        permits io.github.dmlloyd.classfile.CustomAttribute {
-
-        public CustomAttribute(AttributeMapper<T> mapper) {
-            super(mapper);
-        }
-    }
 }

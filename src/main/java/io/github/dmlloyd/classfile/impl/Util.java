@@ -33,7 +33,7 @@ import java.util.function.Function;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
@@ -43,7 +43,7 @@ import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 
-import static io.github.dmlloyd.classfile.Classfile.ACC_STATIC;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 
 /**
  * Helper to create and manipulate type descriptors, where type descriptors are
@@ -58,7 +58,7 @@ public class Util {
     private static final int ATTRIBUTE_STABILITY_COUNT = AttributeMapper.AttributeStability.values().length;
 
     public static boolean isAttributeAllowed(final Attribute<?> attr,
-                                             final Classfile.AttributesProcessingOption processingOption) {
+                                             final ClassFile.AttributesProcessingOption processingOption) {
         return attr instanceof BoundAttribute
                 ? ATTRIBUTE_STABILITY_COUNT - attr.attributeMapper().stability().ordinal() > processingOption.ordinal()
                 : true;

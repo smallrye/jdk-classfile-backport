@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeAnnotation.*;
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import static java.util.Objects.requireNonNull;
 
 public final class TargetInfoImpl {

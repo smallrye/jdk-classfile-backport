@@ -34,7 +34,7 @@ import io.github.dmlloyd.classfile.AnnotationElement;
 import io.github.dmlloyd.classfile.AnnotationValue;
 import io.github.dmlloyd.classfile.ClassReader;
 import io.github.dmlloyd.classfile.TypeAnnotation;
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import static io.github.dmlloyd.classfile.TypeAnnotation.TargetInfo.*;
 
 import java.util.List;

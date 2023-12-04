@@ -35,10 +35,14 @@ import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single inner class in the {@link InnerClassesAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface InnerClassInfo
         permits UnboundAttribute.UnboundInnerClassInfo {
 
@@ -98,6 +102,7 @@ public sealed interface InnerClassInfo
      * @param outerClass the class containing the inner class, if any
      * @param innerName the name of the inner class, if it is not anonymous
      * @param flags the inner class access flags
+     * @throws IllegalArgumentException if {@code innerClass} or {@code outerClass} represents a primitive type
      */
     static InnerClassInfo of(ClassDesc innerClass, Optional<ClassDesc> outerClass, Optional<String> innerName, int flags) {
         return new UnboundAttribute.UnboundInnerClassInfo(TemporaryConstantPool.INSTANCE.classEntry(innerClass),
@@ -112,6 +117,7 @@ public sealed interface InnerClassInfo
      * @param outerClass the class containing the inner class, if any
      * @param innerName the name of the inner class, if it is not anonymous
      * @param flags the inner class access flags
+     * @throws IllegalArgumentException if {@code innerClass} or {@code outerClass} represents a primitive type
      */
     static InnerClassInfo of(ClassDesc innerClass, Optional<ClassDesc> outerClass, Optional<String> innerName, AccessFlag... flags) {
         return of(innerClass, outerClass, innerName, Util.flagsToBits(AccessFlag.Location.INNER_CLASS, flags));

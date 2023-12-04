@@ -24,8 +24,8 @@
  */
 
 /**
- * <h2>Specific components, transformations, and tools built on top of the
- * Classfile API</h2>
+ * <h2>Provides specific components, transformations, and tools built on top of the
+ * {@link io.github.dmlloyd.classfile} library.</h2>
  *
  * The {@code jdk.internal.classfile.components} package contains specific
  * transformation components and utility classes helping to compose very complex
@@ -110,5 +110,10 @@
  * CodeLocalsShifter} and {@link CodeRelabeler} into fully functional class
  * instrumenting transformation:
  * {@snippet lang="java" class="PackageSnippets" region="classInstrumentation"}
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 package io.github.dmlloyd.classfile.components;
+
+import io.github.dmlloyd.classfile.extras.PreviewFeature;

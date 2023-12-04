@@ -40,18 +40,22 @@ import io.github.dmlloyd.classfile.impl.DirectClassBuilder;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for classfiles.  Builders are not created directly; they are passed
- * to handlers by methods such as {@link Classfile#build(ClassDesc, Consumer)}
+ * to handlers by methods such as {@link ClassFile#build(ClassDesc, Consumer)}
  * or to class transforms.  The elements of a classfile can be specified
- * abstractly (by passing a {@link ClassElement} to {@link #with(ClassfileElement)})
+ * abstractly (by passing a {@link ClassElement} to {@link #with(ClassFileElement)})
  * or concretely by calling the various {@code withXxx} methods.
  *
  * @see ClassTransform
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassBuilder
-        extends ClassfileBuilder<ClassElement, ClassBuilder>
+        extends ClassFileBuilder<ClassElement, ClassBuilder>
         permits ChainedClassBuilder, DirectClassBuilder {
 
     /**
@@ -67,7 +71,7 @@ public sealed interface ClassBuilder
      * @return this builder
      */
     default ClassBuilder withVersion(int major, int minor) {
-        return with(ClassfileVersion.of(major, minor));
+        return with(ClassFileVersion.of(major, minor));
     }
 
     /**
@@ -101,6 +105,7 @@ public sealed interface ClassBuilder
      * Sets the superclass of this class.
      * @param desc the superclass
      * @return this builder
+     * @throws IllegalArgumentException if {@code desc} represents a primitive type
      */
     default ClassBuilder withSuperclass(ClassDesc desc) {
         return withSuperclass(constantPool().classEntry(desc));

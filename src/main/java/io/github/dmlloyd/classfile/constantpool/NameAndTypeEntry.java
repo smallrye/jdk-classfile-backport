@@ -25,12 +25,16 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a {@code CONSTANT_NameAndType_info} constant in the constant pool of a
  * classfile.
  * @jvms 4.4.6 The CONSTANT_NameAndType_info Structure
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface NameAndTypeEntry extends PoolEntry
         permits AbstractPoolEntry.NameAndTypeEntryImpl {
 

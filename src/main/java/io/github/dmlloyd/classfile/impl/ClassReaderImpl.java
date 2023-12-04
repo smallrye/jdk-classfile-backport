@@ -31,40 +31,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BootstrapMethodEntry;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.ClassReader;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolException;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.PackageEntry;
-import io.github.dmlloyd.classfile.constantpool.PoolEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.constantpool.*;
 
-import static io.github.dmlloyd.classfile.Classfile.TAG_CLASS;
-import static io.github.dmlloyd.classfile.Classfile.TAG_CONSTANTDYNAMIC;
-import static io.github.dmlloyd.classfile.Classfile.TAG_DOUBLE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_FIELDREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_FLOAT;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INTEGER;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INTERFACEMETHODREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INVOKEDYNAMIC;
-import static io.github.dmlloyd.classfile.Classfile.TAG_LONG;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODHANDLE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODTYPE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_MODULE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_NAMEANDTYPE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_PACKAGE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_STRING;
-import static io.github.dmlloyd.classfile.Classfile.TAG_UTF8;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_CLASS;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_CONSTANTDYNAMIC;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_DOUBLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_FIELDREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_FLOAT;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INTEGER;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INTERFACEMETHODREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INVOKEDYNAMIC;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_LONG;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODHANDLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODTYPE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_MODULE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_NAMEANDTYPE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_PACKAGE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_STRING;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_UTF8;
 
 public final class ClassReaderImpl
     implements ClassReader {
@@ -81,7 +68,7 @@ public final class ClassReaderImpl
     private final int constantPoolCount;
     private final int[] cpOffset;
 
-    final ClassfileImpl context;
+    final ClassFileImpl context;
     final int interfacesPos;
     final PoolEntry[] cp;
 
@@ -90,13 +77,16 @@ public final class ClassReaderImpl
     private BootstrapMethodsAttribute bootstrapMethodsAttribute;
 
     ClassReaderImpl(byte[] classfileBytes,
-                    ClassfileImpl context) {
+                    ClassFileImpl context) {
         this.buffer = classfileBytes;
         this.classfileLength = classfileBytes.length;
         this.context = context;
         this.attributeMapper = this.context.attributeMapperOption().attributeMapper();
         if (classfileLength < 4 || readInt(0) != 0xCAFEBABE) {
             throw new IllegalArgumentException("Bad magic number");
+        }
+        if (readU2(6) > ClassFile.latestMajorVersion()) {
+            throw new IllegalArgumentException("Unsupported class file version: " + readU2(6));
         }
         int constantPoolCount = readU2(8);
         int[] cpOffset = new int[constantPoolCount];
@@ -138,7 +128,7 @@ public final class ClassReaderImpl
         this.interfacesPos = p;
     }
 
-    public ClassfileImpl context() {
+    public ClassFileImpl context() {
         return context;
     }
 

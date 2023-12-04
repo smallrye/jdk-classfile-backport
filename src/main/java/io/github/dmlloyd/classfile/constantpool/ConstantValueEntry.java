@@ -25,12 +25,17 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import java.lang.constant.ConstantDesc;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a constant pool entry that can be used as the constant in a
  * {@code ConstantValue} attribute; this includes the four primitive constant
  * types and {@linkplain String} constants.
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ConstantValueEntry extends LoadableConstantEntry
         permits DoubleEntry, FloatEntry, IntegerEntry, LongEntry, StringEntry {
 

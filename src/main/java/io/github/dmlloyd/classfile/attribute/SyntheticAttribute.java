@@ -31,6 +31,7 @@ import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code Synthetic} attribute {@jvms 4.7.8}, which can appear on
@@ -39,7 +40,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * of a corresponding model.
  * <p>
  * The attribute permits multiple instances in a given location.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface SyntheticAttribute
         extends Attribute<SyntheticAttribute>,
                 ClassElement, MethodElement, FieldElement

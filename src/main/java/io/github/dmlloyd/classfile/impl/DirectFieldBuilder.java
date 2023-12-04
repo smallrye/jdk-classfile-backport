@@ -28,6 +28,7 @@ package io.github.dmlloyd.classfile.impl;
 import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.BufWriter;
+import io.github.dmlloyd.classfile.CustomAttribute;
 import io.github.dmlloyd.classfile.FieldBuilder;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.FieldModel;
@@ -42,7 +43,7 @@ public final class DirectFieldBuilder
     private int flags;
 
     public DirectFieldBuilder(SplitConstantPool constantPool,
-                              ClassfileImpl context,
+                              ClassFileImpl context,
                               Utf8Entry name,
                               Utf8Entry type,
                               FieldModel original) {
@@ -55,7 +56,11 @@ public final class DirectFieldBuilder
 
     @Override
     public FieldBuilder with(FieldElement element) {
-        ((AbstractElement) element).writeTo(this);
+        if (element instanceof AbstractElement ae) {
+            ae.writeTo(this);
+        } else {
+            writeAttribute((CustomAttribute)element);
+        }
         return this;
     }
 

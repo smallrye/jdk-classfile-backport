@@ -36,6 +36,7 @@ import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.CompoundElement;
 
 import io.github.dmlloyd.classfile.impl.ClassPrinterImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A printer of classfiles and its elements.
@@ -47,6 +48,9 @@ import io.github.dmlloyd.classfile.impl.ClassPrinterImpl;
  * <p>
  * Level of details to print or to export is driven by {@link Verbosity} option.
  * <p>
+ * Printing is for debugging purposes only. Printed text schema, tree content and structure
+ * not guaranteed. It may change anytime in a future.
+ * <p>
  * The most frequent use case is to simply print a class:
  * {@snippet lang="java" class="PackageSnippets" region="printClass"}
  * <p>
@@ -55,12 +59,21 @@ import io.github.dmlloyd.classfile.impl.ClassPrinterImpl;
  * <p>
  * Another use case for {@link ClassPrinter} is to simplify writing of automated tests:
  * {@snippet lang="java" class="PackageSnippets" region="printNodesInTest"}
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public final class ClassPrinter {
+
+    private ClassPrinter() {
+    }
 
     /**
      * Level of detail to print or export.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public enum Verbosity {
 
         /**
@@ -92,7 +105,10 @@ public final class ClassPrinter {
 
     /**
      * Named, traversable, and printable node parent.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public sealed interface Node {
 
         /**
@@ -134,7 +150,10 @@ public final class ClassPrinter {
 
     /**
      * A leaf node holding single printable value.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public sealed interface LeafNode extends Node
             permits ClassPrinterImpl.LeafNodeImpl {
 
@@ -147,7 +166,10 @@ public final class ClassPrinter {
 
     /**
      * A tree node holding {@link List} of nested nodes.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public sealed interface ListNode extends Node, List<Node>
             permits ClassPrinterImpl.ListNodeImpl {
     }
@@ -155,8 +177,11 @@ public final class ClassPrinter {
     /**
      * A tree node holding {@link Map} of nested nodes.
      * <p>
-     * Each {@link Entry#getKey()} == {@link Entry#getValue()}.{@link #name()}.
+     * Each {@link Map.Entry#getKey()} == {@link Map.Entry#getValue()}.{@link #name()}.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public sealed interface MapNode extends Node, Map<ConstantDesc, Node>
             permits ClassPrinterImpl.MapNodeImpl {
     }

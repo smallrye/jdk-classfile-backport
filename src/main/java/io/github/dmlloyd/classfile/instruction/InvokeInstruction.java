@@ -39,13 +39,17 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a method invocation instruction in the {@code code} array of a {@code
  * Code} attribute, other than {@code invokedynamic}.  Corresponding opcodes
  * will have a {@code kind} of {@link Opcode.Kind#INVOKE}.  Delivered as a
  * {@link CodeElement} when traversing the elements of a {@link CodeModel}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface InvokeInstruction extends Instruction
         permits AbstractInstruction.BoundInvokeInterfaceInstruction, AbstractInstruction.BoundInvokeInstruction, AbstractInstruction.UnboundInvokeInstruction {
     /**
@@ -60,7 +64,8 @@ public sealed interface InvokeInstruction extends Instruction
     boolean isInterface();
 
     /**
-     * @return for an {@code invokeinterface}, the {@code count} value, as defined in {@jvms 6.5}
+     * {@return the {@code count} value of an {@code invokeinterface} instruction, as defined in {@jvms 6.5}
+     * or {@code 0} for {@code invokespecial}, {@code invokestatic} and {@code invokevirtual} instructions}
      */
     int count();
 

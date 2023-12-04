@@ -33,7 +33,7 @@ import java.util.Objects;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
@@ -41,42 +41,24 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.BufWriter;
 import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolException;
-import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
-import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
-import io.github.dmlloyd.classfile.constantpool.FloatEntry;
-import io.github.dmlloyd.classfile.constantpool.IntegerEntry;
-import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.LongEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.PackageEntry;
-import io.github.dmlloyd.classfile.constantpool.PoolEntry;
-import io.github.dmlloyd.classfile.constantpool.StringEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.constantpool.*;
 
-import static io.github.dmlloyd.classfile.Classfile.TAG_CLASS;
-import static io.github.dmlloyd.classfile.Classfile.TAG_CONSTANTDYNAMIC;
-import static io.github.dmlloyd.classfile.Classfile.TAG_DOUBLE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_FIELDREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_FLOAT;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INTEGER;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INTERFACEMETHODREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_INVOKEDYNAMIC;
-import static io.github.dmlloyd.classfile.Classfile.TAG_LONG;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODHANDLE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODREF;
-import static io.github.dmlloyd.classfile.Classfile.TAG_METHODTYPE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_MODULE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_NAMEANDTYPE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_PACKAGE;
-import static io.github.dmlloyd.classfile.Classfile.TAG_STRING;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_CLASS;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_CONSTANTDYNAMIC;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_DOUBLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_FIELDREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_FLOAT;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INTEGER;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INTERFACEMETHODREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_INVOKEDYNAMIC;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_LONG;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODHANDLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODREF;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_METHODTYPE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_MODULE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_NAMEANDTYPE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_PACKAGE;
+import static io.github.dmlloyd.classfile.ClassFile.TAG_STRING;
 
 public final class SplitConstantPool implements ConstantPoolBuilder {
 
@@ -341,7 +323,7 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
         for (int token = map.firstToken(hash); token != -1;
              token = map.nextToken(hash, token)) {
             PoolEntry e = map.getElementByToken(token);
-            if (e.tag() == Classfile.TAG_UTF8
+            if (e.tag() == ClassFile.TAG_UTF8
                 && e instanceof AbstractPoolEntry.Utf8EntryImpl ce
                 && ce.hashCode() == hash
                 && target.equals(ce.stringValue()))
@@ -358,7 +340,7 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
         EntryMap<PoolEntry> map = map();
         for (int token = map.firstToken(hash); token != -1; token = map.nextToken(hash, token)) {
             PoolEntry e = map.getElementByToken(token);
-            if (e.tag() == Classfile.TAG_UTF8
+            if (e.tag() == ClassFile.TAG_UTF8
                 && e instanceof AbstractPoolEntry.Utf8EntryImpl ce
                 && target.equalsUtf8(ce))
                 return ce;

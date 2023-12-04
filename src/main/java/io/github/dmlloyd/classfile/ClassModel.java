@@ -33,12 +33,16 @@ import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.impl.ClassImpl;
 import io.github.dmlloyd.classfile.impl.verifier.VerifierImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a classfile.  The contents of the classfile can be traversed via
  * a streaming view (e.g., {@link #elements()}), or via random access (e.g.,
  * {@link #flags()}), or by freely mixing the two.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassModel
         extends CompoundElement<ClassElement>, AttributedElement
         permits ClassImpl {

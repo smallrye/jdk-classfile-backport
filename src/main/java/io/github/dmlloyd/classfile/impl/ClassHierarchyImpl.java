@@ -40,7 +40,7 @@ import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.ClassHierarchyResolver;
 
 import static java.lang.constant.ConstantDescs.CD_Object;
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import static java.util.Objects.requireNonNull;
 
 /**

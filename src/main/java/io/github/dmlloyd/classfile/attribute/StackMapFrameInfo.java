@@ -32,11 +32,15 @@ import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.StackMapDecoder;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models stack map frame of {@code StackMapTable} attribute {@jvms 4.7.4}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface StackMapFrameInfo
             permits StackMapDecoder.StackMapFrameImpl {
 
@@ -75,7 +79,10 @@ public sealed interface StackMapFrameInfo
 
     /**
      * The type of a stack value.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface VerificationTypeInfo {
 
         /**
@@ -86,7 +93,10 @@ public sealed interface StackMapFrameInfo
 
     /**
      * A simple stack value.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public enum SimpleVerificationTypeInfo implements VerificationTypeInfo {
 
         /** verification type top */
@@ -125,7 +135,10 @@ public sealed interface StackMapFrameInfo
 
     /**
      * A stack value for an object type.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface ObjectVerificationTypeInfo extends VerificationTypeInfo
             permits StackMapDecoder.ObjectVerificationTypeInfoImpl {
 
@@ -140,6 +153,7 @@ public sealed interface StackMapFrameInfo
         /**
          * {@return a new object verification type info}
          * @param classDesc the class of the object
+         * @throws IllegalArgumentException if {@code classDesc} represents a primitive type
          */
         public static ObjectVerificationTypeInfo of(ClassDesc classDesc) {
             return of(TemporaryConstantPool.INSTANCE.classEntry(classDesc));
@@ -160,7 +174,10 @@ public sealed interface StackMapFrameInfo
 
     /**
      * An uninitialized stack value.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface UninitializedVerificationTypeInfo extends VerificationTypeInfo
             permits StackMapDecoder.UninitializedVerificationTypeInfoImpl {
 

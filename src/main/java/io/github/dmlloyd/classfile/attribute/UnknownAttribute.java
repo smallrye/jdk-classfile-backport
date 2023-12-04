@@ -30,10 +30,14 @@ import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an unknown attribute on a class, method, or field.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface UnknownAttribute
         extends Attribute<UnknownAttribute>,
                 ClassElement, MethodElement, FieldElement

@@ -29,13 +29,17 @@ import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.AnnotationImpl;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a key-value pair of an annotation.
  *
  * @see Annotation
  * @see AnnotationValue
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface AnnotationElement
         extends WritableElement<AnnotationElement>
         permits AnnotationImpl.AnnotationElementImpl {

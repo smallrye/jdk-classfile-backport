@@ -28,10 +28,14 @@ import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BoundLocalVariable;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single local variable in the {@link LocalVariableTableAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LocalVariableInfo
         permits UnboundAttribute.UnboundLocalVariableInfo, BoundLocalVariable {
 

@@ -24,6 +24,8 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
+
 /**
  * Bidirectional mapper between the classfile representation of an attribute and
  * how that attribute is modeled in the API.  The attribute mapper is used
@@ -34,12 +36,18 @@ package io.github.dmlloyd.classfile;
  * Classes that model nonstandard attributes should extend {@link
  * CustomAttribute}.
  * @param <A> the attribute type
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public interface AttributeMapper<A> {
 
     /**
      * Attribute stability indicator
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     enum AttributeStability {
 
         /**
@@ -60,13 +68,13 @@ public interface AttributeMapper<A> {
 
         /**
          * The attribute may contain indexes into structured not managed by the library (type variable lists, etc)
-         * and so we consult the {@link Classfile.AttributesProcessingOption} option to determine whether to preserve
+         * and so we consult the {@link ClassFile.AttributesProcessingOption} option to determine whether to preserve
          * or drop it during transformation.
          */
         UNSTABLE,
 
         /**
-         * The attribute is completely unknown and so we consult the {@link Classfile.AttributesProcessingOption} option
+         * The attribute is completely unknown and so we consult the {@link ClassFile.AttributesProcessingOption} option
          * to determine whether to preserve or drop it during transformation.
          */
         UNKNOWN
@@ -97,15 +105,9 @@ public interface AttributeMapper<A> {
     void writeAttribute(BufWriter buf, A attr);
 
     /**
-     * {@return The earliest classfile version for which this attribute is
-     * applicable}
-     */
-    default int validSince() {
-        return Classfile.JAVA_1_VERSION;
-    }
-
-    /**
      * {@return whether this attribute may appear more than once in a given location}
+     *
+     * @implSpec The default implementation returns {@code false}
      */
     default boolean allowMultiple() {
         return false;

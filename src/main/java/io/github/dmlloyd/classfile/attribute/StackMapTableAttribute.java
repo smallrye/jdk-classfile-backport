@@ -31,6 +31,7 @@ import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code StackMapTable} attribute {@jvms 4.7.4}, which can appear
@@ -39,7 +40,12 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 6.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface StackMapTableAttribute
         extends Attribute<StackMapTableAttribute>, CodeElement
         permits BoundAttribute.BoundStackMapTableAttribute, UnboundAttribute.UnboundStackMapTableAttribute {

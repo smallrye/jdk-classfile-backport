@@ -30,42 +30,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.AttributedElement;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.Classfile;
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CodeElement;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.Instruction;
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.Opcode;
-import io.github.dmlloyd.classfile.instruction.ArrayLoadInstruction;
-import io.github.dmlloyd.classfile.instruction.ArrayStoreInstruction;
-import io.github.dmlloyd.classfile.instruction.BranchInstruction;
-import io.github.dmlloyd.classfile.instruction.ConstantInstruction;
-import io.github.dmlloyd.classfile.instruction.ConvertInstruction;
-import io.github.dmlloyd.classfile.instruction.DiscontinuedInstruction;
-import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
-import io.github.dmlloyd.classfile.instruction.LoadInstruction;
-import io.github.dmlloyd.classfile.instruction.MonitorInstruction;
-import io.github.dmlloyd.classfile.instruction.NopInstruction;
-import io.github.dmlloyd.classfile.instruction.OperatorInstruction;
-import io.github.dmlloyd.classfile.instruction.ReturnInstruction;
-import io.github.dmlloyd.classfile.instruction.StackInstruction;
-import io.github.dmlloyd.classfile.instruction.StoreInstruction;
-import io.github.dmlloyd.classfile.instruction.ThrowInstruction;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.instruction.*;
 
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 
 public final class CodeImpl
         extends BoundAttribute.BoundCodeAttribute
@@ -274,7 +247,7 @@ public final class CodeImpl
     private void inflateJumpTargets() {
         Optional<StackMapTableAttribute> a = findAttribute(Attributes.STACK_MAP_TABLE);
         if (a.isEmpty()) {
-            if (classReader.readU2(6) <= Classfile.JAVA_6_VERSION) {
+            if (classReader.readU2(6) <= ClassFile.JAVA_6_VERSION) {
                 //fallback to jump targets inflation without StackMapTableAttribute
                 for (int pos=codeStart; pos<codeEnd; ) {
                     var i = bcToInstruction(classReader.readU1(pos), pos);
@@ -487,7 +460,7 @@ public final class CodeImpl
                     case ASTORE -> new AbstractInstruction.BoundStoreInstruction(Opcode.ASTORE_W, this, pos);
                     case IINC -> new AbstractInstruction.BoundIncrementInstruction(Opcode.IINC_W, this, pos);
                     case RET ->  new AbstractInstruction.BoundRetInstruction(Opcode.RET_W, this, pos);
-                    default -> throw new UnsupportedOperationException("unknown wide instruction: " + bclow);
+                    default -> throw new IllegalArgumentException("unknown wide instruction: " + bclow);
                 };
             }
 
@@ -502,7 +475,7 @@ public final class CodeImpl
             default -> {
                 Instruction instr = SINGLETON_INSTRUCTIONS[bc];
                 if (instr == null)
-                    throw new UnsupportedOperationException("unknown instruction: " + bc);
+                    throw new IllegalArgumentException("unknown instruction: " + bc);
                 yield instr;
             }
         };

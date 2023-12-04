@@ -26,12 +26,13 @@ package io.github.dmlloyd.classfile.attribute;
 
 import java.util.List;
 
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.instruction.LineNumber;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code LineNumberTable} attribute {@jvms 4.7.12}, which can appear
@@ -39,10 +40,13 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * the code table and line numbers in the source file.
  * Delivered as a {@link LineNumber} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
- * {@link Classfile.LineNumbersOption} option.
+ * {@link ClassFile.LineNumbersOption} option.
  * <p>
  * The attribute permits multiple instances in a given location.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LineNumberTableAttribute
         extends Attribute<LineNumberTableAttribute>
         permits BoundAttribute.BoundLineNumberTableAttribute,

@@ -29,10 +29,11 @@ import java.lang.constant.MethodTypeDesc;
 import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.CodeTransform;
+import io.github.dmlloyd.classfile.CustomAttribute;
 import io.github.dmlloyd.classfile.MethodBuilder;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.MethodModel;
@@ -50,7 +51,7 @@ public final class DirectMethodBuilder
     MethodTypeDesc mDesc;
 
     public DirectMethodBuilder(SplitConstantPool constantPool,
-                               ClassfileImpl context,
+                               ClassFileImpl context,
                                Utf8Entry nameInfo,
                                Utf8Entry typeInfo,
                                int flags,
@@ -63,8 +64,8 @@ public final class DirectMethodBuilder
     }
 
     void setFlags(int flags) {
-        boolean wasStatic = (this.flags & Classfile.ACC_STATIC) != 0;
-        boolean isStatic = (flags & Classfile.ACC_STATIC) != 0;
+        boolean wasStatic = (this.flags & ClassFile.ACC_STATIC) != 0;
+        boolean isStatic = (flags & ClassFile.ACC_STATIC) != 0;
         if (wasStatic != isStatic)
             throw new IllegalArgumentException("Cannot change ACC_STATIC flag of method");
         this.flags = flags;
@@ -111,7 +112,11 @@ public final class DirectMethodBuilder
 
     @Override
     public MethodBuilder with(MethodElement element) {
-        ((AbstractElement) element).writeTo(this);
+        if (element instanceof AbstractElement ae) {
+            ae.writeTo(this);
+        } else {
+            writeAttribute((CustomAttribute)element);
+        }
         return this;
     }
 

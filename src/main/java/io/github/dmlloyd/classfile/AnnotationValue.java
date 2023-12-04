@@ -37,34 +37,54 @@ import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
 import java.util.ArrayList;
 import java.util.List;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the value of a key-value pair of an annotation.
  *
  * @see Annotation
  * @see AnnotationElement
+ *
+ * @sealedGraph
+ * @since 22
  */
-
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface AnnotationValue extends WritableElement<AnnotationValue>
         permits AnnotationValue.OfAnnotation, AnnotationValue.OfArray,
                 AnnotationValue.OfConstant, AnnotationValue.OfClass,
                 AnnotationValue.OfEnum {
 
-    /** Models an annotation-valued element */
+    /**
+     * Models an annotation-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OfAnnotation extends AnnotationValue
             permits AnnotationImpl.OfAnnotationImpl {
         /** {@return the annotation} */
         Annotation annotation();
     }
 
-    /** Models an array-valued element */
+    /**
+     * Models an array-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OfArray extends AnnotationValue
             permits AnnotationImpl.OfArrayImpl {
         /** {@return the values} */
         List<AnnotationValue> values();
     }
 
-    /** Models a constant-valued element */
+    /**
+     * Models a constant-valued element
+     *
+     * @sealedGraph
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OfConstant extends AnnotationValue
             permits OfString, OfDouble,
                     OfFloat, OfLong,
@@ -77,70 +97,120 @@ public sealed interface AnnotationValue extends WritableElement<AnnotationValue>
         ConstantDesc constantValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfString extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfString extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfStringImpl {
         /** {@return the constant} */
         String stringValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfDouble extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfDouble extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfDoubleImpl {
         /** {@return the constant} */
         double doubleValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfFloat extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfFloat extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfFloatImpl {
         /** {@return the constant} */
         float floatValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfLong extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfLong extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfLongImpl {
         /** {@return the constant} */
         long longValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfInteger extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfInteger extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfIntegerImpl {
         /** {@return the constant} */
         int intValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfShort extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfShort extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfShortImpl {
         /** {@return the constant} */
         short shortValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfCharacter extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfCharacter extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfCharacterImpl {
         /** {@return the constant} */
         char charValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfByte extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfByte extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfByteImpl {
         /** {@return the constant} */
         byte byteValue();
     }
 
-    /** Models a constant-valued element */
-    sealed interface OfBoolean extends OfConstant
+    /**
+     * Models a constant-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+    sealed interface OfBoolean extends AnnotationValue.OfConstant
             permits AnnotationImpl.OfBooleanImpl {
         /** {@return the constant} */
         boolean booleanValue();
     }
 
-    /** Models a class-valued element */
+    /**
+     * Models a class-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OfClass extends AnnotationValue
             permits AnnotationImpl.OfClassImpl {
         /** {@return the class name} */
@@ -152,7 +222,12 @@ public sealed interface AnnotationValue extends WritableElement<AnnotationValue>
         }
     }
 
-    /** Models an enum-valued element */
+    /**
+     * Models an enum-valued element
+     *
+     * @since 22
+     */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OfEnum extends AnnotationValue
             permits AnnotationImpl.OfEnumImpl {
         /** {@return the enum class name} */
@@ -168,7 +243,7 @@ public sealed interface AnnotationValue extends WritableElement<AnnotationValue>
     }
 
     /**
-     * @return the tag character for this type as per {@jvms 4.7.16.1}
+     * {@return the tag character for this type as per {@jvms 4.7.16.1}}
      */
     char tag();
 
@@ -379,10 +454,13 @@ public sealed interface AnnotationValue extends WritableElement<AnnotationValue>
 
     /**
      * {@return an annotation element}  The {@code value} parameter must be
-     * a primitive, a String, a ClassDesc, an enum constant, or an array of
-     * one of these.
+     * a primitive, a wrapper of primitive, a String, a ClassDesc, an enum
+     * constant, or an array of one of these.
      *
      * @param value the annotation value
+     * @throws IllegalArgumentException when the {@code value} parameter is not
+     *         a primitive, a wrapper of primitive, a String, a ClassDesc,
+     *         an enum constant, or an array of one of these.
      */
     static AnnotationValue of(Object value) {
         if (value instanceof String s) {

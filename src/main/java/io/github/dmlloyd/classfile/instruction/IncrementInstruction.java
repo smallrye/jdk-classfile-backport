@@ -29,13 +29,17 @@ import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a local variable increment instruction in the {@code code} array of a
  * {@code Code} attribute.  Corresponding opcodes will have a {@code kind} of
  * {@link Opcode.Kind#INCREMENT}.  Delivered as a {@link CodeElement} when
  * traversing the elements of a {@link CodeModel}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface IncrementInstruction extends Instruction
         permits AbstractInstruction.BoundIncrementInstruction,
                 AbstractInstruction.UnboundIncrementInstruction {

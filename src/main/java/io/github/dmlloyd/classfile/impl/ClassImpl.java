@@ -39,8 +39,8 @@ import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.Classfile;
-import io.github.dmlloyd.classfile.ClassfileVersion;
+import io.github.dmlloyd.classfile.ClassFile;
+import io.github.dmlloyd.classfile.ClassFileVersion;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.FieldModel;
 import io.github.dmlloyd.classfile.Interfaces;
@@ -58,7 +58,7 @@ public final class ClassImpl
     private List<Attribute<?>> attributes;
     private List<ClassEntry> interfaces;
 
-    public ClassImpl(byte[] cfbytes, ClassfileImpl context) {
+    public ClassImpl(byte[] cfbytes, ClassFileImpl context) {
         this.reader = new ClassReaderImpl(cfbytes, context);
         ClassReaderImpl reader = (ClassReaderImpl) this.reader;
         int p = reader.interfacesPos;
@@ -151,7 +151,7 @@ public final class ClassImpl
     @Override
     public void forEachElement(Consumer<ClassElement> consumer) {
         consumer.accept(flags());
-        consumer.accept(ClassfileVersion.of(majorVersion(), minorVersion()));
+        consumer.accept(ClassFileVersion.of(majorVersion(), minorVersion()));
         superclass().ifPresent(new Consumer<ClassEntry>() {
             @Override
             public void accept(ClassEntry entry) {
@@ -182,7 +182,7 @@ public final class ClassImpl
         AccessFlags flags = flags();
         // move to where?
         return flags.has(AccessFlag.MODULE)
-               && majorVersion() >= Classfile.JAVA_9_VERSION
+               && majorVersion() >= ClassFile.JAVA_9_VERSION
                && thisClass().asInternalName().equals("module-info")
                && (superclass().isEmpty())
                && interfaces().isEmpty()

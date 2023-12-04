@@ -22,37 +22,36 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package io.github.dmlloyd.classfile.impl;
+package io.github.dmlloyd.classfile;
 
-import io.github.dmlloyd.classfile.ClassfileVersion;
+import io.github.dmlloyd.classfile.impl.ClassFileVersionImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
-public final class ClassfileVersionImpl
-        extends AbstractElement
-        implements ClassfileVersion {
-    private final int majorVersion, minorVersion;
+/**
+ * Models the classfile version information for a class.  Delivered as a {@link
+ * ClassElement} when traversing the elements of a {@link
+ * ClassModel}.
+ */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+public sealed interface ClassFileVersion
+        extends ClassElement
+        permits ClassFileVersionImpl {
+    /**
+     * {@return the major classfile version}
+     */
+    int majorVersion();
 
-    public ClassfileVersionImpl(int majorVersion, int minorVersion) {
-        this.majorVersion = majorVersion;
-        this.minorVersion = minorVersion;
-    }
+    /**
+     * {@return the minor classfile version}
+     */
+    int minorVersion();
 
-    @Override
-    public int majorVersion() {
-        return majorVersion;
-    }
-
-    @Override
-    public int minorVersion() {
-        return minorVersion;
-    }
-
-    @Override
-    public void writeTo(DirectClassBuilder builder) {
-        builder.setVersion(majorVersion, minorVersion);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("ClassfileVersion[majorVersion=%d, minorVersion=%d]", majorVersion, minorVersion);
+    /**
+     * {@return a {@link ClassFileVersion} element}
+     * @param majorVersion the major classfile version
+     * @param minorVersion the minor classfile version
+     */
+    static ClassFileVersion of(int majorVersion, int minorVersion) {
+        return new ClassFileVersionImpl(majorVersion, minorVersion);
     }
 }

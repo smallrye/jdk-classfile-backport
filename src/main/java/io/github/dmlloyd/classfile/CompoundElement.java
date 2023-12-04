@@ -32,20 +32,25 @@ import java.util.Spliterators;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
 
 /**
- * A {@link ClassfileElement} that has complex structure defined in terms of
+ * A {@link ClassFileElement} that has complex structure defined in terms of
  * other classfile elements, such as a method, field, method body, or entire
  * class.  When encountering a {@linkplain CompoundElement}, clients have the
  * option to treat the element as a single entity (e.g., an entire method)
  * or to traverse the contents of that element with the methods in this class
  * (e.g., {@link #elements()}, {@link #forEachElement(Consumer)}, etc.)
  * @param <E> the element type
+ *
+ * @sealedGraph
+ * @since 22
  */
-public sealed interface CompoundElement<E extends ClassfileElement>
-        extends ClassfileElement, Iterable<E>
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+public sealed interface CompoundElement<E extends ClassFileElement>
+        extends ClassFileElement, Iterable<E>
         permits ClassModel, CodeModel, FieldModel, MethodModel, AbstractUnboundModel {
     /**
      * Invoke the provided handler with each element contained in this

@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code SourceDebugExtension} attribute.
@@ -39,7 +40,12 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 5.0.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface SourceDebugExtensionAttribute
         extends Attribute<SourceDebugExtensionAttribute>, ClassElement
         permits BoundAttribute.BoundSourceDebugExtensionAttribute, UnboundAttribute.UnboundSourceDebugExtensionAttribute {

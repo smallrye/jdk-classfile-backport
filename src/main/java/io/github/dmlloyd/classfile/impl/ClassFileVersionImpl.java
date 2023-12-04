@@ -22,27 +22,37 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package io.github.dmlloyd.classfile;
+package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.impl.LabelImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
+import io.github.dmlloyd.classfile.ClassFileVersion;
 
-/**
- * A marker for a position within the instructions of a method body.  The
- * association between a label's identity and the position it represents is
- * managed by the entity managing the method body (a {@link CodeModel} or {@link
- * CodeBuilder}), not the label itself; this allows the same label to have a
- * meaning both in an existing method (as managed by a {@linkplain CodeModel})
- * and in the transformation of that method (as managed by a {@linkplain
- * CodeBuilder}), while corresponding to different positions in each. When
- * traversing the elements of a {@linkplain CodeModel}, {@linkplain Label}
- * markers will be delivered at the position to which they correspond.  A label
- * can be bound to the current position within a {@linkplain CodeBuilder} via
- * {@link CodeBuilder#labelBinding(Label)} or {@link CodeBuilder#with(ClassFileElement)}.
- *
- * @since 22
- */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
-public sealed interface Label
-        permits LabelImpl {
+public final class ClassFileVersionImpl
+        extends AbstractElement
+        implements ClassFileVersion {
+    private final int majorVersion, minorVersion;
+
+    public ClassFileVersionImpl(int majorVersion, int minorVersion) {
+        this.majorVersion = majorVersion;
+        this.minorVersion = minorVersion;
+    }
+
+    @Override
+    public int majorVersion() {
+        return majorVersion;
+    }
+
+    @Override
+    public int minorVersion() {
+        return minorVersion;
+    }
+
+    @Override
+    public void writeTo(DirectClassBuilder builder) {
+        builder.setVersion(majorVersion, minorVersion);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ClassFileVersion[majorVersion=%d, minorVersion=%d]", majorVersion, minorVersion);
+    }
 }

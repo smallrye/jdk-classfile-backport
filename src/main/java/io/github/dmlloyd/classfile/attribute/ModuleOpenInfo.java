@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.PackageEntry;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
@@ -38,10 +38,14 @@ import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single "opens" declaration in the {@link ModuleAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleOpenInfo
         permits UnboundAttribute.UnboundModuleOpenInfo {
 
@@ -52,8 +56,8 @@ public sealed interface ModuleOpenInfo
 
     /**
      * {@return the flags associated with this open declaration, as a bit mask}
-     * Valid flags include {@link Classfile#ACC_SYNTHETIC} and
-     * {@link Classfile#ACC_MANDATED}
+     * Valid flags include {@link ClassFile#ACC_SYNTHETIC} and
+     * {@link ClassFile#ACC_MANDATED}
      */
     int opensFlagsMask();
 

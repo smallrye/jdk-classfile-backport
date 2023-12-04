@@ -27,15 +27,7 @@ package io.github.dmlloyd.classfile.impl;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import io.github.dmlloyd.classfile.ClassBuilder;
-import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.FieldBuilder;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.FieldTransform;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.MethodTransform;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 

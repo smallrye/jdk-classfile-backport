@@ -25,10 +25,15 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.WritableElement;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an entry in the constant pool of a classfile.
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface PoolEntry extends WritableElement<PoolEntry>
         permits AnnotationConstantValueEntry, DynamicConstantPoolEntry,
                 LoadableConstantEntry, MemberRefEntry, ModuleEntry, NameAndTypeEntry,

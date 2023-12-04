@@ -32,6 +32,7 @@ import io.github.dmlloyd.classfile.instruction.LineNumber;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.instruction.LocalVariableType;
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models metadata about a {@link CodeAttribute}, such as entries in the
@@ -39,8 +40,11 @@ import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
  * between instructions and labels.  Pseudo-instructions are delivered as part
  * of the element stream of a {@link CodeModel}.  Delivery of some
  * pseudo-instructions can be disabled by modifying the value of classfile
- * options (e.g., {@link Classfile.DebugElementsOption}).
+ * options (e.g., {@link ClassFile.DebugElementsOption}).
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface PseudoInstruction
         extends CodeElement
         permits CharacterRange, ExceptionCatch, LabelTarget, LineNumber, LocalVariable, LocalVariableType, AbstractPseudoInstruction {

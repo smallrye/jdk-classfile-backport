@@ -24,12 +24,13 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import java.util.List;
 
@@ -39,10 +40,13 @@ import java.util.List;
  * variables.
  * Delivered as a {@link LocalVariable} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
- * {@link Classfile.DebugElementsOption} option.
+ * {@link ClassFile.DebugElementsOption} option.
  * <p>
  * The attribute permits multiple instances in a given location.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LocalVariableTableAttribute
         extends Attribute<LocalVariableTableAttribute>
         permits BoundAttribute.BoundLocalVariableTableAttribute, UnboundAttribute.UnboundLocalVariableTableAttribute {

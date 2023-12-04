@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeKind;
 import io.github.dmlloyd.classfile.impl.CodeStackTrackerImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * {@link CodeStackTracker} is a {@link CodeTransform} tracking stack content
@@ -48,7 +49,10 @@ import io.github.dmlloyd.classfile.impl.CodeStackTrackerImpl;
  *         int maxStack = stackTracker.maxStackSize().get();
  *     });
  * }
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeStackTracker extends CodeTransform permits CodeStackTrackerImpl {
 
     /**

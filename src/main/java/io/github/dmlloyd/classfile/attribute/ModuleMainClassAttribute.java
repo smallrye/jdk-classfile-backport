@@ -33,6 +33,7 @@ import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code ModuleMainClass} attribute {@jvms 4.7.27}, which can
@@ -43,7 +44,12 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 9.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleMainClassAttribute
         extends Attribute<ModuleMainClassAttribute>, ClassElement
         permits BoundAttribute.BoundModuleMainClassAttribute, UnboundAttribute.UnboundModuleMainClassAttribute {
@@ -64,6 +70,7 @@ public sealed interface ModuleMainClassAttribute
     /**
      * {@return a {@code ModuleMainClass} attribute}
      * @param mainClass the main class
+     * @throws IllegalArgumentException if {@code mainClass} represents a primitive type
      */
     static ModuleMainClassAttribute of(ClassDesc mainClass) {
         return new UnboundAttribute.UnboundModuleMainClassAttribute(TemporaryConstantPool.INSTANCE.classEntry(mainClass));

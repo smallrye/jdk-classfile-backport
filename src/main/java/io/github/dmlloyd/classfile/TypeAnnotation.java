@@ -34,43 +34,50 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.TargetInfoImpl;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
-import static io.github.dmlloyd.classfile.Classfile.TAT_CAST;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CLASS_EXTENDS;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CLASS_TYPE_PARAMETER;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CLASS_TYPE_PARAMETER_BOUND;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CONSTRUCTOR_REFERENCE;
-import static io.github.dmlloyd.classfile.Classfile.TAT_CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT;
-import static io.github.dmlloyd.classfile.Classfile.TAT_EXCEPTION_PARAMETER;
-import static io.github.dmlloyd.classfile.Classfile.TAT_FIELD;
-import static io.github.dmlloyd.classfile.Classfile.TAT_INSTANCEOF;
-import static io.github.dmlloyd.classfile.Classfile.TAT_LOCAL_VARIABLE;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_FORMAL_PARAMETER;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_INVOCATION_TYPE_ARGUMENT;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_RECEIVER;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_REFERENCE;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_REFERENCE_TYPE_ARGUMENT;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_RETURN;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_TYPE_PARAMETER;
-import static io.github.dmlloyd.classfile.Classfile.TAT_METHOD_TYPE_PARAMETER_BOUND;
-import static io.github.dmlloyd.classfile.Classfile.TAT_NEW;
-import static io.github.dmlloyd.classfile.Classfile.TAT_RESOURCE_VARIABLE;
-import static io.github.dmlloyd.classfile.Classfile.TAT_THROWS;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CAST;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CLASS_EXTENDS;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CLASS_TYPE_PARAMETER;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CLASS_TYPE_PARAMETER_BOUND;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CONSTRUCTOR_REFERENCE;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_EXCEPTION_PARAMETER;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_FIELD;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_INSTANCEOF;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_LOCAL_VARIABLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_FORMAL_PARAMETER;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_INVOCATION_TYPE_ARGUMENT;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_RECEIVER;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_REFERENCE;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_REFERENCE_TYPE_ARGUMENT;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_RETURN;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_TYPE_PARAMETER;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_METHOD_TYPE_PARAMETER_BOUND;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_NEW;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_RESOURCE_VARIABLE;
+import static io.github.dmlloyd.classfile.ClassFile.TAT_THROWS;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an annotation on a type use, as defined in {@jvms 4.7.19} and {@jvms 4.7.20}.
  *
  * @see RuntimeVisibleTypeAnnotationsAttribute
  * @see RuntimeInvisibleTypeAnnotationsAttribute
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface TypeAnnotation
         extends Annotation
         permits UnboundAttribute.UnboundTypeAnnotation {
 
     /**
      * The kind of target on which the annotation appears, as defined in {@jvms 4.7.20.1}.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public enum TargetType {
         /** For annotations on a class type parameter declaration. */
         CLASS_TYPE_PARAMETER(TAT_CLASS_TYPE_PARAMETER, 1),
@@ -228,7 +235,11 @@ public sealed interface TypeAnnotation
 
     /**
      * Specifies which type in a declaration or expression is being annotated.
+     *
+     * @sealedGraph
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface TargetInfo {
 
         /**
@@ -392,9 +403,9 @@ public sealed interface TypeAnnotation
         /**
          * {@return a target for annotations on the type in an instanceof expression or a new expression,
          * or the type before the :: in a method reference expression}
-         * {@param targetType {@link TargetType#INSTANCEOF}, {@link TargetType#NEW},
-         *                    {@link TargetType#CONSTRUCTOR_REFERENCE},
-         *                    or {@link TargetType#METHOD_REFERENCE}}
+         * @param targetType {@link TargetType#INSTANCEOF}, {@link TargetType#NEW},
+         *                   {@link TargetType#CONSTRUCTOR_REFERENCE},
+         *                   or {@link TargetType#METHOD_REFERENCE}
          * @param target the code label corresponding to the instruction
          */
         static OffsetTarget ofOffset(TargetType targetType, Label target) {
@@ -438,10 +449,10 @@ public sealed interface TypeAnnotation
          * or on the i'th type argument in the explicit type argument list for any of the following:
          * a new expression, an explicit constructor invocation statement, a method invocation expression,
          * or a method reference expression}
-         * {@param targetType {@link TargetType#CAST}, {@link TargetType#CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT},
-         *                    {@link TargetType#METHOD_INVOCATION_TYPE_ARGUMENT},
-         *                    {@link TargetType#CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT},
-         *                    or {@link TargetType#METHOD_REFERENCE_TYPE_ARGUMENT}}
+         * @param targetType {@link TargetType#CAST}, {@link TargetType#CONSTRUCTOR_INVOCATION_TYPE_ARGUMENT},
+         *                   {@link TargetType#METHOD_INVOCATION_TYPE_ARGUMENT},
+         *                   {@link TargetType#CONSTRUCTOR_REFERENCE_TYPE_ARGUMENT},
+         *                   or {@link TargetType#METHOD_REFERENCE_TYPE_ARGUMENT}
          * @param target the code label corresponding to the instruction
          * @param typeArgumentIndex specifies which type in the cast operator or argument is annotated
          */
@@ -503,7 +514,10 @@ public sealed interface TypeAnnotation
      * Indicates that an annotation appears on the declaration of the i'th type
      * parameter of a generic class, generic interface, generic method, or
      * generic constructor.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface TypeParameterTarget extends TargetInfo
             permits TargetInfoImpl.TypeParameterTargetImpl {
 
@@ -519,7 +533,10 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on a type in the extends or implements
      * clause of a class or interface declaration.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface SupertypeTarget extends TargetInfo
             permits TargetInfoImpl.SupertypeTargetImpl {
 
@@ -540,7 +557,10 @@ public sealed interface TypeAnnotation
      * Indicates that an annotation appears on the i'th bound of the j'th
      * type parameter declaration of a generic class, interface, method, or
      * constructor.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface TypeParameterBoundTarget extends TargetInfo
             permits TargetInfoImpl.TypeParameterBoundTargetImpl {
 
@@ -563,7 +583,10 @@ public sealed interface TypeAnnotation
      * Indicates that an annotation appears on either the type in a field
      * declaration, the return type of a method, the type of a newly constructed
      * object, or the receiver type of a method or constructor.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface EmptyTarget extends TargetInfo
             permits TargetInfoImpl.EmptyTargetImpl {
     }
@@ -571,7 +594,10 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on the type in a formal parameter
      * declaration of a method, constructor, or lambda expression.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface FormalParameterTarget extends TargetInfo
             permits TargetInfoImpl.FormalParameterTargetImpl {
 
@@ -587,7 +613,10 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on the i'th type in the throws
      * clause of a method or constructor declaration.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface ThrowsTarget extends TargetInfo
             permits TargetInfoImpl.ThrowsTargetImpl {
 
@@ -604,12 +633,15 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on the type in a local variable declaration,
      * including a variable declared as a resource in a try-with-resources statement.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface LocalVarTarget extends TargetInfo
             permits TargetInfoImpl.LocalVarTargetImpl {
 
         /**
-         * @return the table of local variable location/indices.
+         * {@return the table of local variable location/indices.}
          */
         List<LocalVarTargetInfo> table();
     }
@@ -618,7 +650,10 @@ public sealed interface TypeAnnotation
      * Indicates a range of code array offsets within which a local variable
      * has a value, and the index into the local variable array of the current
      * frame at which that local variable can be found.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface LocalVarTargetInfo
             permits TargetInfoImpl.LocalVarTargetInfoImpl {
 
@@ -662,7 +697,10 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on the i'th type in an exception parameter
      * declaration.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface CatchTarget extends TargetInfo
             permits TargetInfoImpl.CatchTargetImpl {
 
@@ -678,7 +716,10 @@ public sealed interface TypeAnnotation
     /**
      * Indicates that an annotation appears on either the type in an instanceof expression
      * or a new expression, or the type before the :: in a method reference expression.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface OffsetTarget extends TargetInfo
             permits TargetInfoImpl.OffsetTargetImpl {
 
@@ -697,7 +738,10 @@ public sealed interface TypeAnnotation
      * expression, or on the i'th type argument in the explicit type argument list for any of the following: a new
      * expression, an explicit constructor invocation statement, a method invocation expression, or a method reference
      * expression.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface TypeArgumentTarget extends TargetInfo
             permits TargetInfoImpl.TypeArgumentTargetImpl {
 
@@ -730,13 +774,19 @@ public sealed interface TypeAnnotation
     /**
      * JVMS: Type_path structure identifies which part of the type is annotated,
      * as defined in {@jvms 4.7.20.2}
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     sealed interface TypePathComponent
             permits UnboundAttribute.TypePathComponentImpl {
 
         /**
          * Type path kind, as defined in {@jvms 4.7.20.2}
+         *
+         * @since 22
          */
+        @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
         public enum Kind {
 
             /** Annotation is deeper in an array type */

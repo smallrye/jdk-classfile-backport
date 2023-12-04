@@ -63,6 +63,7 @@ import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
 import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a classfile attribute {@jvms 4.7}.  Many, though not all, subtypes of
@@ -73,7 +74,11 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * directly from the corresponding model type through {@link
  * AttributedElement#findAttribute(AttributeMapper)}.
  * @param <A> the attribute type
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Attribute<A extends Attribute<A>>
         extends WritableElement<A>
         permits AnnotationDefaultAttribute, BootstrapMethodsAttribute,
@@ -91,7 +96,7 @@ public sealed interface Attribute<A extends Attribute<A>>
                 RuntimeVisibleTypeAnnotationsAttribute, SignatureAttribute,
                 SourceDebugExtensionAttribute, SourceFileAttribute, SourceIDAttribute,
                 StackMapTableAttribute, SyntheticAttribute,
-                UnknownAttribute, BoundAttribute, UnboundAttribute {
+                UnknownAttribute, BoundAttribute, UnboundAttribute, CustomAttribute {
     /**
      * {@return the name of the attribute}
      */

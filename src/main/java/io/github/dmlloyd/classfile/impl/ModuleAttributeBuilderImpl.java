@@ -25,11 +25,7 @@
 
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleExportInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleOpenInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleProvideInfo;
-import io.github.dmlloyd.classfile.attribute.ModuleRequireInfo;
+import io.github.dmlloyd.classfile.attribute.*;
 import io.github.dmlloyd.classfile.attribute.ModuleAttribute.ModuleAttributeBuilder;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;

@@ -25,11 +25,16 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a member reference constant in the constant pool of a classfile,
  * which includes references to fields, methods, and interface methods.
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MemberRefEntry extends PoolEntry
         permits FieldRefEntry, InterfaceMethodRefEntry, MethodRefEntry, AbstractPoolEntry.AbstractMemberRefEntry {
     /**

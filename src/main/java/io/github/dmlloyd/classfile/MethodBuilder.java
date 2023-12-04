@@ -32,18 +32,22 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.ChainedMethodBuilder;
 import io.github.dmlloyd.classfile.impl.TerminalMethodBuilder;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for methods.  Builders are not created directly; they are passed
  * to handlers by methods such as {@link ClassBuilder#withMethod(Utf8Entry, Utf8Entry, int, Consumer)}
  * or to method transforms.  The elements of a method can be specified
- * abstractly (by passing a {@link MethodElement} to {@link #with(ClassfileElement)}
+ * abstractly (by passing a {@link MethodElement} to {@link #with(ClassFileElement)}
  * or concretely by calling the various {@code withXxx} methods.
  *
  * @see MethodTransform
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodBuilder
-        extends ClassfileBuilder<MethodElement, MethodBuilder>
+        extends ClassFileBuilder<MethodElement, MethodBuilder>
         permits ChainedMethodBuilder, TerminalMethodBuilder {
 
     /**

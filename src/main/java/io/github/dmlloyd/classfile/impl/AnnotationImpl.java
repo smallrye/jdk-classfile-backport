@@ -37,7 +37,7 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ConstantDesc;
 import java.util.List;
 
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 
 public final class AnnotationImpl implements Annotation {
     private final Utf8Entry className;

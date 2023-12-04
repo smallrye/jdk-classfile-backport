@@ -27,10 +27,14 @@ package io.github.dmlloyd.classfile;
 import java.util.List;
 import io.github.dmlloyd.classfile.impl.SignaturesImpl;
 import static java.util.Objects.requireNonNull;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the generic signature of a class file, as defined by {@jvms 4.7.9}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassSignature
         permits SignaturesImpl.ClassSignatureImpl {
 
@@ -47,7 +51,7 @@ public sealed interface ClassSignature
     String signatureString();
 
     /**
-     * @return class signature
+     * {@return a class signature}
      * @param superclassSignature the superclass
      * @param superinterfaceSignatures the interfaces
      */
@@ -57,7 +61,7 @@ public sealed interface ClassSignature
     }
 
     /**
-     * @return class signature
+     * {@return a class signature}
      * @param typeParameters the type parameters
      * @param superclassSignature the superclass
      * @param superinterfaceSignatures the interfaces

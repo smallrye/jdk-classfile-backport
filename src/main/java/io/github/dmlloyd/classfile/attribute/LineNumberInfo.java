@@ -25,10 +25,14 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single line number in the {@link LineNumberTableAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LineNumberInfo
         permits UnboundAttribute.UnboundLineNumberInfo {
 

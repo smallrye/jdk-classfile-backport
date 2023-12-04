@@ -32,6 +32,7 @@ import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code MethodParameters} attribute {@jvms 4.7.24}, which can
@@ -42,7 +43,12 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 8.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodParametersAttribute
         extends Attribute<MethodParametersAttribute>, MethodElement
         permits BoundAttribute.BoundMethodParametersAttribute,

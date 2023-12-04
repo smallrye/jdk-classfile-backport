@@ -24,19 +24,18 @@
  */
 
 /**
- * <h2>Classfile parsing, generation, and transformation</h2>
- * The {@code jdk.internal.classfile} package contains classes for reading, writing, and
- * modifying Java class files, as specified in Chapter 4 of the <a
- * href="https://docs.oracle.com/javase/specs/jvms/se17/html/index.html">Java
- * Java Virtual Machine Specification</a>.
+ * <h2>Provides classfile parsing, generation, and transformation library.</h2>
+ * The {@code io.github.dmlloyd.classfile} package contains classes for reading, writing, and
+ * modifying Java class files, as specified in Chapter {@jvms 4} of the <cite>Java
+ * Java Virtual Machine Specification</cite>.
  *
  * <h2>Reading classfiles</h2>
  * The main class for reading classfiles is {@link io.github.dmlloyd.classfile.ClassModel}; we
  * convert bytes into a {@link io.github.dmlloyd.classfile.ClassModel} with {@link
- * io.github.dmlloyd.classfile.Classfile#parse(byte[])}:
+ * io.github.dmlloyd.classfile.ClassFile#parse(byte[])}:
  * <p>
  * {@snippet lang=java :
- * ClassModel cm = Classfile.of().parse(bytes);
+ * ClassModel cm = ClassFile.of().parse(bytes);
  * }
  * <p>
  * There are several additional overloads of {@code parse} that let you specify
@@ -200,7 +199,7 @@
  * can suppress it with options to gain some performance.
  *
  * <h2>Writing classfiles</h2>
- * Classfile generation is accomplished through <em>builders</em>.  For each
+ * ClassFile generation is accomplished through <em>builders</em>.  For each
  * entity type that has a model, there is also a corresponding builder type;
  * classes are built through {@link io.github.dmlloyd.classfile.ClassBuilder}, methods through
  * {@link io.github.dmlloyd.classfile.MethodBuilder}, etc.
@@ -249,8 +248,40 @@
  * symbolic information, one accepting nominal descriptors, and the other
  * accepting constant pool entries.
  *
+ * <h3>Consistency checks, syntax checks and verification</h3>
+ * No consistency checks are performed while building or transforming classfiles
+ * (except for null arguments checks). All builders and classfile elements factory
+ * methods accepts the provided information without implicit validation.
+ * However, fatal inconsistencies (like for example invalid code sequence or
+ * unresolved labels) affects internal tools and may cause exceptions later in
+ * the classfile building process.
+ * <p>
+ * Using nominal descriptors assures the right serial form is applied by the
+ * ClassFile API library based on the actual context. Also these nominal
+ * descriptors are validated during their construction, so it is not possible to
+ * create them with invalid content by mistake. Following example pass class
+ * name to the {@link java.lang.constant.ClassDesc#of} method for validation
+ * and the library performs automatic conversion to the right internal form of
+ * the class name when serialized in the constant pool as a class entry.
+ * {@snippet lang=java :
+ * var validClassEntry = constantPoolBuilder.classEntry(ClassDesc.of("mypackage.MyClass"));
+ * }
+ * <p>
+ * On the other hand it is possible to use builders methods and factories accepting
+ * constant pool entries directly. Constant pool entries can be constructed also
+ * directly from raw values, with no additional conversions or validations.
+ * Following example uses intentionally wrong class name form and it is applied
+ * without any validation or conversion.
+ * {@snippet lang=java :
+ * var invalidClassEntry = constantPoolBuilder.classEntry(
+ *                             constantPoolBuilder.utf8Entry("mypackage.MyClass"));
+ * }
+ * <p>
+ * More complex verification of a classfile can be achieved by explicit invocation
+ * of {@link io.github.dmlloyd.classfile.ClassModel#verify}.
+ *
  * <h2>Transforming classfiles</h2>
- * Classfile Processing APIs are most frequently used to combine reading and
+ * ClassFile Processing APIs are most frequently used to combine reading and
  * writing into transformation, where a classfile is read, localized changes are
  * made, but much of the classfile is passed through unchanged.  For each kind
  * of builder, {@code XxxBuilder} has a method {@code with(XxxElement)} so that
@@ -317,7 +348,7 @@
  * <p>
  * and then transform the classfile:
  * {@snippet lang=java :
- * var cc = Classfile.of();
+ * var cc = ClassFile.of();
  * byte[] newBytes = cc.transform(cc.parse(bytes), ct);
  * }
  * <p>
@@ -336,7 +367,7 @@
  * io.github.dmlloyd.classfile.CodeTransform#andThen(CodeTransform)}:
  * <p>
  * {@snippet lang=java :
- * var cc = Classfile.of();
+ * var cc = ClassFile.of();
  * byte[] newBytes = cc.transform(cc.parse(bytes),
  *                                ClassTransform.transformingMethods(
  *                                    MethodTransform.transformingCode(
@@ -356,9 +387,27 @@
  * attributes that are not transformed can be processed by bulk-copying their
  * bytes, rather than parsing them and regenerating their contents.)  If
  * constant pool sharing is not desired it can be suppressed
- * with the {@link io.github.dmlloyd.classfile.Classfile.ConstantPoolSharingOption} option.
+ * with the {@link io.github.dmlloyd.classfile.ClassFile.ConstantPoolSharingOption} option.
  * Such suppression may be beneficial when transformation removes many elements,
  * resulting in many unreferenced constant pool entries.
+ *
+ * <h3>Transformation handling of unknown classfile elements</h3>
+ * Custom classfile transformations might be unaware of classfile elements
+ * introduced by future JDK releases. To achieve deterministic stability,
+ * classfile transforms interested in consuming all classfile elements should be
+ * implemented strictly to throw exceptions if running on a newer JDK, if the
+ * transformed class file is a newer version, or if a new and unknown classfile
+ * element appears. As for example in the following strict compatibility-checking
+ * transformation snippets:
+ * {@snippet lang="java" class="PackageSnippets" region="strictTransform1"}
+ * {@snippet lang="java" class="PackageSnippets" region="strictTransform2"}
+ * {@snippet lang="java" class="PackageSnippets" region="strictTransform3"}
+ * <p>
+ * Conversely, classfile transforms that are only interested in consuming a portion
+ * of classfile elements do not need to concern with new and unknown classfile
+ * elements and may pass them through. Following example shows such future-proof
+ * code transformation:
+ * {@snippet lang="java" class="PackageSnippets" region="benevolentTransform"}
  *
  * <h2>API conventions</h2>
  * <p>
@@ -484,5 +533,10 @@
  *     | LocalVariableType(int slot, Utf8Entry name, Utf8Entry type, Label startScope, Label endScope)
  *     | CharacterRange(int rangeStart, int rangeEnd, int flags, Label startScope, Label endScope)
  * }
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 package io.github.dmlloyd.classfile;
+
+import io.github.dmlloyd.classfile.extras.PreviewFeature;

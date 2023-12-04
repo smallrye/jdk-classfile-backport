@@ -37,13 +37,18 @@ import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttrib
 import io.github.dmlloyd.classfile.attribute.SignatureAttribute;
 import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
 import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * A {@link ClassfileElement} that can appear when traversing the elements
- * of a {@link MethodModel} or be presented to a {@link MethodBuilder}.
+ * A marker interface for elements that can appear when traversing
+ * a {@link MethodModel} or be presented to a {@link MethodBuilder}.
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodElement
-        extends ClassfileElement
+        extends ClassFileElement
         permits AccessFlags, CodeModel, CustomAttribute,
                 AnnotationDefaultAttribute, DeprecatedAttribute,
                 ExceptionsAttribute, MethodParametersAttribute,

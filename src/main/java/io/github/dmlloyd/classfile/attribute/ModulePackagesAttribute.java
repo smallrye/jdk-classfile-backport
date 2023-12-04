@@ -36,6 +36,7 @@ import io.github.dmlloyd.classfile.constantpool.PackageEntry;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code ModulePackages} attribute {@jvms 4.7.26}, which can
@@ -46,7 +47,12 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 9.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModulePackagesAttribute
         extends Attribute<ModulePackagesAttribute>, ClassElement
         permits BoundAttribute.BoundModulePackagesAttribute,

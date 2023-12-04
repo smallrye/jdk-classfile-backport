@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,48 +22,15 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package io.github.dmlloyd.classfile.attribute;
-
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.BoundLocalVariableType;
-import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models a single local variable in the {@link LocalVariableTypeTableAttribute}.
+ * <h2>Provides interfaces describing classfile constant pool entries for the {@link io.github.dmlloyd.classfile} library.</h2>
+ *
+ * The {@code io.github.dmlloyd.classfile.constantpool} package contains interfaces describing classfile constant pool entries.
  *
  * @since 22
  */
 @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
-public sealed interface LocalVariableTypeInfo
-        permits UnboundAttribute.UnboundLocalVariableTypeInfo, BoundLocalVariableType {
+package io.github.dmlloyd.classfile.constantpool;
 
-    /**
-     * {@return the index into the code array (inclusive) at which the scope of
-     * this variable begins}
-     */
-    int startPc();
-
-    /**
-     * {@return the length of the region of the code array in which this
-     * variable is in scope.}
-     */
-    int length();
-
-    /**
-     * {@return the name of the local variable}
-     */
-    Utf8Entry name();
-
-
-    /**
-     * {@return the field signature of the local variable}
-     */
-    Utf8Entry signature();
-
-    /**
-     * {@return the index into the local variable array of the current frame
-     * which holds this local variable}
-     */
-    int slot();
-}
+import io.github.dmlloyd.classfile.extras.PreviewFeature;

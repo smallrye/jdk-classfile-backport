@@ -30,12 +30,17 @@ import java.util.Optional;
 
 import io.github.dmlloyd.classfile.attribute.RecordComponentInfo;
 import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * A {@link ClassfileElement} describing an entity that has attributes, such
+ * A {@link ClassFileElement} describing an entity that has attributes, such
  * as a class, field, method, code attribute, or record component.
+ *
+ * @sealedGraph
+ * @since 22
  */
-public sealed interface AttributedElement extends ClassfileElement
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+public sealed interface AttributedElement extends ClassFileElement
         permits ClassModel, CodeModel, FieldModel, MethodModel,
                 RecordComponentInfo, AbstractUnboundModel {
 

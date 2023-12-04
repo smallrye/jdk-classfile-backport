@@ -25,7 +25,7 @@
 package io.github.dmlloyd.classfile.instruction;
 
 import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
@@ -38,7 +38,9 @@ import io.github.dmlloyd.classfile.impl.BoundCharacterRange;
  * A pseudo-instruction which models a single entry in the
  * {@link CharacterRangeTableAttribute}.  Delivered as a {@link CodeElement}
  * during traversal of the elements of a {@link CodeModel}, according to
- * the setting of the {@link Classfile.DebugElementsOption} option.
+ * the setting of the {@link ClassFile.DebugElementsOption} option.
+ *
+ * @since 22
  */
 public sealed interface CharacterRange extends PseudoInstruction
         permits AbstractPseudoInstruction.UnboundCharacterRange, BoundCharacterRange {
@@ -70,16 +72,18 @@ public sealed interface CharacterRange extends PseudoInstruction
 
     /**
      * A flags word, indicating the kind of range.  Multiple flag bits
-     * may be set.  Valid flags include
-     * {@link Classfile#CRT_STATEMENT},
-     * {@link Classfile#CRT_BLOCK},
-     * {@link Classfile#CRT_ASSIGNMENT},
-     * {@link Classfile#CRT_FLOW_CONTROLLER},
-     * {@link Classfile#CRT_FLOW_TARGET},
-     * {@link Classfile#CRT_INVOKE},
-     * {@link Classfile#CRT_CREATE},
-     * {@link Classfile#CRT_BRANCH_TRUE},
-     * {@link Classfile#CRT_BRANCH_FALSE}.
+     * may be set.  Valid flags include:
+     * <ul>
+     * <li>{@link ClassFile#CRT_STATEMENT},
+     * <li>{@link ClassFile#CRT_BLOCK},
+     * <li>{@link ClassFile#CRT_ASSIGNMENT},
+     * <li>{@link ClassFile#CRT_FLOW_CONTROLLER},
+     * <li>{@link ClassFile#CRT_FLOW_TARGET},
+     * <li>{@link ClassFile#CRT_INVOKE},
+     * <li>{@link ClassFile#CRT_CREATE},
+     * <li>{@link ClassFile#CRT_BRANCH_TRUE},
+     * <li>{@link ClassFile#CRT_BRANCH_FALSE}.
+     * </ul>
      *
      * @see CharacterRangeInfo#flags()
      *

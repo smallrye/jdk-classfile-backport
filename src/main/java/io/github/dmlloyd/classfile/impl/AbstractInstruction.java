@@ -28,7 +28,7 @@ import java.lang.constant.ConstantDesc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.instruction.SwitchCase;
@@ -419,12 +419,12 @@ public abstract sealed class AbstractInstruction
 
         @Override
         public boolean isInterface() {
-            return method().tag() == Classfile.TAG_INTERFACEMETHODREF;
+            return method().tag() == ClassFile.TAG_INTERFACEMETHODREF;
         }
 
         @Override
         public int count() {
-            return Util.parameterSlots(Util.methodTypeSymbol(method().nameAndType()));
+            return 0;
         }
 
         @Override

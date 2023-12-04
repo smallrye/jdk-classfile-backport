@@ -31,11 +31,13 @@ import java.util.List;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.InterfacesImpl;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the interfaces of a class.  Delivered as a {@link
  * ClassElement} when traversing a {@link ClassModel}.
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Interfaces
         extends ClassElement
         permits InterfacesImpl {

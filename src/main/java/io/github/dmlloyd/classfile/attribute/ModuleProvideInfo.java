@@ -32,10 +32,14 @@ import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single "provides" declaration in the {@link ModuleAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleProvideInfo
         permits UnboundAttribute.UnboundModuleProvideInfo {
 
@@ -73,6 +77,7 @@ public sealed interface ModuleProvideInfo
      * {@return a service provision description}
      * @param provides the service class interface
      * @param providesWith the service class implementations
+     * @throws IllegalArgumentException if {@code provides} represents a primitive type
      */
     static ModuleProvideInfo of(ClassDesc provides,
                                        List<ClassDesc> providesWith) {
@@ -83,6 +88,7 @@ public sealed interface ModuleProvideInfo
      * {@return a service provision description}
      * @param provides the service class interface
      * @param providesWith the service class implementations
+     * @throws IllegalArgumentException if {@code provides} or any of {@code providesWith} represents a primitive type
      */
     static ModuleProvideInfo of(ClassDesc provides,
                                        ClassDesc... providesWith) {

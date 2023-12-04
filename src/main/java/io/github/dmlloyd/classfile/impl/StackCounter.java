@@ -36,7 +36,7 @@ import io.github.dmlloyd.classfile.TypeKind;
 import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.DynamicConstantPoolEntry;
 import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 
 
 public final class StackCounter {

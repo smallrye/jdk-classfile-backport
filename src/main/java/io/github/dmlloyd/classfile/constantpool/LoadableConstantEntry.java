@@ -26,11 +26,16 @@ package io.github.dmlloyd.classfile.constantpool;
 
 import java.lang.constant.ConstantDesc;
 import io.github.dmlloyd.classfile.TypeKind;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Marker interface for constant pool entries suitable for loading via the
  * {@code LDC} instructions.
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LoadableConstantEntry extends PoolEntry
         permits ClassEntry, ConstantDynamicEntry, ConstantValueEntry, MethodHandleEntry, MethodTypeEntry {
 

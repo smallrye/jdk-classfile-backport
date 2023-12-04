@@ -33,6 +33,7 @@ import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.impl.CodeRelabelerImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A code relabeler is a {@link CodeTransform} replacing all occurrences
@@ -43,7 +44,10 @@ import io.github.dmlloyd.classfile.impl.CodeRelabelerImpl;
  * Primary purpose of CodeRelabeler is for repeated injections of the same code blocks.
  * Repeated injection of the same code block must be relabeled, so each instance of
  * {@link Label} is bound in the target bytecode exactly once.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeRelabeler extends CodeTransform permits CodeRelabelerImpl {
 
     /**
@@ -66,7 +70,7 @@ public sealed interface CodeRelabeler extends CodeTransform permits CodeRelabele
     /**
      * Creates a new instance of CodeRelabeler using provided {@link BiFunction}
      * to re-label the code.
-     * @param mapFunction
+     * @param mapFunction function for remapping labels in the source code model
      * @return a new instance of CodeRelabeler
      */
     static CodeRelabeler of(BiFunction<Label, CodeBuilder, Label> mapFunction) {

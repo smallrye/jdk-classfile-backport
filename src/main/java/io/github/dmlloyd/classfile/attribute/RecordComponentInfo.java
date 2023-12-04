@@ -33,10 +33,14 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BoundRecordComponentInfo;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single record component in the {@link RecordAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface RecordComponentInfo
         extends AttributedElement
         permits BoundRecordComponentInfo, UnboundAttribute.UnboundRecordComponentInfo {

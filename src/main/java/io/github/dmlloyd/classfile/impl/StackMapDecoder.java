@@ -37,7 +37,7 @@ import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo;
 import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.*;
 import io.github.dmlloyd.classfile.ClassReader;
 
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.MethodModel;
 

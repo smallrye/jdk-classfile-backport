@@ -26,11 +26,15 @@ package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.SuperclassImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the superclass of a class.  Delivered as a {@link
  * ClassElement} when traversing a {@link ClassModel}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Superclass
         extends ClassElement
         permits SuperclassImpl {

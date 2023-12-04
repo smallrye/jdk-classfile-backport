@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code ModuleResolution} attribute, which can
@@ -61,7 +62,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleResolutionAttribute
         extends Attribute<ModuleResolutionAttribute>, ClassElement
         permits BoundAttribute.BoundModuleResolutionAttribute, UnboundAttribute.UnboundModuleResolutionAttribute {
@@ -69,7 +73,7 @@ public sealed interface ModuleResolutionAttribute
     /**
      *  The value of the resolution_flags item is a mask of flags used to denote
      *  properties of module resolution. The flags are as follows:
-     *
+     * <pre> {@code
      *   // Optional
      *   0x0001 (DO_NOT_RESOLVE_BY_DEFAULT)
      *
@@ -77,6 +81,7 @@ public sealed interface ModuleResolutionAttribute
      *   0x0002 (WARN_DEPRECATED)
      *   0x0004 (WARN_DEPRECATED_FOR_REMOVAL)
      *   0x0008 (WARN_INCUBATING)
+     *  } </pre>
      * @return the module resolution flags
      */
     int resolutionFlags();

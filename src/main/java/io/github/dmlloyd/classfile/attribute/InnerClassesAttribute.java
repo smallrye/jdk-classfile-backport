@@ -32,6 +32,7 @@ import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code InnerClasses} attribute {@jvms 4.7.6}, which can
@@ -42,7 +43,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface InnerClassesAttribute
         extends Attribute<InnerClassesAttribute>, ClassElement
         permits BoundAttribute.BoundInnerClassesAttribute,

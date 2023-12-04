@@ -29,10 +29,14 @@ import java.util.List;
 import io.github.dmlloyd.classfile.impl.SignaturesImpl;
 import static java.util.Objects.requireNonNull;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the generic signature of a method, as defined by {@jvms 4.7.9}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodSignature
         permits SignaturesImpl.MethodSignatureImpl {
 
@@ -52,7 +56,7 @@ public sealed interface MethodSignature
     String signatureString();
 
     /**
-     * @return method signature for a raw (no generic information) method descriptor
+     * {@return a method signature for a raw (no generic information) method descriptor}
      * @param methodDescriptor the method descriptor
      */
     public static MethodSignature of(MethodTypeDesc methodDescriptor) {
@@ -66,7 +70,7 @@ public sealed interface MethodSignature
     }
 
     /**
-     * @return method signature
+     * {@return a method signature}
      * @param result signature for the return type
      * @param arguments signatures for the method arguments
      */
@@ -80,7 +84,7 @@ public sealed interface MethodSignature
     }
 
     /**
-     * @return method signature
+     * {@return a method signature}
      * @param typeParameters signatures for the type parameters
      * @param exceptions signatures for the exceptions
      * @param result signature for the return type

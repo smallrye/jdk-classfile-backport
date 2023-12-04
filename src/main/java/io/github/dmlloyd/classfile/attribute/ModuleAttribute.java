@@ -44,6 +44,7 @@ import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 import io.github.dmlloyd.classfile.impl.ModuleAttributeBuilderImpl;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code Module} attribute {@jvms 4.7.25}, which can
@@ -54,8 +55,12 @@ import io.github.dmlloyd.classfile.impl.Util;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 9.
+ *
+ * @since 22
  */
-
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleAttribute
         extends Attribute<ModuleAttribute>, ClassElement
         permits BoundAttribute.BoundModuleAttribute, UnboundAttribute.UnboundModuleAttribute {
@@ -167,7 +172,10 @@ public sealed interface ModuleAttribute
 
     /**
      * A builder for module attributes.
+     *
+     * @since 22
      */
+    @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
     public sealed interface ModuleAttributeBuilder
             permits ModuleAttributeBuilderImpl {
 
@@ -256,7 +264,7 @@ public sealed interface ModuleAttribute
         ModuleAttributeBuilder exports(ModuleExportInfo exports);
 
         /**
-         *
+         * Opens package
          * @param pkge the opened package
          * @param opensFlagsMask the open package flags
          * @param opensToModules the modules to open to
@@ -265,7 +273,7 @@ public sealed interface ModuleAttribute
         ModuleAttributeBuilder opens(PackageDesc pkge, int opensFlagsMask, ModuleDesc... opensToModules);
 
         /**
-         *
+         * Opens package
          * @param pkge the opened package
          * @param opensFlags the open package flags
          * @param opensToModules the modules to open to
@@ -286,6 +294,7 @@ public sealed interface ModuleAttribute
          * Declares use of a service
          * @param service the service class used
          * @return this builder
+         * @throws IllegalArgumentException if {@code service} represents a primitive type
          */
         ModuleAttributeBuilder uses(ClassDesc service);
 
@@ -301,6 +310,7 @@ public sealed interface ModuleAttribute
          * @param service the service class provided
          * @param implClasses the implementation classes
          * @return this builder
+         * @throws IllegalArgumentException if {@code service} or any of the {@code implClasses} represents a primitive type
          */
         ModuleAttributeBuilder provides(ClassDesc service, ClassDesc... implClasses);
 

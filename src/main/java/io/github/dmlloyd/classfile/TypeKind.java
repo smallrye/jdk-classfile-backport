@@ -26,10 +26,14 @@
 package io.github.dmlloyd.classfile;
 
 import java.lang.invoke.TypeDescriptor;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Describes the types that can be part of a field or method descriptor.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public enum TypeKind {
     /** the primitive type byte */
     ByteType("byte", "B", 8),

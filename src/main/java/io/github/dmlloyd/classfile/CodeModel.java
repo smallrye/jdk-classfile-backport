@@ -32,12 +32,16 @@ import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.impl.BufferedCodeBuilder;
 import io.github.dmlloyd.classfile.impl.CodeImpl;
 import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the body of a method (the {@code Code} attribute).  The instructions
  * of the method body are accessed via a streaming view (e.g., {@link
  * #elements()}).
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeModel
         extends CompoundElement<CodeElement>, AttributedElement, MethodElement
         permits CodeAttribute, BufferedCodeBuilder.Model, CodeImpl {

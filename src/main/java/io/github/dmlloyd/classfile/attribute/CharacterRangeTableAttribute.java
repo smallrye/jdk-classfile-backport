@@ -30,6 +30,7 @@ import java.util.List;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * The CharacterRangeTable attribute is an optional variable-length attribute in
@@ -56,7 +57,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * index range. The character range entries may appear in any order.
  * <p>
  * The attribute permits multiple instances in a given location.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CharacterRangeTableAttribute
         extends Attribute<CharacterRangeTableAttribute>
         permits BoundAttribute.BoundCharacterRangeTableAttribute,

@@ -26,16 +26,7 @@ package io.github.dmlloyd.classfile.impl;
 
 import java.lang.constant.MethodTypeDesc;
 
-import io.github.dmlloyd.classfile.AccessFlags;
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.MethodElement;
-import io.github.dmlloyd.classfile.MethodModel;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import java.util.List;

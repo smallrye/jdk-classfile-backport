@@ -31,12 +31,16 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 import io.github.dmlloyd.classfile.impl.BufWriterImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Supports writing portions of a classfile to a growable buffer.   Method
+ * Supports writing portions of a classfile to a growable buffer.   Methods
  * are provided to write various standard entities (e.g., {@code u2}, {@code u4})
  * to the end of the buffer, as well as to create constant pool entries.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface BufWriter
         permits BufWriterImpl {
 

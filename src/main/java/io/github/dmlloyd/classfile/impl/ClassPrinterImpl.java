@@ -117,7 +117,7 @@ import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.TypeAnnotation;
 import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.*;
 
-import static io.github.dmlloyd.classfile.Classfile.*;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import io.github.dmlloyd.classfile.CompoundElement;
 import io.github.dmlloyd.classfile.FieldModel;
 import static io.github.dmlloyd.classfile.impl.ClassPrinterImpl.Style.*;

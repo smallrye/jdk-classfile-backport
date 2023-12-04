@@ -27,7 +27,7 @@ package io.github.dmlloyd.classfile.impl;
 import java.lang.constant.MethodTypeDesc;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
-import static io.github.dmlloyd.classfile.Classfile.ACC_STATIC;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 
 public interface MethodInfo {
     Utf8Entry methodName();

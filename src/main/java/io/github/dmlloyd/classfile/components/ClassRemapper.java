@@ -29,11 +29,12 @@ import java.util.Map;
 import java.util.function.Function;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.ClassTransform;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.FieldTransform;
 import io.github.dmlloyd.classfile.MethodTransform;
 import io.github.dmlloyd.classfile.impl.ClassRemapperImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * {@code ClassRemapper} is a {@link ClassTransform}, {@link FieldTransform},
@@ -50,7 +51,10 @@ import io.github.dmlloyd.classfile.impl.ClassRemapperImpl;
  * <p>
  * Arrays of reference types are always decomposed, mapped as the base reference
  * types and composed back to arrays.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassRemapper extends ClassTransform permits ClassRemapperImpl {
 
     /**
@@ -98,11 +102,11 @@ public sealed interface ClassRemapper extends ClassTransform permits ClassRemapp
 
     /**
      * Remaps the whole ClassModel into a new class file, including the class name.
-     * @param context Classfile context
+     * @param context ClassFile context
      * @param clm class model to re-map
      * @return re-mapped class file bytes
      */
-    default byte[] remapClass(Classfile context, ClassModel clm) {
+    default byte[] remapClass(ClassFile context, ClassModel clm) {
         return context.transform(clm, map(clm.thisClass().asSymbol()), this);
     }
 }

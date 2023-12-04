@@ -30,13 +30,17 @@ import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a stack manipulation instruction in the {@code code} array of a
  * {@code Code} attribute.  Corresponding opcodes will have a {@code kind} of
  * {@link Opcode.Kind#STACK}.  Delivered as a {@link CodeElement} when
  * traversing the elements of a {@link CodeModel}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface StackInstruction extends Instruction
         permits AbstractInstruction.UnboundStackInstruction {
 

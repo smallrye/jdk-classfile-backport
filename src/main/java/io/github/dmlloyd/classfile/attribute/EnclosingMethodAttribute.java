@@ -38,6 +38,7 @@ import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code EnclosingMethod} attribute {@jvms 4.7.7}, which can appear
@@ -48,7 +49,12 @@ import io.github.dmlloyd.classfile.impl.Util;
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
+ * <p>
+ * This attribute was introduced in the Java SE Platform version 5.0.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface EnclosingMethodAttribute
         extends Attribute<EnclosingMethodAttribute>, ClassElement
         permits BoundAttribute.BoundEnclosingMethodAttribute,
@@ -93,7 +99,8 @@ public sealed interface EnclosingMethodAttribute
     /**
      * {@return an {@code EnclosingMethod} attribute}
      * @param className the class name
-     * @param method the name and type of the enclosing method
+     * @param method the name and type of the enclosing method or {@code empty} if
+     *               the class is not immediately enclosed by a method or constructor
      */
     static EnclosingMethodAttribute of(ClassEntry className,
                                        Optional<NameAndTypeEntry> method) {
@@ -103,8 +110,11 @@ public sealed interface EnclosingMethodAttribute
     /**
      * {@return an {@code EnclosingMethod} attribute}
      * @param className the class name
-     * @param methodName the name of the enclosing method
-     * @param methodType the type of the enclosing method
+     * @param methodName the name of the enclosing method or {@code empty} if
+     *                   the class is not immediately enclosed by a method or constructor
+     * @param methodType the type of the enclosing method or {@code empty} if
+     *                   the class is not immediately enclosed by a method or constructor
+     * @throws IllegalArgumentException if {@code className} represents a primitive type
      */
     static EnclosingMethodAttribute of(ClassDesc className,
                                        Optional<String> methodName,

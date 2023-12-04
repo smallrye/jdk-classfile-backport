@@ -25,11 +25,17 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a dynamic constant pool entry, which is either {@link ConstantDynamicEntry}
  * or {@link InvokeDynamicEntry}.
+ * @jvms 4.4.10 The CONSTANT_Dynamic_info and CONSTANT_InvokeDynamic_info Structures
+ *
+ * @sealedGraph
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface DynamicConstantPoolEntry extends PoolEntry
         permits ConstantDynamicEntry, InvokeDynamicEntry {
 

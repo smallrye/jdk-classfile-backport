@@ -48,13 +48,18 @@ import io.github.dmlloyd.classfile.attribute.SourceFileAttribute;
 import io.github.dmlloyd.classfile.attribute.SourceIDAttribute;
 import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
 import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * A {@link ClassfileElement} that can appear when traversing the elements
- * of a {@link ClassModel} or be presented to a {@link ClassBuilder}.
+ * A marker interface for elements that can appear when traversing
+ * a {@link ClassModel} or be presented to a {@link ClassBuilder}.
+ *
+ * @sealedGraph
+ * @since 22
  */
-public sealed interface ClassElement extends ClassfileElement
-        permits AccessFlags, Superclass, Interfaces, ClassfileVersion,
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
+public sealed interface ClassElement extends ClassFileElement
+        permits AccessFlags, Superclass, Interfaces, ClassFileVersion,
                 FieldModel, MethodModel,
                 CustomAttribute, CompilationIDAttribute, DeprecatedAttribute,
                 EnclosingMethodAttribute, InnerClassesAttribute,

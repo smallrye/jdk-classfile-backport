@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.ClassTransform;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public final class SimpleTests {
         try (InputStream is = Objects.requireNonNullElseGet(SimpleTests.class.getClassLoader().getResourceAsStream(SimpleTests.class.getName().replace('.', '/') + ".class"), InputStream::nullInputStream)) {
             b = is.readAllBytes();
         }
-        ClassModel model = Classfile.of().parse(b);
+        ClassModel model = ClassFile.of().parse(b);
         assertTrue(model.thisClass().name().equalsString(SimpleTests.class.getName().replace('.', '/')));
         boolean ok = false;
         for (MethodModel method : model.methods()) {
@@ -32,6 +32,6 @@ public final class SimpleTests {
             }
         }
         assertTrue(ok, "Didn't find the testParse method");
-        Classfile.of().transform(model, ClassTransform.ACCEPT_ALL);
+        ClassFile.of().transform(model, ClassTransform.ACCEPT_ALL);
     }
 }

@@ -31,13 +31,17 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
 import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
 import io.github.dmlloyd.classfile.impl.BootstrapMethodEntryImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an entry in the bootstrap method table.  The bootstrap method table
  * is stored in the {@code BootstrapMethods} attribute, but is modeled by
  * the {@link ConstantPool}, since the bootstrap method table is logically
  * part of the constant pool.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface BootstrapMethodEntry
         extends WritableElement<BootstrapMethodEntry>
         permits BootstrapMethodEntryImpl {

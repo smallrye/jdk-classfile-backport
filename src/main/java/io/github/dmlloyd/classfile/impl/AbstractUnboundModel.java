@@ -30,10 +30,10 @@ import java.util.stream.Stream;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributedElement;
-import io.github.dmlloyd.classfile.ClassfileElement;
+import io.github.dmlloyd.classfile.ClassFileElement;
 import io.github.dmlloyd.classfile.CompoundElement;
 
-public abstract sealed class AbstractUnboundModel<E extends ClassfileElement>
+public abstract sealed class AbstractUnboundModel<E extends ClassFileElement>
         extends AbstractElement
         implements CompoundElement<E>, AttributedElement
         permits BufferedCodeBuilder.Model, BufferedFieldBuilder.Model, BufferedMethodBuilder.Model {

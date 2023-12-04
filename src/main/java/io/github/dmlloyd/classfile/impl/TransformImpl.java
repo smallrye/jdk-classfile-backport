@@ -31,8 +31,8 @@ import java.util.function.Supplier;
 import io.github.dmlloyd.classfile.ClassBuilder;
 import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.ClassTransform;
-import io.github.dmlloyd.classfile.ClassfileElement;
-import io.github.dmlloyd.classfile.ClassfileTransform;
+import io.github.dmlloyd.classfile.ClassFileElement;
+import io.github.dmlloyd.classfile.ClassFileTransform;
 import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
@@ -75,10 +75,10 @@ public class TransformImpl {
         }
     }
 
-    public record ResolvedTransformImpl<E extends ClassfileElement>(Consumer<E> consumer,
+    public record ResolvedTransformImpl<E extends ClassFileElement>(Consumer<E> consumer,
                                      Runnable endHandler,
                                      Runnable startHandler)
-            implements ClassfileTransform.ResolvedTransform<E> {
+            implements ClassFileTransform.ResolvedTransform<E> {
 
         public ResolvedTransformImpl(Consumer<E> consumer) {
             this(consumer, NOTHING, NOTHING);

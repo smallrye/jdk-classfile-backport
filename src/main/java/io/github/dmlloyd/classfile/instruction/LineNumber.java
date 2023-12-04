@@ -24,21 +24,25 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.PseudoInstruction;
 import io.github.dmlloyd.classfile.attribute.LineNumberTableAttribute;
 import io.github.dmlloyd.classfile.impl.LineNumberImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A pseudo-instruction which models a single entry in the
  * {@link LineNumberTableAttribute}.  Delivered as a {@link CodeElement}
  * during traversal of the elements of a {@link CodeModel}, according to
- * the setting of the {@link Classfile.LineNumbersOption} option.
+ * the setting of the {@link ClassFile.LineNumbersOption} option.
  *
  * @see PseudoInstruction
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LineNumber extends PseudoInstruction
         permits LineNumberImpl {
 

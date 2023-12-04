@@ -51,10 +51,14 @@ import io.github.dmlloyd.classfile.instruction.StoreInstruction;
 import io.github.dmlloyd.classfile.instruction.TableSwitchInstruction;
 import io.github.dmlloyd.classfile.instruction.ThrowInstruction;
 import io.github.dmlloyd.classfile.instruction.TypeCheckInstruction;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an executable instruction in a method body.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Instruction extends CodeElement
         permits ArrayLoadInstruction, ArrayStoreInstruction, BranchInstruction,
                 ConstantInstruction, ConvertInstruction, DiscontinuedInstruction,

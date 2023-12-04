@@ -45,6 +45,8 @@ import io.github.dmlloyd.classfile.impl.AbstractPoolEntry.NameAndTypeEntryImpl;
 import io.github.dmlloyd.classfile.impl.SplitConstantPool;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Builder for the constant pool of a classfile.  Provides read and write access
@@ -54,7 +56,10 @@ import io.github.dmlloyd.classfile.impl.Util;
  * A {@linkplain ConstantPoolBuilder} is associated with a {@link ClassBuilder}.
  * The {@linkplain ConstantPoolBuilder} also provides access to some of the
  * state of the {@linkplain ClassBuilder}, such as classfile processing options.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ConstantPoolBuilder
         extends ConstantPool, WritableElement<ConstantPool>
         permits SplitConstantPool, TemporaryConstantPool {
@@ -147,9 +152,10 @@ public sealed interface ConstantPoolBuilder
      * returned.
      *
      * @param classDesc the symbolic descriptor for the class
+     * @throws IllegalArgumentException if {@code classDesc} represents a primitive type
      */
     default ClassEntry classEntry(ClassDesc classDesc) {
-        if (classDesc.isPrimitive()) {
+        if (requireNonNull(classDesc).isPrimitive()) {
             throw new IllegalArgumentException("Cannot be encoded as ClassEntry: " + classDesc.displayName());
         }
         ClassEntryImpl ret = (ClassEntryImpl)classEntry(utf8Entry(classDesc.isArray() ? classDesc.descriptorString() : Util.toInternalName(classDesc)));
@@ -267,6 +273,7 @@ public sealed interface ConstantPoolBuilder
      * @param owner the class the field is a member of
      * @param name the name of the field
      * @param type the type of the field
+     * @throws IllegalArgumentException if {@code owner} represents a primitive type
      */
     default FieldRefEntry fieldRefEntry(ClassDesc owner, String name, ClassDesc type) {
         return fieldRefEntry(classEntry(owner), nameAndTypeEntry(name, type));
@@ -292,6 +299,7 @@ public sealed interface ConstantPoolBuilder
      * @param owner the class the method is a member of
      * @param name the name of the method
      * @param type the type of the method
+     * @throws IllegalArgumentException if {@code owner} represents a primitive type
      */
     default MethodRefEntry methodRefEntry(ClassDesc owner, String name, MethodTypeDesc type) {
         return methodRefEntry(classEntry(owner), nameAndTypeEntry(name, type));
@@ -317,6 +325,7 @@ public sealed interface ConstantPoolBuilder
      * @param owner the class the method is a member of
      * @param name the name of the method
      * @param type the type of the method
+     * @throws IllegalArgumentException if {@code owner} represents a primitive type
      */
     default InterfaceMethodRefEntry interfaceMethodRefEntry(ClassDesc owner, String name, MethodTypeDesc type) {
         return interfaceMethodRefEntry(classEntry(owner), nameAndTypeEntry(name, type));

@@ -29,7 +29,8 @@ import java.util.function.Function;
 import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
+import io.github.dmlloyd.classfile.ClassFile.*;
 import io.github.dmlloyd.classfile.ClassBuilder;
 import io.github.dmlloyd.classfile.ClassHierarchyResolver;
 import io.github.dmlloyd.classfile.ClassModel;
@@ -38,7 +39,7 @@ import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
-public record ClassfileImpl(StackMapsOption stackMapsOption,
+public record ClassFileImpl(StackMapsOption stackMapsOption,
                             DebugElementsOption debugElementsOption,
                             LineNumbersOption lineNumbersOption,
                             AttributesProcessingOption attributesProcessingOption,
@@ -47,9 +48,9 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
                             DeadCodeOption deadCodeOption,
                             DeadLabelsOption deadLabelsOption,
                             ClassHierarchyResolverOption classHierarchyResolverOption,
-                            AttributeMapperOption attributeMapperOption) implements Classfile {
+                            AttributeMapperOption attributeMapperOption) implements ClassFile {
 
-    public static final ClassfileImpl DEFAULT_CONTEXT = new ClassfileImpl(
+    public static final ClassFileImpl DEFAULT_CONTEXT = new ClassFileImpl(
             StackMapsOption.STACK_MAPS_WHEN_REQUIRED,
             DebugElementsOption.PASS_DEBUG,
             LineNumbersOption.PASS_LINE_NUMBERS,
@@ -68,7 +69,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
 
     @SuppressWarnings("unchecked")
     @Override
-    public ClassfileImpl withOptions(Option... options) {
+    public ClassFileImpl withOptions(Option... options) {
         var smo = stackMapsOption;
         var deo = debugElementsOption;
         var lno = lineNumbersOption;
@@ -91,7 +92,7 @@ public record ClassfileImpl(StackMapsOption stackMapsOption,
             else if (o instanceof ClassHierarchyResolverOption oo) chro = oo;
             else if (o instanceof AttributeMapperOption oo) amo = oo;
         }
-        return new ClassfileImpl(smo, deo, lno, apo, cpso, sjo, dco, dlo, chro, amo);
+        return new ClassFileImpl(smo, deo, lno, apo, cpso, sjo, dco, dlo, chro, amo);
     }
 
     @Override

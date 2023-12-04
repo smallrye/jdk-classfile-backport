@@ -37,6 +37,7 @@ import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
 
 import java.util.Optional;
 import java.util.function.Function;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Supports reading from a classfile.  Methods are provided to read data of
@@ -44,7 +45,10 @@ import java.util.function.Function;
  * the classfile, copying raw bytes, and reading constant pool entries.
  * Encapsulates additional reading context such as mappers for custom attributes
  * and processing options.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassReader extends ConstantPool
         permits ClassReaderImpl {
 
@@ -52,7 +56,7 @@ public sealed interface ClassReader extends ConstantPool
 
     /**
      * {@return the table of custom attribute mappers}  This is derived from
-     * the processing option {@link Classfile.AttributeMapperOption}.
+     * the processing option {@link ClassFile.AttributeMapperOption}.
      */
     Function<Utf8Entry, AttributeMapper<?>> customAttributes();
 
@@ -105,6 +109,7 @@ public sealed interface ClassReader extends ConstantPool
     /**
      * {@return the constant pool entry of a given type whose index is given
      * at the specified offset within the classfile}
+     * @param <T> the entry type
      * @param offset the offset of the index within the classfile
      * @param cls the entry type
      * @throws ConstantPoolException if the index is out of range of the

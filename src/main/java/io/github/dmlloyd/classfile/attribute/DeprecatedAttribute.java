@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code Deprecated} attribute {@jvms 4.7.15}, which can appear on
@@ -38,7 +39,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * of a corresponding model.
  * <p>
  * The attribute permits multiple instances in a given location.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface DeprecatedAttribute
         extends Attribute<DeprecatedAttribute>,
                 ClassElement, MethodElement, FieldElement

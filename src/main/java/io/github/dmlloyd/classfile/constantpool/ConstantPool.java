@@ -33,6 +33,9 @@ import io.github.dmlloyd.classfile.ClassReader;
 /**
  * Provides read access to the constant pool and bootstrap method table of a
  * classfile.
+ *
+ * @sealedGraph
+ * @since 22
  */
 public sealed interface ConstantPool extends Iterable<PoolEntry>
         permits ClassReader, ConstantPoolBuilder {

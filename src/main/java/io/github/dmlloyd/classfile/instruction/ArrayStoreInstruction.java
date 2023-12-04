@@ -31,13 +31,17 @@ import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.TypeKind;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an array store instruction in the {@code code} array of a {@code Code}
  * attribute.  Corresponding opcodes will have a {@code kind} of {@link
  * Opcode.Kind#ARRAY_STORE}.  Delivered as a {@link CodeElement} when
  * traversing the elements of a {@link CodeModel}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ArrayStoreInstruction extends Instruction
         permits AbstractInstruction.UnboundArrayStoreInstruction {
     /**

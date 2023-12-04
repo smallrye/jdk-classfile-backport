@@ -24,8 +24,7 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.BootstrapMethodEntry;
-import io.github.dmlloyd.classfile.BufWriter;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;

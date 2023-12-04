@@ -30,13 +30,17 @@ import io.github.dmlloyd.classfile.AccessFlags;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.TypeKind;
 import io.github.dmlloyd.classfile.impl.CodeLocalsShifterImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * {@link CodeLocalsShifter} is a {@link CodeTransform} shifting locals to
  * newly allocated positions to avoid conflicts during code injection.
  * Locals pointing to the receiver or to method arguments slots are never shifted.
  * All locals pointing beyond the method arguments are re-indexed in order of appearance.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeLocalsShifter extends CodeTransform permits CodeLocalsShifterImpl {
 
     /**

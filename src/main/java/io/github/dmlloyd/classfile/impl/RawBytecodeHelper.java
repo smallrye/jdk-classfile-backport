@@ -25,11 +25,11 @@
 package io.github.dmlloyd.classfile.impl;
 
 import java.nio.ByteBuffer;
-import static io.github.dmlloyd.classfile.Classfile.ASTORE_3;
-import static io.github.dmlloyd.classfile.Classfile.ISTORE;
-import static io.github.dmlloyd.classfile.Classfile.LOOKUPSWITCH;
-import static io.github.dmlloyd.classfile.Classfile.TABLESWITCH;
-import static io.github.dmlloyd.classfile.Classfile.WIDE;
+import static io.github.dmlloyd.classfile.ClassFile.ASTORE_3;
+import static io.github.dmlloyd.classfile.ClassFile.ISTORE;
+import static io.github.dmlloyd.classfile.ClassFile.LOOKUPSWITCH;
+import static io.github.dmlloyd.classfile.ClassFile.TABLESWITCH;
+import static io.github.dmlloyd.classfile.ClassFile.WIDE;
 
 public final class RawBytecodeHelper {
 

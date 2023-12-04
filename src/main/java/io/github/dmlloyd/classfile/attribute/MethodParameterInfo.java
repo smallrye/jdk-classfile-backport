@@ -29,14 +29,18 @@ import java.util.Set;
 
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.Classfile;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single method parameter in the {@link MethodParametersAttribute}.
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodParameterInfo
         permits UnboundAttribute.UnboundMethodParameterInfo {
     /**
@@ -48,8 +52,8 @@ public sealed interface MethodParameterInfo
 
     /**
      * Parameter access flags for this parameter, as a bit mask.  Valid
-     * parameter flags include {@link Classfile#ACC_FINAL},
-     * {@link Classfile#ACC_SYNTHETIC}, and {@link Classfile#ACC_MANDATED}.
+     * parameter flags include {@link ClassFile#ACC_FINAL},
+     * {@link ClassFile#ACC_SYNTHETIC}, and {@link ClassFile#ACC_MANDATED}.
      *
      * @return the access flags, as a bit mask
      */

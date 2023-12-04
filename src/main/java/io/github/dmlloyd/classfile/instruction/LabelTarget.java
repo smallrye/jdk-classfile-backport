@@ -29,6 +29,7 @@ import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.PseudoInstruction;
 import io.github.dmlloyd.classfile.impl.LabelImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A pseudo-instruction which indicates that the specified label corresponds to
@@ -36,7 +37,10 @@ import io.github.dmlloyd.classfile.impl.LabelImpl;
  * CodeElement} during traversal of the elements of a {@link CodeModel}.
  *
  * @see PseudoInstruction
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LabelTarget extends PseudoInstruction
         permits LabelImpl {
 

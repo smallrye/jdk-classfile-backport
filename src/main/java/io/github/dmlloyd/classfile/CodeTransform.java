@@ -28,15 +28,19 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import io.github.dmlloyd.classfile.impl.TransformImpl;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A transformation on streams of {@link CodeElement}.
  *
- * @see ClassfileTransform
+ * @see ClassFileTransform
+ *
+ * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 @FunctionalInterface
 public non-sealed interface CodeTransform
-        extends ClassfileTransform<CodeTransform, CodeElement, CodeBuilder> {
+        extends ClassFileTransform<CodeTransform, CodeElement, CodeBuilder> {
 
     /**
      * A code transform that sends all elements to the builder.
@@ -81,11 +85,22 @@ public non-sealed interface CodeTransform
         };
     }
 
+    /**
+     * @implSpec
+     * The default implementation returns this code transform chained with another
+     * code transform from the argument. Chaining of two transforms requires to
+     * involve a chained builder serving as a target builder for this transform
+     * and also as a source of elements for the downstream transform.
+     */
     @Override
     default CodeTransform andThen(CodeTransform t) {
         return new TransformImpl.ChainedCodeTransform(this, t);
     }
 
+    /**
+     * @implSpec The default implementation returns a resolved transform bound
+     *           to the given code builder.
+     */
     @Override
     default ResolvedTransform<CodeElement> resolve(CodeBuilder builder) {
         return new TransformImpl.ResolvedTransformImpl<>(e -> accept(builder, e),
