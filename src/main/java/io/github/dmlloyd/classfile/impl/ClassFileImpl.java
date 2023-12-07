@@ -38,6 +38,7 @@ import io.github.dmlloyd.classfile.ClassTransform;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.impl.verifier.VerifierImpl;
 
 public record ClassFileImpl(StackMapsOption stackMapsOption,
                             DebugElementsOption debugElementsOption,
@@ -125,6 +126,21 @@ public record ClassFileImpl(StackMapsOption stackMapsOption,
                     }
                 });
     }
+
+    @Override
+    public List<VerifyError> verify(ClassModel model) {
+        return VerifierImpl.verify(model, classHierarchyResolverOption().classHierarchyResolver(), null);
+    }
+
+    @Override
+    public List<VerifyError> verify(byte[] bytes) {
+        try {
+            return verify(parse(bytes));
+        } catch (IllegalArgumentException parsingError) {
+            return List.of(new VerifyError(parsingError.getMessage()));
+        }
+    }
+
     public record AttributeMapperOptionImpl(Function<Utf8Entry, AttributeMapper<?>> attributeMapper)
             implements AttributeMapperOption {
     }
