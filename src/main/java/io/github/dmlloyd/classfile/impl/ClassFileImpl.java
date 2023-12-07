@@ -25,6 +25,7 @@
 
 package io.github.dmlloyd.classfile.impl;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Consumer;
 
