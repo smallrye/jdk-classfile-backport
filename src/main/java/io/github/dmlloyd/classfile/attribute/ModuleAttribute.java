@@ -203,7 +203,7 @@ public sealed interface ModuleAttribute
         }
 
         /**
-         * Sets the module flags
+         * Sets the module version
          * @param version the module version
          * @return this builder
          */
