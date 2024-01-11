@@ -26,14 +26,14 @@ For parsing a class:
 
 ```java
 byte[] b = Files.readAllBytes(Path.of("some/file.class"));
-ClassModel model = Classfile.of().parse(b);
+ClassModel model = ClassFile.of().parse(b);
 // now, do something with `model`...
 ```
 
 Or for writing a class:
 
 ```java
-byte[] b = Classfile.of().build(classDesc, classBuilder -> {
+byte[] b = ClassFile.of().build(classDesc, classBuilder -> {
     // ... build the class here ...
 });
 ```
