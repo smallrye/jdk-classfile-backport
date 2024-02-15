@@ -481,7 +481,7 @@ public abstract sealed class AbstractPoolEntry {
         }
     }
 
-    static abstract sealed class AbstractRefEntry<T extends PoolEntry> extends AbstractPoolEntry {
+    abstract static sealed class AbstractRefEntry<T extends PoolEntry> extends AbstractPoolEntry {
         protected final T ref1;
 
         public AbstractRefEntry(ConstantPool constantPool, int tag, int index, T ref1) {
@@ -504,7 +504,7 @@ public abstract sealed class AbstractPoolEntry {
         }
     }
 
-    static abstract sealed class AbstractRefsEntry<T extends PoolEntry, U extends PoolEntry>
+    abstract static sealed class AbstractRefsEntry<T extends PoolEntry, U extends PoolEntry>
             extends AbstractPoolEntry {
         protected final T ref1;
         protected final U ref2;
@@ -535,7 +535,7 @@ public abstract sealed class AbstractPoolEntry {
         }
     }
 
-    static abstract sealed class AbstractNamedEntry extends AbstractRefEntry<Utf8EntryImpl> {
+    abstract static sealed class AbstractNamedEntry extends AbstractRefEntry<Utf8EntryImpl> {
 
         public AbstractNamedEntry(ConstantPool constantPool, int tag, int index, Utf8EntryImpl ref1) {
             super(constantPool, tag, index, ref1);
@@ -707,7 +707,7 @@ public abstract sealed class AbstractPoolEntry {
         }
     }
 
-    public static abstract sealed class AbstractMemberRefEntry
+    public abstract static sealed class AbstractMemberRefEntry
             extends AbstractRefsEntry<ClassEntryImpl, NameAndTypeEntryImpl>
             implements MemberRefEntry {
 
@@ -783,7 +783,7 @@ public abstract sealed class AbstractPoolEntry {
         }
     }
 
-    public static abstract sealed class AbstractDynamicConstantPoolEntry extends AbstractPoolEntry {
+    public abstract static sealed class AbstractDynamicConstantPoolEntry extends AbstractPoolEntry {
 
         private final int bsmIndex;
         private BootstrapMethodEntryImpl bootstrapMethod;
@@ -1053,7 +1053,7 @@ public abstract sealed class AbstractPoolEntry {
 
     }
 
-    static abstract sealed class PrimitiveEntry<T extends ConstantDesc>
+    abstract static sealed class PrimitiveEntry<T extends ConstantDesc>
             extends AbstractPoolEntry {
         protected final T val;
 
