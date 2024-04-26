@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2023, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -33,6 +33,8 @@ import java.util.function.Function;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.Attributes;
+import io.github.dmlloyd.classfile.BufWriter;
 import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.Opcode;
@@ -44,6 +46,11 @@ import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 
 import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
+import io.github.dmlloyd.classfile.attribute.CodeAttribute;
+import io.github.dmlloyd.classfile.components.ClassPrinter;
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
+import java.nio.ByteBuffer;
+import java.util.function.Consumer;
 
 /**
  * Helper to create and manipulate type descriptors, where type descriptors are
@@ -193,5 +200,42 @@ public class Util {
     public static boolean isDoubleSlot(ClassDesc desc) {
         char ch = desc.descriptorString().charAt(0);
         return ch == 'D' || ch == 'J';
+    }
+
+    public static void dumpMethod(SplitConstantPool cp,
+                                  ClassDesc cls,
+                                  String methodName,
+                                  MethodTypeDesc methodDesc,
+                                  int acc,
+                                  ByteBuffer bytecode,
+                                  Consumer<String> dump) {
+
+        // try to dump debug info about corrupted bytecode
+        try {
+            var cc = ClassFile.of();
+            var clm = cc.parse(cc.build(cp.classEntry(cls), cp, clb ->
+                    clb.withMethod(methodName, methodDesc, acc, mb ->
+                            ((DirectMethodBuilder)mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.CODE) {
+                                @Override
+                                public void writeBody(BufWriter b) {
+                                    b.writeU2(-1);//max stack
+                                    b.writeU2(-1);//max locals
+                                    b.writeInt(bytecode.limit());
+                                    b.writeBytes(bytecode.array(), 0, bytecode.limit());
+                                    b.writeU2(0);//exception handlers
+                                    b.writeU2(0);//attributes
+                                }
+                    }))));
+            ClassPrinter.toYaml(clm.methods().get(0).code().get(), ClassPrinter.Verbosity.TRACE_ALL, dump);
+        } catch (Error | Exception __) {
+            // fallback to bytecode hex dump
+            bytecode.rewind();
+            while (bytecode.position() < bytecode.limit()) {
+                dump.accept("%n%04x:".formatted(bytecode.position()));
+                for (int i = 0; i < 16 && bytecode.position() < bytecode.limit(); i++) {
+                    dump.accept(" %02x".formatted(bytecode.get()));
+                }
+            }
+        }
     }
 }
