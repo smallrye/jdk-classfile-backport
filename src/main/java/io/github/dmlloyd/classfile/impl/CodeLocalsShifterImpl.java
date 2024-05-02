@@ -49,15 +49,15 @@ public final class CodeLocalsShifterImpl implements CodeLocalsShifter {
     @Override
     public void accept(CodeBuilder cob, CodeElement coe) {
         if (coe instanceof LoadInstruction li) {
-            cob.loadInstruction(
+            cob.loadLocal(
                     li.typeKind(),
                     shift(cob, li.slot(), li.typeKind()));
         } else if (coe instanceof StoreInstruction si) {
-            cob.storeInstruction(
+            cob.storeLocal(
                     si.typeKind(),
                     shift(cob, si.slot(), si.typeKind()));
         } else if (coe instanceof IncrementInstruction ii) {
-            cob.incrementInstruction(
+            cob.iinc(
                     shift(cob, ii.slot(), TypeKind.IntType),
                     ii.constant());
         } else if (coe instanceof LocalVariable lv) {

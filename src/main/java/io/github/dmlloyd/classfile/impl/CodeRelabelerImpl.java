@@ -50,18 +50,18 @@ public record CodeRelabelerImpl(BiFunction<Label, CodeBuilder, Label> mapFunctio
     @Override
     public void accept(CodeBuilder cob, CodeElement coe) {
         if (coe instanceof BranchInstruction bi)
-            cob.branchInstruction(
+            cob.branch(
                     bi.opcode(),
                     relabel(bi.target(), cob));
         else if (coe instanceof LookupSwitchInstruction lsi)
-            cob.lookupSwitchInstruction(
+            cob.lookupswitch(
                     relabel(lsi.defaultTarget(), cob),
                     lsi.cases().stream().map(c ->
                             SwitchCase.of(
                                     c.caseValue(),
                                     relabel(c.target(), cob))).toList());
         else if (coe instanceof TableSwitchInstruction tsi)
-            cob.tableSwitchInstruction(
+            cob.tableswitch(
                     tsi.lowValue(),
                     tsi.highValue(),
                     relabel(tsi.defaultTarget(), cob),

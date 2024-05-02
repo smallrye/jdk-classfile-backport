@@ -232,7 +232,7 @@
  * instruction invoking {@code println} could have been generated with {@link
  * io.github.dmlloyd.classfile.CodeBuilder#invokevirtual(java.lang.constant.ClassDesc,
  * String, java.lang.constant.MethodTypeDesc) CodeBuilder.invokevirtual}, {@link
- * io.github.dmlloyd.classfile.CodeBuilder#invokeInstruction(Opcode,
+ * io.github.dmlloyd.classfile.CodeBuilder#invoke(io.github.dmlloyd.classfile.Opcode,
  * java.lang.constant.ClassDesc, String, java.lang.constant.MethodTypeDesc,
  * boolean) CodeBuilder.invokeInstruction}, or {@link
  * io.github.dmlloyd.classfile.CodeBuilder#with(ClassFileElement)
