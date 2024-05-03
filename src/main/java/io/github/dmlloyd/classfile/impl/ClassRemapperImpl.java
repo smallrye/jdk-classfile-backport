@@ -350,17 +350,18 @@ public record ClassRemapperImpl(Function<ClassDesc, ClassDesc> mapFunction) impl
 
     @SuppressWarnings("unchecked")
     <S extends Signature> S mapSignature(S signature) {
-        if (signature instanceof Signature.ArrayTypeSig ats) 
+        if (signature instanceof Signature.ArrayTypeSig ats)
             return (S) Signature.ArrayTypeSig.of(mapSignature(ats.componentSignature()));
         else if (signature instanceof Signature.ClassTypeSig cts) 
             return (S) Signature.ClassTypeSig.of(
                 cts.outerType().map(this::mapSignature).orElse(null),
                 map(cts.classDesc()),
-                cts.typeArgs().stream()
-                    .map(ta -> Signature.TypeArg.of(
-                        ta.wildcardIndicator(),
-                        ta.boundType().map(this::mapSignature)))
-                    .toArray(Signature.TypeArg[]::new));
+                cts.typeArgs().stream().map(ta ->
+                    ta instanceof Signature.TypeArg.Unbounded u ? u :
+                    ta instanceof Signature.TypeArg.Bounded bta ? Signature.TypeArg.bounded(
+                        bta.wildcardIndicator(), mapSignature(bta.boundType())) :
+                    null
+                ).toArray(Signature.TypeArg[]::new));
         else return signature;
     }
 
