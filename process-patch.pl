@@ -17,8 +17,8 @@ while ($_ = <$git_fh>) {
     s[jdk\.internal\.javac\.PreviewFeature][io.github.dmlloyd.classfile.extras.PreviewFeature]g;
     s[java\.lang\.reflect\.AccessFlag][io.github.dmlloyd.classfile.extras.reflect.AccessFlag]g;
     s[java\.lang\.reflect\.ClassFileFormatVersion][io.github.dmlloyd.classfile.extras.reflect.ClassFileFormatVersion]g;
-    s[java\.lang.\constant\.ModuleDesc][io.github.dmlloyd.classfile.extras.constant.ModuleDesc]g;
-    s[java\.lang.\constant\.PackageDesc][io.github.dmlloyd.classfile.extras.constant.PackageDesc]g;
+    s[java\.lang\.constant\.ModuleDesc][io.github.dmlloyd.classfile.extras.constant.ModuleDesc]g;
+    s[java\.lang\.constant\.PackageDesc][io.github.dmlloyd.classfile.extras.constant.PackageDesc]g;
     s[ConstantDescs\.INIT_NAME][ExtraConstantDescs.INIT_NAME]g;
     s[ConstantDescs\.CLASS_INIT_NAME][ExtraConstantDescs.CLASS_INIT_NAME]g;
     s[ClassDesc\.ofInternalName][ExtraClassDesc.ofInternalName]g;
