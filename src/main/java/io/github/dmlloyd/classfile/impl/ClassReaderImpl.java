@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -189,73 +189,45 @@ public final class ClassReaderImpl
         return bsmEntries().get(index);
     }
 
-    private static IllegalArgumentException outOfBoundsError(IndexOutOfBoundsException cause) {
-        return new IllegalArgumentException("Reading beyond classfile bounds", cause);
-    }
-
     @Override
     public int readU1(int p) {
-        try {
-            return buffer[p] & 0xFF;
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        return buffer[p] & 0xFF;
     }
 
     @Override
     public int readU2(int p) {
-        try {
-            int b1 = buffer[p] & 0xFF;
-            int b2 = buffer[p + 1] & 0xFF;
-            return (b1 << 8) + b2;
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        int b1 = buffer[p] & 0xFF;
+        int b2 = buffer[p + 1] & 0xFF;
+        return (b1 << 8) + b2;
     }
 
     @Override
     public int readS1(int p) {
-        try {
-            return buffer[p];
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        return buffer[p];
     }
 
     @Override
     public int readS2(int p) {
-        try {
-            int b1 = buffer[p];
-            int b2 = buffer[p + 1] & 0xFF;
-            return (b1 << 8) + b2;
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        int b1 = buffer[p];
+        int b2 = buffer[p + 1] & 0xFF;
+        return (b1 << 8) + b2;
     }
 
     @Override
     public int readInt(int p) {
-        try {
-            int ch1 = buffer[p] & 0xFF;
-            int ch2 = buffer[p + 1] & 0xFF;
-            int ch3 = buffer[p + 2] & 0xFF;
-            int ch4 = buffer[p + 3] & 0xFF;
-            return (ch1 << 24) + (ch2 << 16) + (ch3 << 8) + ch4;
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        int ch1 = buffer[p] & 0xFF;
+        int ch2 = buffer[p + 1] & 0xFF;
+        int ch3 = buffer[p + 2] & 0xFF;
+        int ch4 = buffer[p + 3] & 0xFF;
+        return (ch1 << 24) + (ch2 << 16) + (ch3 << 8) + ch4;
     }
 
     @Override
     public long readLong(int p) {
-        try {
-            return ((long) buffer[p + 0] << 56) + ((long) (buffer[p + 1] & 255) << 48) +
-                   ((long) (buffer[p + 2] & 255) << 40) + ((long) (buffer[p + 3] & 255) << 32) +
-                   ((long) (buffer[p + 4] & 255) << 24) + ((buffer[p + 5] & 255) << 16) + ((buffer[p + 6] & 255) << 8) +
-                   (buffer[p + 7] & 255);
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        return ((long) buffer[p + 0] << 56) + ((long) (buffer[p + 1] & 255) << 48) +
+               ((long) (buffer[p + 2] & 255) << 40) + ((long) (buffer[p + 3] & 255) << 32) +
+               ((long) (buffer[p + 4] & 255) << 24) + ((buffer[p + 5] & 255) << 16) + ((buffer[p + 6] & 255) << 8) +
+               (buffer[p + 7] & 255);
     }
 
     @Override
@@ -270,20 +242,12 @@ public final class ClassReaderImpl
 
     @Override
     public byte[] readBytes(int p, int len) {
-        try {
-            return Arrays.copyOfRange(buffer, p, p + len);
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        return Arrays.copyOfRange(buffer, p, p + len);
     }
 
     @Override
     public void copyBytesTo(BufWriter buf, int p, int len) {
-        try {
-            buf.writeBytes(buffer, p, len);
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        buf.writeBytes(buffer, p, len);
     }
 
     BootstrapMethodsAttribute bootstrapMethodsAttribute() {
@@ -482,12 +446,8 @@ public final class ClassReaderImpl
                            int bufWriterOffset,
                            int classReaderOffset,
                            int length) {
-        try {
-            return Arrays.equals(((BufWriterImpl) bufWriter).elems,
-                                 bufWriterOffset, bufWriterOffset + length,
-                                 buffer, classReaderOffset, classReaderOffset + length);
-        } catch (IndexOutOfBoundsException e) {
-            throw outOfBoundsError(e);
-        }
+        return Arrays.equals(((BufWriterImpl) bufWriter).elems,
+                             bufWriterOffset, bufWriterOffset + length,
+                             buffer, classReaderOffset, classReaderOffset + length);
     }
 }

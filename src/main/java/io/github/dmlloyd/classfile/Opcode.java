@@ -645,7 +645,7 @@ public enum Opcode {
     IFNULL(ClassFile.IFNULL, 3, Kind.BRANCH, TypeKind.ReferenceType),
 
     /** Branch if reference not null */
-    IFNONNULL(ClassFile.IFNONNULL, 3, Kind.BRANCH, TypeKind.ReferenceType),
+    IFNONNULL(ClassFile.IFNONNULL, 3, Kind.BRANCH, TypeKind.IntType),
 
     /** Branch always (wide index) */
     GOTO_W(ClassFile.GOTO_W, 5, Kind.BRANCH, TypeKind.VoidType),
