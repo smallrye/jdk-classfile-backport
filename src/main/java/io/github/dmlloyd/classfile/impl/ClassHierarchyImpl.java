@@ -42,7 +42,6 @@ import io.github.dmlloyd.classfile.ClassHierarchyResolver;
 import static java.lang.constant.ConstantDescs.CD_Object;
 import static io.github.dmlloyd.classfile.ClassFile.*;
 import static java.util.Objects.requireNonNull;
-import static jdk.internal.constant.ConstantUtils.referenceClassDesc;
 
 /**
  * Class hierarchy resolution framework is answering questions about classes assignability, common classes ancestor and whether the class represents an interface.
@@ -247,7 +246,7 @@ public final class ClassHierarchyImpl {
             }
 
             return cl.isInterface() ? ClassHierarchyInfo.ofInterface()
-                    : ClassHierarchyInfo.ofClass(referenceClassDesc(cl.getSuperclass()));
+                    : ClassHierarchyInfo.ofClass(cl.getSuperclass().describeConstable().orElseThrow());
         }
     }
 }

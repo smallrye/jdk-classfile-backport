@@ -36,6 +36,8 @@ import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
+
+import java.io.Serializable;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.nio.ByteBuffer;
@@ -45,7 +47,6 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import jdk.internal.constant.ReferenceClassDescImpl;
 
 import static io.github.dmlloyd.classfile.ClassFile.*;
 import static java.lang.constant.ConstantDescs.*;
@@ -1248,14 +1249,14 @@ public final class StackMapGenerator {
         //frequently used types to reduce footprint
         static final Type OBJECT_TYPE = referenceType(CD_Object),
             THROWABLE_TYPE = referenceType(CD_Throwable),
-            INT_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[I")),
-            BOOLEAN_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[Z")),
-            BYTE_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[B")),
-            CHAR_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[C")),
-            SHORT_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[S")),
-            LONG_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[J")),
-            DOUBLE_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[D")),
-            FLOAT_ARRAY_TYPE = referenceType(ReferenceClassDescImpl.ofValidated("[F")),
+            INT_ARRAY_TYPE = referenceType(int[].class.describeConstable().orElseThrow()),
+            BOOLEAN_ARRAY_TYPE = referenceType(boolean[].class.describeConstable().orElseThrow()),
+            BYTE_ARRAY_TYPE = referenceType(byte[].class.describeConstable().orElseThrow()),
+            CHAR_ARRAY_TYPE = referenceType(char[].class.describeConstable().orElseThrow()),
+            SHORT_ARRAY_TYPE = referenceType(short[].class.describeConstable().orElseThrow()),
+            LONG_ARRAY_TYPE = referenceType(long[].class.describeConstable().orElseThrow()),
+            DOUBLE_ARRAY_TYPE = referenceType(double[].class.describeConstable().orElseThrow()),
+            FLOAT_ARRAY_TYPE = referenceType(float[].class.describeConstable().orElseThrow()),
             STRING_TYPE = referenceType(CD_String),
             CLASS_TYPE = referenceType(CD_Class),
             METHOD_HANDLE_TYPE = referenceType(CD_MethodHandle),
@@ -1320,8 +1321,8 @@ public final class StackMapGenerator {
             }
         }
 
-        private static final ClassDesc CD_Cloneable = ReferenceClassDescImpl.ofValidated("Ljava/lang/Cloneable;");
-        private static final ClassDesc CD_Serializable = ReferenceClassDescImpl.ofValidated("Ljava/io/Serializable;");
+        private static final ClassDesc CD_Cloneable = Cloneable.class.describeConstable().orElseThrow();
+        private static final ClassDesc CD_Serializable = Serializable.class.describeConstable().orElseThrow();
 
         private Type mergeReferenceFrom(Type from, ClassHierarchyImpl context) {
             if (from == NULL_TYPE) {

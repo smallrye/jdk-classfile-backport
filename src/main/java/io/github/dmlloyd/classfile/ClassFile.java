@@ -45,7 +45,7 @@ import io.github.dmlloyd.classfile.attribute.LocalVariableTypeInfo;
 import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
 import java.util.List;
 import static java.util.Objects.requireNonNull;
-import static jdk.internal.constant.ConstantUtils.CD_module_info;
+import static io.github.dmlloyd.classfile.extras.constant.ConstantUtils.CD_module_info;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

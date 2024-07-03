@@ -24,28 +24,83 @@
  */
 package io.github.dmlloyd.classfile.extras.constant;
 
-import static java.util.Objects.requireNonNull;
-
 import java.lang.constant.ClassDesc;
-import java.lang.constant.Constable;
 import java.lang.constant.ConstantDesc;
+import io.github.dmlloyd.classfile.extras.ExtraConstantDescs;
+import java.lang.constant.MethodTypeDesc;
+import java.lang.invoke.MethodType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import io.github.dmlloyd.classfile.extras.ExtraConstantDescs;
 
 /**
  * Helper methods for the implementation of {@code java.lang.constant}.
  */
-class ConstantUtils {
+public final class ConstantUtils {
     /** an empty constant descriptor */
     public static final ConstantDesc[] EMPTY_CONSTANTDESC = new ConstantDesc[0];
-    static final ClassDesc[] EMPTY_CLASSDESC = new ClassDesc[0];
-    static final Constable[] EMPTY_CONSTABLE = new Constable[0];
-    static final int MAX_ARRAY_TYPE_DESC_DIMENSIONS = 255;
+    public static final ClassDesc[] EMPTY_CLASSDESC = new ClassDesc[0];
+    public static final int MAX_ARRAY_TYPE_DESC_DIMENSIONS = 255;
+    public static final ClassDesc CD_module_info = binaryNameToDesc("module-info");
 
     private static final Set<String> pointyNames = Set.of(ExtraConstantDescs.INIT_NAME, ExtraConstantDescs.CLASS_INIT_NAME);
+
+    /** No instantiation */
+    private ConstantUtils() {}
+
+    // Note:
+    // Non-JDK users should create their own utilities that wrap
+    // {@code .describeConstable().orElseThrow()} calls;
+    // these xxDesc methods has undefined and unsafe exceptional
+    // behavior, so they are not suitable as public APIs.
+
+    /**
+     * Creates a {@linkplain ClassDesc} from a pre-validated binary name
+     * for a class or interface type. Validated version of {@link
+     * ClassDesc#of(String)}.
+     *
+     * @param binaryName a binary name
+     */
+    public static ClassDesc binaryNameToDesc(String binaryName) {
+        return ClassDesc.of(binaryName);
+    }
+
+    /**
+     * Creates a ClassDesc from a Class object, requires that this class
+     * can always be described nominally, i.e. this class is not a
+     * hidden class or interface or an array with a hidden component
+     * type.
+     */
+    public static ClassDesc classDesc(Class<?> type) {
+        return type.describeConstable().orElseThrow();
+    }
+
+    /**
+     * Creates a ClassDesc from a Class object representing a non-hidden
+     * class or interface or an array type with a non-hidden component type.
+     */
+    public static ClassDesc referenceClassDesc(Class<?> type) {
+        return type.describeConstable().orElseThrow();
+    }
+
+    /**
+     * Creates a MethodTypeDesc from a MethodType object, requires that
+     * the type can be described nominally, i.e. all of its return
+     * type and parameter types can be described nominally.
+     */
+    public static MethodTypeDesc methodTypeDesc(MethodType type) {
+        return type.describeConstable().orElseThrow();
+    }
+
+    /**
+     * Creates a MethodTypeDesc from return class and parameter
+     * class objects, requires that all of them can be described nominally.
+     * This version is mainly useful for working with Method objects.
+     */
+    public static MethodTypeDesc methodTypeDesc(Class<?> returnType, Class<?>[] parameterTypes) {
+        return MethodType.methodType(returnType, parameterTypes).describeConstable().orElseThrow();
+    }
 
     /**
      * Validates the correctness of a binary class name. In particular checks for the presence of
@@ -54,9 +109,10 @@ class ConstantUtils {
      * @param name the class name
      * @return the class name passed if valid
      * @throws IllegalArgumentException if the class name is invalid
+     * @throws NullPointerException if class name is {@code null}
      */
-    static String validateBinaryClassName(String name) {
-        for (int i=0; i<name.length(); i++) {
+    public static String validateBinaryClassName(String name) {
+        for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
             if (ch == ';' || ch == '[' || ch == '/')
                 throw new IllegalArgumentException("Invalid class name: " + name);
@@ -65,21 +121,22 @@ class ConstantUtils {
     }
 
     /**
-      * Validates the correctness of an internal class name.
-      * In particular checks for the presence of invalid characters in the name.
-      *
-      * @param name the class name
-      * @return the class name passed if valid
-      * @throws IllegalArgumentException if the class name is invalid
-      */
-     static String validateInternalClassName(String name) {
-         for (int i=0; i<name.length(); i++) {
-             char ch = name.charAt(i);
-             if (ch == ';' || ch == '[' || ch == '.')
-                 throw new IllegalArgumentException("Invalid class name: " + name);
-         }
-         return name;
-     }
+     * Validates the correctness of an internal class name.
+     * In particular checks for the presence of invalid characters in the name.
+     *
+     * @param name the class name
+     * @return the class name passed if valid
+     * @throws IllegalArgumentException if the class name is invalid
+     * @throws NullPointerException if class name is {@code null}
+     */
+    public static String validateInternalClassName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            char ch = name.charAt(i);
+            if (ch == ';' || ch == '[' || ch == '.')
+                throw new IllegalArgumentException("Invalid class name: " + name);
+        }
+        return name;
+    }
 
     /**
      * Validates the correctness of a binary package name.
@@ -92,7 +149,7 @@ class ConstantUtils {
      * @throws NullPointerException if the package name is {@code null}
      */
     public static String validateBinaryPackageName(String name) {
-        for (int i=0; i<name.length(); i++) {
+        for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
             if (ch == ';' || ch == '[' || ch == '/')
                 throw new IllegalArgumentException("Invalid package name: " + name);
@@ -111,7 +168,7 @@ class ConstantUtils {
      * @throws NullPointerException if the package name is {@code null}
      */
     public static String validateInternalPackageName(String name) {
-        for (int i=0; i<name.length(); i++) {
+        for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
             if (ch == ';' || ch == '[' || ch == '.')
                 throw new IllegalArgumentException("Invalid package name: " + name);
@@ -132,7 +189,7 @@ class ConstantUtils {
      * @throws NullPointerException if the module name is {@code null}
      */
     public static String validateModuleName(String name) {
-        for (int i=name.length() - 1; i >= 0; i--) {
+        for (int i = name.length() - 1; i >= 0; i--) {
             char ch = name.charAt(i);
             if ((ch >= '\u0000' && ch <= '\u001F')
             || ((ch == '\\' || ch == ':' || ch =='@') && (i == 0 || name.charAt(--i) != '\\')))
@@ -147,13 +204,17 @@ class ConstantUtils {
      * @param name the name of the member
      * @return the name passed if valid
      * @throws IllegalArgumentException if the member name is invalid
+     * @throws NullPointerException if the member name is {@code null}
      */
     public static String validateMemberName(String name, boolean method) {
-        requireNonNull(name);
-        if (name.length() == 0)
+        int len = name.length();
+        if (len == 0)
             throw new IllegalArgumentException("zero-length member name");
-        for (int i=0; i<name.length(); i++) {
+        for (int i = 0; i < len; i++) {
             char ch = name.charAt(i);
+            // common case fast-path
+            if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+                continue;
             if (ch == '.' || ch == ';' || ch == '[' || ch == '/')
                 throw new IllegalArgumentException("Invalid member name: " + name);
             if (method && (ch == '<' || ch == '>')) {
@@ -164,31 +225,27 @@ class ConstantUtils {
         return name;
     }
 
-    static void validateClassOrInterface(ClassDesc classDesc) {
+    public static void validateClassOrInterface(ClassDesc classDesc) {
         if (!classDesc.isClassOrInterface())
             throw new IllegalArgumentException("not a class or interface type: " + classDesc);
     }
 
-    static int arrayDepth(String descriptorString) {
+    public static int arrayDepth(String descriptorString) {
         int depth = 0;
         while (descriptorString.charAt(depth) == '[')
             depth++;
         return depth;
     }
 
-    static String binaryToInternal(String name) {
+    public static String binaryToInternal(String name) {
         return name.replace('.', '/');
     }
 
-    static String internalToBinary(String name) {
+    public static String internalToBinary(String name) {
         return name.replace('/', '.');
     }
 
-    static String dropLastChar(String s) {
-        return s.substring(0, s.length() - 1);
-    }
-
-    static String dropFirstAndLastChar(String s) {
+    public static String dropFirstAndLastChar(String s) {
         return s.substring(1, s.length() - 1);
     }
 
@@ -200,10 +257,10 @@ class ConstantUtils {
      * @return the list of types
      * @throws IllegalArgumentException if the descriptor string is not valid
      */
-    static List<String> parseMethodDescriptor(String descriptor) {
+    public static List<ClassDesc> parseMethodDescriptor(String descriptor) {
         int cur = 0, end = descriptor.length();
-        ArrayList<String> ptypes = new ArrayList<>();
-        ptypes.add(null); //placeholder for return type
+        ArrayList<ClassDesc> ptypes = new ArrayList<>();
+        ptypes.add(null); // placeholder for return type
 
         if (cur >= end || descriptor.charAt(cur) != '(')
             throw new IllegalArgumentException("Bad method descriptor: " + descriptor);
@@ -213,7 +270,7 @@ class ConstantUtils {
             int len = skipOverFieldSignature(descriptor, cur, end, false);
             if (len == 0)
                 throw new IllegalArgumentException("Bad method descriptor: " + descriptor);
-            ptypes.add(descriptor.substring(cur, cur + len));
+            ptypes.add(resolveClassDesc(descriptor, cur, len));
             cur += len;
         }
         if (cur >= end)
@@ -223,8 +280,12 @@ class ConstantUtils {
         int rLen = skipOverFieldSignature(descriptor, cur, end, true);
         if (rLen == 0 || cur + rLen != end)
             throw new IllegalArgumentException("Bad method descriptor: " + descriptor);
-        ptypes.set(0, descriptor.substring(cur, cur + rLen));
+        ptypes.set(0, resolveClassDesc(descriptor, cur, rLen));
         return ptypes;
+    }
+
+    private static ClassDesc resolveClassDesc(String descriptor, int start, int len) {
+        return ClassDesc.of(descriptor.substring(start, start + len));
     }
 
     private static final char JVM_SIGNATURE_ARRAY = '[';

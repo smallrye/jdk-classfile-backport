@@ -24,6 +24,7 @@ while ($_ = <$git_fh>) {
     s[ClassDesc\.ofInternalName][ExtraClassDesc.ofInternalName]g;
     s[java(.)lang.classfile][io$1github$1dmlloyd$1classfile]g;
     s[jdk(.)internal.classfile][io$1github$1dmlloyd$1classfile]g;
+    s[jdk(.)internal.constant][io$1github$1dmlloyd$1classfile$1extras$1constant]g;
     s[src/java\.base/share/classes][src/main/java]g;
     print $_;
 }
