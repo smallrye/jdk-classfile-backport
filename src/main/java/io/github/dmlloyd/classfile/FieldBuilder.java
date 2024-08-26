@@ -26,6 +26,8 @@
 package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+
+import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedFieldBuilder;
 import io.github.dmlloyd.classfile.impl.TerminalFieldBuilder;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
@@ -55,7 +57,7 @@ public sealed interface FieldBuilder
      * @return this builder
      */
     default FieldBuilder withFlags(int flags) {
-        return with(AccessFlags.ofField(flags));
+        return with(new AccessFlagsImpl(AccessFlag.Location.FIELD, flags));
     }
 
     /**
@@ -64,7 +66,7 @@ public sealed interface FieldBuilder
      * @return this builder
      */
     default FieldBuilder withFlags(AccessFlag... flags) {
-        return with(AccessFlags.ofField(flags));
+        return with(new AccessFlagsImpl(AccessFlag.Location.FIELD, flags));
     }
 
 }

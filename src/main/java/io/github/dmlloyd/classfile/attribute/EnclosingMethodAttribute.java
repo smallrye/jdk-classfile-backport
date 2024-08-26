@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -30,7 +30,6 @@ import java.util.Optional;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
@@ -41,10 +40,10 @@ import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code EnclosingMethod} attribute {@jvms 4.7.7}, which can appear
+ * Models the {@code EnclosingMethod} attribute (JVMS {@jvms 4.7.7}), which can appear
  * on classes, and indicates that the class is a local or anonymous class.
  * Delivered as a {@link ClassElement} when traversing the elements of a {@link
- * ClassModel}.
+ * io.github.dmlloyd.classfile.ClassModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

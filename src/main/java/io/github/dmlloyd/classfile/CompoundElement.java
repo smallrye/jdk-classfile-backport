@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
@@ -92,7 +93,7 @@ public sealed interface CompoundElement<E extends ClassFileElement>
                 list.add(e);
             }
         });
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
 }

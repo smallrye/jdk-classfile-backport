@@ -28,6 +28,8 @@ package io.github.dmlloyd.classfile;
 import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+
+import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedMethodBuilder;
 import io.github.dmlloyd.classfile.impl.TerminalMethodBuilder;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
@@ -55,7 +57,7 @@ public sealed interface MethodBuilder
      * @return this builder
      */
     default MethodBuilder withFlags(int flags) {
-        return with(AccessFlags.ofMethod(flags));
+        return with(new AccessFlagsImpl(AccessFlag.Location.METHOD, flags));
     }
 
     /**
@@ -64,7 +66,7 @@ public sealed interface MethodBuilder
      * @return this builder
      */
     default MethodBuilder withFlags(AccessFlag... flags) {
-        return with(AccessFlags.ofMethod(flags));
+        return with(new AccessFlagsImpl(AccessFlag.Location.METHOD, flags));
     }
 
     /**

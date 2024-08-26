@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,17 +28,16 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.instruction.LineNumber;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code LineNumberTable} attribute {@jvms 4.7.12}, which can appear
+ * Models the {@code LineNumberTable} attribute (JVMS {@jvms 4.7.12}), which can appear
  * on a {@code Code} attribute, and records the mapping between indexes into
  * the code table and line numbers in the source file.
- * Delivered as a {@link LineNumber} when traversing the
+ * Delivered as a {@link io.github.dmlloyd.classfile.instruction.LineNumber} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
  * {@link ClassFile.LineNumbersOption} option.
  * <p>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,7 +28,6 @@ package io.github.dmlloyd.classfile.attribute;
 import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
@@ -36,10 +35,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code ModuleMainClass} attribute {@jvms 4.7.27}, which can
+ * Models the {@code ModuleMainClass} attribute (JVMS {@jvms 4.7.27}), which can
  * appear on classes that represent module descriptors.
- * Delivered as a {@link ClassElement} when
- * traversing the elements of a {@link ClassModel}.
+ * Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when
+ * traversing the elements of a {@link io.github.dmlloyd.classfile.ClassModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

@@ -26,8 +26,8 @@
 /**
  * <h2>Provides classfile parsing, generation, and transformation library.</h2>
  * The {@code io.github.dmlloyd.classfile} package contains classes for reading, writing, and
- * modifying Java class files, as specified in Chapter {@jvms 4} of the <cite>Java
- * Java Virtual Machine Specification</cite>.
+ * modifying Java class files, as specified in Chapter {@jvms 4} of the
+ * <cite>Java Virtual Machine Specification</cite>.
  *
  * <h2>Reading classfiles</h2>
  * The main class for reading classfiles is {@link io.github.dmlloyd.classfile.ClassModel}; we
@@ -147,7 +147,7 @@
  * ClassReader, int)} method for mapping from the classfile format
  * to an attribute instance, and the
  * {@link io.github.dmlloyd.classfile.AttributeMapper#writeAttribute(BufWriter,
- * Object)} method for mapping back to the classfile format.  It also
+ * io.github.dmlloyd.classfile.Attribute)} method for mapping back to the classfile format.  It also
  * contains metadata including the attribute name, the set of classfile entities
  * where the attribute is applicable, and whether multiple attributes of the
  * same kind are allowed on a single entity.

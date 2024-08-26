@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -37,8 +37,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code RuntimeInvisibleParameterAnnotations} attribute
- * {@jvms 4.7.19}, which can appear on methods. Delivered as a {@link
- * MethodElement} when traversing a {@link MethodModel}.
+ * (JVMS {@jvms 4.7.19}), which can appear on methods. Delivered as a {@link
+ * io.github.dmlloyd.classfile.MethodElement} when traversing a {@link MethodModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -39,10 +39,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code Signature} attribute {@jvms 4.7.9}, which
+ * Models the {@code Signature} attribute (JVMS {@jvms 4.7.9}), which
  * can appear on classes, methods, or fields. Delivered as a
- * {@link ClassElement}, {@link FieldElement}, or
- * {@link MethodElement} when traversing
+ * {@link io.github.dmlloyd.classfile.ClassElement}, {@link io.github.dmlloyd.classfile.FieldElement}, or
+ * {@link io.github.dmlloyd.classfile.MethodElement} when traversing
  * the corresponding model type.
  * <p>
  * The attribute does not permit multiple instances in a given location.

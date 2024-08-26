@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -27,7 +27,6 @@ package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
@@ -36,10 +35,10 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
 import java.util.List;
 
 /**
- * Models the {@code LocalVariableTypeTable} attribute {@jvms 4.7.14}, which can appear
+ * Models the {@code LocalVariableTypeTable} attribute (JVMS {@jvms 4.7.14}), which can appear
  * on a {@code Code} attribute, and records debug information about local
  * variables.
- * Delivered as a {@link LocalVariable} when traversing the
+ * Delivered as a {@link io.github.dmlloyd.classfile.instruction.LocalVariable} when traversing the
  * elements of a {@link CodeModel}, according to the setting of the
  * {@link ClassFile.LineNumbersOption} option.
  * <p>

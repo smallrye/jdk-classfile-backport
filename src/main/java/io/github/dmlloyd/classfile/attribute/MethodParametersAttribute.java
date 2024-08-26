@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -29,16 +29,15 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.MethodElement;
-import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code MethodParameters} attribute {@jvms 4.7.24}, which can
+ * Models the {@code MethodParameters} attribute (JVMS {@jvms 4.7.24}), which can
  * appear on methods, and records optional information about the method's
- * parameters.  Delivered as a {@link MethodElement} when
- * traversing the elements of a {@link MethodModel}.
+ * parameters.  Delivered as a {@link io.github.dmlloyd.classfile.MethodElement} when
+ * traversing the elements of a {@link io.github.dmlloyd.classfile.MethodModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

@@ -28,16 +28,14 @@ package io.github.dmlloyd.classfile.attribute;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.MethodElement;
-import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code Code} attribute {@jvms 4.7.3}, appears on non-native,
+ * Models the {@code Code} attribute (JVMS {@jvms 4.7.3}), appears on non-native,
  * non-abstract methods and contains the bytecode of the method body.  Delivered
- * as a {@link MethodElement} when traversing the elements of a
- * {@link MethodModel}.
+ * as a {@link io.github.dmlloyd.classfile.MethodElement} when traversing the elements of a
+ * {@link io.github.dmlloyd.classfile.MethodModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
@@ -48,6 +46,16 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
 @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeAttribute extends Attribute<CodeAttribute>, CodeModel
         permits BoundAttribute.BoundCodeAttribute {
+
+    /**
+     * {@return the maximum size of the local variable table}
+     */
+    int maxLocals();
+
+    /**
+     * {@return the maximum size of the operand stack}
+     */
+    int maxStack();
 
     /**
      * {@return The length of the code array in bytes}

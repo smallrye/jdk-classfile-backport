@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -554,15 +554,15 @@ public final class ClassPrinterImpl {
     }
 
     private static Node[] elementValueToTree(AnnotationValue v) {
-        if (v instanceof OfString cv) return leafs("string", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfDouble cv) return leafs("double", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfFloat cv) return leafs("float", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfLong cv) return leafs("long", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfInteger cv) return leafs("int", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfShort cv) return leafs("short", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfCharacter cv) return leafs("char", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfByte cv) return leafs("byte", String.valueOf(cv.constantValue()));
-        else if (v instanceof OfBoolean cv) return leafs("boolean", String.valueOf((int)cv.constantValue() != 0));
+        if (v instanceof OfString cv) return leafs("string", String.valueOf(cv.stringValue()));
+        else if (v instanceof OfDouble cv) return leafs("double", String.valueOf(cv.doubleValue()));
+        else if (v instanceof OfFloat cv) return leafs("float", String.valueOf(cv.floatValue()));
+        else if (v instanceof OfLong cv) return leafs("long", String.valueOf(cv.longValue()));
+        else if (v instanceof OfInt cv) return leafs("int", String.valueOf(cv.intValue()));
+        else if (v instanceof OfShort cv) return leafs("short", String.valueOf(cv.shortValue()));
+        else if (v instanceof OfChar cv) return leafs("char", String.valueOf(cv.charValue()));
+        else if (v instanceof OfByte cv) return leafs("byte", String.valueOf(cv.byteValue()));
+        else if (v instanceof OfBoolean cv) return leafs("boolean", String.valueOf(cv.booleanValue()));
         else if (v instanceof OfClass clv) return leafs("class", clv.className().stringValue());
         else if (v instanceof OfEnum ev) return leafs("enum class", ev.className().stringValue(),
             "constant name", ev.constantName().stringValue());
@@ -1072,9 +1072,9 @@ public final class ClassPrinterImpl {
     private static Node typeAnnotationsToTree(Style style, String name, List<TypeAnnotation> annos) {
         return new ListNodeImpl(style, name, annos.stream().map(a ->
                 new MapNodeImpl(FLOW, "anno")
-                        .with(leaf("annotation class", a.className().stringValue()),
+                        .with(leaf("annotation class", a.annotation().className().stringValue()),
                               leaf("target info", a.targetInfo().targetType().name()))
-                        .with(elementValuePairsToTree(a.elements()))));
+                        .with(elementValuePairsToTree(a.annotation().elements()))));
 
     }
 

@@ -29,6 +29,7 @@ import java.lang.constant.MethodTypeDesc;
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -52,7 +53,7 @@ public final class MethodImpl
 
     @Override
     public AccessFlags flags() {
-        return AccessFlags.ofMethod(reader.readU2(startPos));
+        return new AccessFlagsImpl(AccessFlag.Location.METHOD, reader.readU2(startPos));
     }
 
     @Override
@@ -136,13 +137,7 @@ public final class MethodImpl
             builder.withMethod(this);
         }
         else {
-            builder.withMethod(methodName(), methodType(), methodFlags(),
-                               new Consumer<>() {
-                @Override
-                public void accept(MethodBuilder mb) {
-                    MethodImpl.this.forEach(mb);
-                }
-            });
+            builder.withMethod(methodName(), methodType(), methodFlags(), Util.writingAll(this));
         }
     }
 

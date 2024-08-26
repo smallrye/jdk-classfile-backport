@@ -29,14 +29,12 @@ import java.util.List;
 import java.util.Optional;
 
 import io.github.dmlloyd.classfile.Annotation;
-import io.github.dmlloyd.classfile.AnnotationElement;
 import io.github.dmlloyd.classfile.AnnotationValue;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributeMapper;
 import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeAnnotation;
 import io.github.dmlloyd.classfile.attribute.AnnotationDefaultAttribute;
 import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
@@ -627,7 +625,8 @@ public abstract sealed class UnboundAttribute<T extends Attribute<T>>
 
         public UnboundRuntimeInvisibleParameterAnnotationsAttribute(List<List<Annotation>> elements) {
             super(Attributes.runtimeInvisibleParameterAnnotations());
-            this.elements = List.copyOf(elements);
+            // deep copy
+            this.elements = elements.stream().map(List::copyOf).toList();
         }
 
         @Override
@@ -750,76 +749,10 @@ public abstract sealed class UnboundAttribute<T extends Attribute<T>>
 
     public record UnboundTypeAnnotation(TargetInfo targetInfo,
                                         List<TypePathComponent> targetPath,
-                                        Utf8Entry className,
-                                        List<AnnotationElement> elements) implements TypeAnnotation, Util.Writable {
+                                        Annotation annotation) implements TypeAnnotation {
 
-        public UnboundTypeAnnotation(TargetInfo targetInfo, List<TypePathComponent> targetPath,
-                                     Utf8Entry className, List<AnnotationElement> elements) {
-            this.targetInfo = targetInfo;
-            this.targetPath = List.copyOf(targetPath);
-            this.className = className;
-            this.elements = List.copyOf(elements);
-        }
-
-        private int labelToBci(LabelContext lr, Label label) {
-            //helper method to avoid NPE
-            if (lr == null) throw new IllegalArgumentException("Illegal targetType '%s' in TypeAnnotation outside of Code attribute".formatted(targetInfo.targetType()));
-            return lr.labelToBci(label);
-        }
-
-        @Override
-        public void writeTo(BufWriterImpl buf) {
-            LabelContext lr = buf.labelContext();
-            // target_type
-            buf.writeU1(targetInfo.targetType().targetTypeValue());
-
-            // target_info
-            if (targetInfo instanceof TypeParameterTarget tpt) {
-                buf.writeU1(tpt.typeParameterIndex());
-            } else if (targetInfo instanceof SupertypeTarget st) {
-                buf.writeU2(st.supertypeIndex());
-            } else if (targetInfo instanceof TypeParameterBoundTarget tpbt) {
-                buf.writeU1(tpbt.typeParameterIndex());
-                buf.writeU1(tpbt.boundIndex());
-            } else if (targetInfo instanceof EmptyTarget) {
-                // nothing to write
-            } else if (targetInfo instanceof FormalParameterTarget fpt) {
-                buf.writeU1(fpt.formalParameterIndex());
-            } else if (targetInfo instanceof ThrowsTarget tt) {
-                buf.writeU2(tt.throwsTargetIndex());
-            } else if (targetInfo instanceof LocalVarTarget lvt) {
-                buf.writeU2(lvt.table().size());
-                for (var e : lvt.table()) {
-                    int startPc = labelToBci(lr, e.startLabel());
-                    buf.writeU2(startPc);
-                    buf.writeU2(labelToBci(lr, e.endLabel()) - startPc);
-                    buf.writeU2(e.index());
-                }
-            } else if (targetInfo instanceof CatchTarget ct) {
-                buf.writeU2(ct.exceptionTableIndex());
-            } else if (targetInfo instanceof OffsetTarget ot) {
-                buf.writeU2(labelToBci(lr, ot.target()));
-            } else if (targetInfo instanceof TypeArgumentTarget tat) {
-                buf.writeU2(labelToBci(lr, tat.target()));
-                buf.writeU1(tat.typeArgumentIndex());
-            }
-
-            // target_path
-            buf.writeU1(targetPath().size());
-            for (TypePathComponent component : targetPath()) {
-                buf.writeU1(component.typePathKind().tag());
-                buf.writeU1(component.typeArgumentIndex());
-            }
-
-            // type_index
-            buf.writeIndex(className);
-
-            // element_value_pairs
-            buf.writeU2(elements.size());
-            for (AnnotationElement pair : elements()) {
-                buf.writeIndex(pair.name());
-                AnnotationReader.writeAnnotationValue(buf, pair.value());
-            }
+        public UnboundTypeAnnotation {
+            targetPath = List.copyOf(targetPath);
         }
     }
 

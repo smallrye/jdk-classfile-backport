@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -35,8 +35,8 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code SourceFile} attribute {@jvms 4.7.10}, which
- * can appear on classes. Delivered as a {@link ClassElement}
+ * Models the {@code SourceFile} attribute (JVMS {@jvms 4.7.10}), which
+ * can appear on classes. Delivered as a {@link io.github.dmlloyd.classfile.ClassElement}
  * when traversing a {@link ClassModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.

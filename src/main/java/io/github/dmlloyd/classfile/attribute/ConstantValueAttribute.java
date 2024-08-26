@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -27,7 +27,6 @@ package io.github.dmlloyd.classfile.attribute;
 import java.lang.constant.ConstantDesc;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.FieldElement;
-import io.github.dmlloyd.classfile.FieldModel;
 import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
@@ -35,10 +34,10 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
- * Models the {@code ConstantValue} attribute {@jvms 4.7.2}, which can appear on
+ * Models the {@code ConstantValue} attribute (JVMS {@jvms 4.7.2}), which can appear on
  * fields and indicates that the field's value is a constant.  Delivered as a
- * {@link FieldElement} when traversing the elements of a
- * {@link FieldModel}.
+ * {@link io.github.dmlloyd.classfile.FieldElement} when traversing the elements of a
+ * {@link io.github.dmlloyd.classfile.FieldModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed
