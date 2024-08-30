@@ -1,4 +1,4 @@
-package io.github.dmlloyd.classfile.extras;
+package io.github.dmlloyd.classfile.extras.constant;
 
 /**
  * Supplemental (extra) constant desc constants that are not present in Java 17.
