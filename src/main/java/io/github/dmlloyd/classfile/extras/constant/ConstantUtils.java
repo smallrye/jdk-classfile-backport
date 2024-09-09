@@ -345,4 +345,8 @@ public final class ConstantUtils {
                         "Cannot create an array type descriptor with more than %d dimensions",
                         ConstantUtils.MAX_ARRAY_TYPE_DESC_DIMENSIONS));
     }
+
+    public static String concat(String prefix, Object value, String suffix) {
+        return prefix + value + suffix;
+    }
 }

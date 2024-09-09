@@ -54,8 +54,11 @@ import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.components.ClassPrinter;
-import java.nio.ByteBuffer;
 import java.util.function.Consumer;
+
+import static java.lang.constant.ConstantDescs.CD_double;
+import static java.lang.constant.ConstantDescs.CD_long;
+import static java.lang.constant.ConstantDescs.CD_void;
 
 /**
  * Helper to create and manipulate type descriptors, where type descriptors are
@@ -100,16 +103,18 @@ public class Util {
     private static final int ATTRIBUTE_STABILITY_COUNT = AttributeMapper.AttributeStability.values().length;
 
     public static boolean isAttributeAllowed(final Attribute<?> attr,
-                                             final ClassFile.AttributesProcessingOption processingOption) {
+                                             final ClassFileImpl context) {
         return attr instanceof BoundAttribute
-                ? ATTRIBUTE_STABILITY_COUNT - attr.attributeMapper().stability().ordinal() > processingOption.ordinal()
+                ? ATTRIBUTE_STABILITY_COUNT - attr.attributeMapper().stability().ordinal() > context.attributesProcessingOption().ordinal()
                 : true;
     }
 
     public static int parameterSlots(MethodTypeDesc mDesc) {
-        int count = 0;
-        for (int i = 0; i < mDesc.parameterCount(); i++) {
-            count += slotSize(mDesc.parameterType(i));
+        int count = mDesc.parameterCount();
+        for (int i = count - 1; i >= 0; i--) {
+            if (isDoubleSlot(mDesc.parameterType(i))) {
+                count++;
+            }
         }
         return count;
     }
@@ -119,17 +124,13 @@ public class Util {
         int count = ((flags & ACC_STATIC) != 0) ? 0 : 1;
         for (int i = 0; i < result.length; i++) {
             result[i] = count;
-            count += slotSize(mDesc.parameterType(i));
+            count += paramSlotSize(mDesc.parameterType(i));
         }
         return result;
     }
 
     public static int maxLocals(int flags, MethodTypeDesc mDesc) {
-        int count = ((flags & ACC_STATIC) != 0) ? 0 : 1;
-        for (int i = 0; i < mDesc.parameterCount(); i++) {
-            count += slotSize(mDesc.parameterType(i));
-        }
-        return count;
+        return parameterSlots(mDesc) + ((flags & ACC_STATIC) == 0 ? 1 : 0) ;
     }
 
     /**
@@ -254,16 +255,15 @@ public class Util {
     }
 
     public static int slotSize(ClassDesc desc) {
-        return switch (desc.descriptorString().charAt(0)) {
-            case 'V' -> 0;
-            case 'D','J' -> 2;
-            default -> 1;
-        };
+        return desc == CD_void ? 0 : isDoubleSlot(desc) ? 2 : 1;
+    }
+
+    public static int paramSlotSize(ClassDesc desc) {
+        return isDoubleSlot(desc) ? 2 : 1;
     }
 
     public static boolean isDoubleSlot(ClassDesc desc) {
-        char ch = desc.descriptorString().charAt(0);
-        return ch == 'D' || ch == 'J';
+        return desc == CD_double || desc == CD_long;
     }
 
     public static void dumpMethod(SplitConstantPool cp,
@@ -271,35 +271,38 @@ public class Util {
                                   String methodName,
                                   MethodTypeDesc methodDesc,
                                   int acc,
-                                  ByteBuffer bytecode,
+                                  RawBytecodeHelper.CodeRange bytecode,
                                   Consumer<String> dump) {
 
         // try to dump debug info about corrupted bytecode
         try {
             var cc = ClassFile.of();
             var clm = cc.parse(cc.build(cp.classEntry(cls), cp, clb ->
-                    clb.withMethod(methodName, methodDesc, acc, mb ->
-                            ((DirectMethodBuilder)mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.code()) {
-                                @Override
-                                public void writeBody(BufWriterImpl b) {
-                                    b.writeU2(-1);//max stack
-                                    b.writeU2(-1);//max locals
-                                    b.writeInt(bytecode.limit());
-                                    b.writeBytes(bytecode.array(), 0, bytecode.limit());
-                                    b.writeU2(0);//exception handlers
-                                    b.writeU2(0);//attributes
-                                }
+                clb.withMethod(methodName, methodDesc, acc, mb ->
+                    ((DirectMethodBuilder) mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.code()) {
+                        @Override
+                        public void writeBody(BufWriterImpl b) {
+                            b.writeU2(- 1);//max stack
+                            b.writeU2(- 1);//max locals
+                            b.writeInt(bytecode.length());
+                            b.writeBytes(bytecode.array(), 0, bytecode.length());
+                            b.writeU2(0);//exception handlers
+                            b.writeU2(0);//attributes
+                        }
                     }))));
             ClassPrinter.toYaml(clm.methods().get(0).code().get(), ClassPrinter.Verbosity.TRACE_ALL, dump);
         } catch (Error | Exception __) {
             // fallback to bytecode hex dump
-            bytecode.rewind();
-            while (bytecode.position() < bytecode.limit()) {
-                dump.accept("%n%04x:".formatted(bytecode.position()));
-                for (int i = 0; i < 16 && bytecode.position() < bytecode.limit(); i++) {
-                    dump.accept(" %02x".formatted(bytecode.get()));
-                }
+            dumpBytesHex(dump, bytecode.array(), bytecode.length());
+        }
+    }
+
+    public static void dumpBytesHex(Consumer<String> dump, byte[] bytes, int length) {
+        for (int i = 0; i < length; i++) {
+            if (i % 16 == 0) {
+                dump.accept("%n%04x:".formatted(i));
             }
+            dump.accept(" %02x".formatted(bytes[i]));
         }
     }
 

@@ -122,7 +122,7 @@ public final class CodeImpl
         if (!inflated) {
             if (labels == null)
                 labels = new LabelImpl[codeLength + 1];
-            if ((classReader).context().lineNumbersOption() == LineNumbersOption.PASS_LINE_NUMBERS)
+            if ((classReader).context().passLineNumbers())
                 inflateLineNumbers();
             inflateJumpTargets();
             inflateTypeAnnotations();
@@ -167,7 +167,7 @@ public final class CodeImpl
         inflateMetadata();
         boolean doLineNumbers = (lineNumbers != null);
         generateCatchTargets(consumer);
-        if ((classReader).context().debugElementsOption() == DebugElementsOption.PASS_DEBUG)
+        if ((classReader).context().passDebugElements())
             generateDebugElements(consumer);
         for (int pos=codeStart; pos<codeEnd; ) {
             if (labels[pos - codeStart] != null)
@@ -259,6 +259,12 @@ public final class CodeImpl
                         br.target();
                     } else if (i instanceof DiscontinuedInstruction.JsrInstruction jsr) {
                         jsr.target();
+                    } else if (i instanceof LookupSwitchInstruction ls) {
+                        ls.defaultTarget();
+                        ls.cases();
+                    } else if (i instanceof TableSwitchInstruction ts) {
+                        ts.defaultTarget();
+                        ts.cases();
                     }
                     pos += i.sizeInBytes();
                 }
