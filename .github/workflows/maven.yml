@@ -21,12 +21,12 @@ jobs:
       - name: Clone project
         uses: actions/checkout@v4
         with:
-          path: jdk-classfile-preview
+          path: jdk-classfile-backport
 
       - name: Build
         run: |
           mvn --batch-mode verify
-        working-directory: jdk-classfile-preview
+        working-directory: jdk-classfile-backport
 
       - name: Prepare failure archive (if maven failed)
         if: failure()

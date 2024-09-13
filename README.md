@@ -1,12 +1,12 @@
 Unofficial JDK Classfile API Backport
 ========
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-preview/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-preview)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-backport/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-backport)
 
 
 This is a backport to JDK 17 of the new classfile API found in JDK 21 and later.
 
-Bugs in this project should be reported to https://github.com/dmlloyd/jdk-classfile-preview/issues first. Bugs in this project are likely to be a result of backporting. Some bugs might be relayed upstream by the project maintainer(s), subject to testing and verification; in this case, the upstream bug will be linked for easier tracking.
+Bugs in this project should be reported to https://github.com/dmlloyd/jdk-classfile-backport/issues first. Bugs in this project are likely to be a result of backporting. Some bugs might be relayed upstream by the project maintainer(s), subject to testing and verification; in this case, the upstream bug will be linked for easier tracking.
 
 Releases
 --------
