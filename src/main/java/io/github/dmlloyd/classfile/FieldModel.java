@@ -31,6 +31,7 @@ import java.util.Optional;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BufferedFieldBuilder;
 import io.github.dmlloyd.classfile.impl.FieldImpl;
+import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -59,6 +60,6 @@ public sealed interface FieldModel
 
     /** {@return the field descriptor of this field, as a symbolic descriptor} */
     default ClassDesc fieldTypeSymbol() {
-        return ClassDesc.ofDescriptor(fieldType().stringValue());
+        return Util.fieldTypeSymbol(fieldType());
     }
 }

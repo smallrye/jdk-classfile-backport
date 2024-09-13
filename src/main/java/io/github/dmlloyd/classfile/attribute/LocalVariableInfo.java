@@ -28,6 +28,7 @@ import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BoundLocalVariable;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -65,7 +66,7 @@ public sealed interface LocalVariableInfo
      * {@return the field descriptor of the local variable}
      */
     default ClassDesc typeSymbol() {
-        return ClassDesc.ofDescriptor(type().stringValue());
+        return Util.fieldTypeSymbol(type());
     }
 
     /**

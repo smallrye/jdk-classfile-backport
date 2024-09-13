@@ -33,6 +33,7 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BoundRecordComponentInfo;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -58,7 +59,7 @@ public sealed interface RecordComponentInfo
      * {@return the field descriptor of this component, as a {@linkplain ClassDesc}}
      */
     default ClassDesc descriptorSymbol() {
-        return ClassDesc.ofDescriptor(descriptor().stringValue());
+        return Util.fieldTypeSymbol(descriptor());
     }
 
     /**
@@ -95,7 +96,7 @@ public sealed interface RecordComponentInfo
                                   ClassDesc descriptor,
                                   List<Attribute<?>> attributes) {
         return new UnboundAttribute.UnboundRecordComponentInfo(TemporaryConstantPool.INSTANCE.utf8Entry(name),
-                                                               TemporaryConstantPool.INSTANCE.utf8Entry(descriptor.descriptorString()),
+                                                               TemporaryConstantPool.INSTANCE.utf8Entry(descriptor),
                                                                attributes);
     }
 

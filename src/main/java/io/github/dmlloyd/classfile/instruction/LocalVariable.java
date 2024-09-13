@@ -36,6 +36,7 @@ import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.impl.BoundLocalVariable;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
+import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -70,7 +71,7 @@ public sealed interface LocalVariable extends PseudoInstruction
      * {@return the local variable type, as a symbolic descriptor}
      */
     default ClassDesc typeSymbol() {
-        return ClassDesc.ofDescriptor(type().stringValue());
+        return Util.fieldTypeSymbol(type());
     }
 
     /**
@@ -109,7 +110,7 @@ public sealed interface LocalVariable extends PseudoInstruction
     static LocalVariable of(int slot, String name, ClassDesc descriptor, Label startScope, Label endScope) {
         return of(slot,
                   TemporaryConstantPool.INSTANCE.utf8Entry(name),
-                  TemporaryConstantPool.INSTANCE.utf8Entry(descriptor.descriptorString()),
+                  TemporaryConstantPool.INSTANCE.utf8Entry(descriptor),
                   startScope, endScope);
     }
 }

@@ -31,6 +31,7 @@ import java.util.Optional;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BufferedMethodBuilder;
 import io.github.dmlloyd.classfile.impl.MethodImpl;
+import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -59,7 +60,7 @@ public sealed interface MethodModel
 
     /** {@return the method descriptor of this method, as a symbolic descriptor} */
     default MethodTypeDesc methodTypeSymbol() {
-        return MethodTypeDesc.ofDescriptor(methodType().stringValue());
+        return Util.methodTypeSymbol(methodType());
     }
 
     /** {@return the body of this method, if there is one} */
