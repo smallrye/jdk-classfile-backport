@@ -24,6 +24,7 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolException;
 import java.lang.constant.*;
 import java.lang.invoke.TypeDescriptor;
 import java.nio.charset.StandardCharsets;
@@ -267,11 +268,11 @@ public abstract sealed class AbstractPoolEntry {
                             // 110x xxxx  10xx xxxx
                             px += 2;
                             if (px > utfend) {
-                                throw new CpException("malformed input: partial character at end");
+                                throw malformedInput(utfend);
                             }
                             int char2 = rawBytes[px - 1];
                             if ((char2 & 0xC0) != 0x80) {
-                                throw new CpException("malformed input around byte " + px);
+                                throw malformedInput(px);
                             }
                             char v = (char) (((c & 0x1F) << 6) | (char2 & 0x3F));
                             chararr[chararr_count++] = v;
@@ -282,12 +283,12 @@ public abstract sealed class AbstractPoolEntry {
                             // 1110 xxxx  10xx xxxx  10xx xxxx
                             px += 3;
                             if (px > utfend) {
-                                throw new CpException("malformed input: partial character at end");
+                                throw malformedInput(utfend);
                             }
                             int char2 = rawBytes[px - 2];
                             int char3 = rawBytes[px - 1];
                             if (((char2 & 0xC0) != 0x80) || ((char3 & 0xC0) != 0x80)) {
-                                throw new CpException("malformed input around byte " + (px - 1));
+                                throw malformedInput(px - 1);
                             }
                             char v = (char) (((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | (char3 & 0x3F));
                             chararr[chararr_count++] = v;
@@ -296,7 +297,7 @@ public abstract sealed class AbstractPoolEntry {
                         }
                         default:
                             // 10xx xxxx,  1111 xxxx
-                            throw new CpException("malformed input around byte " + px);
+                            throw malformedInput(px);
                     }
                 }
                 this.hash = hashString(hash);
@@ -304,7 +305,10 @@ public abstract sealed class AbstractPoolEntry {
                 this.chars = chararr;
                 state = State.CHAR;
             }
+        }
 
+        private ConstantPoolException malformedInput(int px) {
+            return new ConstantPoolException("#%d: malformed modified UTF8 around byte %d".formatted(index(), px));
         }
 
         @Override
@@ -1141,14 +1145,6 @@ public abstract sealed class AbstractPoolEntry {
                 return doubleValue() == e.doubleValue();
             }
             return false;
-        }
-    }
-
-    static class CpException extends RuntimeException {
-        static final long serialVersionUID = 32L;
-
-        CpException(String s) {
-            super(s);
         }
     }
 }
