@@ -281,8 +281,12 @@ public final class BufWriterImpl implements BufWriter {
     public void writeIndex(PoolEntry entry) {
         int idx = AbstractPoolEntry.maybeClone(constantPool, entry).index();
         if (idx < 1 || idx > Character.MAX_VALUE)
-            throw new IllegalArgumentException(idx + " is not a valid index. Entry: " + entry);
+            throw invalidIndex(idx, entry);
         writeU2(idx);
+    }
+
+    static IllegalArgumentException invalidIndex(int idx, PoolEntry entry) {
+        return new IllegalArgumentException(idx + " is not a valid index. Entry: " + entry);
     }
 
     @Override
@@ -291,5 +295,15 @@ public final class BufWriterImpl implements BufWriter {
             writeU2(0);
         else
             writeIndex(entry);
+    }
+
+    /**
+     * Join head and tail into an exact-size buffer
+     */
+    static byte[] join(BufWriterImpl head, BufWriterImpl tail) {
+        byte[] result = new byte[head.size() + tail.size()];
+        head.copyTo(result, 0);
+        tail.copyTo(result, head.size());
+        return result;
     }
 }
