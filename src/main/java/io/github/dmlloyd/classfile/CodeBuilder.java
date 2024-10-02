@@ -615,10 +615,10 @@ public sealed interface CodeBuilder
         if (value == null || value == ConstantDescs.NULL)
             return aconst_null();
         if (value instanceof Number) {
-            if (value instanceof Integer) return loadConstant((int)    value);
-            if (value instanceof Long   ) return loadConstant((long)   value);
-            if (value instanceof Float  ) return loadConstant((float)  value);
-            if (value instanceof Double ) return loadConstant((double) value);
+            if (value instanceof Integer v) return loadConstant(v);
+            if (value instanceof Long    v) return loadConstant(v);
+            if (value instanceof Float   v) return loadConstant(v);
+            if (value instanceof Double  v) return loadConstant(v);
         }
         return ldc(value);
     }

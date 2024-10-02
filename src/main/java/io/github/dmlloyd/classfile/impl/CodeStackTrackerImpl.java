@@ -328,15 +328,15 @@ public final class CodeStackTrackerImpl implements CodeStackTracker {
         else if (el instanceof TypeCheckInstruction i) {
             switch (i.opcode()) {
                 case CHECKCAST -> {
-                    pop(1);push(TypeKind.ReferenceType);
+                    pop(1);push(TypeKind.REFERENCE);
                 }
                 case INSTANCEOF -> {
-                    pop(1);push(TypeKind.IntType);
+                    pop(1);push(TypeKind.INT);
                 }
             }
         }
         else if (el instanceof ExceptionCatch i) 
-            map.put(i.handler(), new Stack(new Item(TypeKind.ReferenceType, null), 1, 1));
+            map.put(i.handler(), new Stack(new Item(TypeKind.REFERENCE, null), 1, 1));
         else if (el instanceof LabelTarget i) 
             stack = map.getOrDefault(i.label(), stack);
     }
