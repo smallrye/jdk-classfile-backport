@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
+import io.github.dmlloyd.classfile.impl.BytecodeHelpers;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
@@ -112,10 +113,10 @@ public sealed interface DiscontinuedInstruction extends Instruction {
          *           which must be of kind {@link Opcode.Kind#DISCONTINUED_RET}
          * @param slot the local variable slot to load return address from
          * @throws IllegalArgumentException if the opcode kind is not
-         *         {@link Opcode.Kind#DISCONTINUED_RET}.
+         *         {@link Opcode.Kind#DISCONTINUED_RET} or if {@code slot} is out of range
          */
         static RetInstruction of(Opcode op, int slot) {
-            Util.checkKind(op, Opcode.Kind.DISCONTINUED_RET);
+            BytecodeHelpers.validateRet(op, slot);
             return new AbstractInstruction.UnboundRetInstruction(op, slot);
         }
 
@@ -123,6 +124,7 @@ public sealed interface DiscontinuedInstruction extends Instruction {
          * {@return a RET instruction}
          *
          * @param slot the local variable slot to load return address from
+         * @throws IllegalArgumentException if {@code slot} is out of range
          */
         static RetInstruction of(int slot) {
             return of(slot < 256 ? Opcode.RET : Opcode.RET_W, slot);

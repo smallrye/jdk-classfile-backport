@@ -29,6 +29,7 @@ import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
+import io.github.dmlloyd.classfile.impl.BytecodeHelpers;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
@@ -58,9 +59,11 @@ public sealed interface NewMultiArrayInstruction extends Instruction
      *
      * @param arrayTypeEntry the type of the array
      * @param dimensions the number of dimensions of the array
+     * @throws IllegalArgumentException if {@code dimensions} is out of range
      */
     static NewMultiArrayInstruction of(ClassEntry arrayTypeEntry,
                                        int dimensions) {
+        BytecodeHelpers.validateMultiArrayDimensions(dimensions);
         return new AbstractInstruction.UnboundNewMultidimensionalArrayInstruction(arrayTypeEntry, dimensions);
     }
 }
