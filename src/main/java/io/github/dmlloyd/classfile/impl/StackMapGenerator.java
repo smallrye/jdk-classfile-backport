@@ -1384,7 +1384,10 @@ public final class StackMapGenerator {
             int compressed = 0;
             for (int i = 0; i < count; i++) {
                 if (!types[i].isCategory2_2nd()) {
-                    types[compressed++] = types[i];
+                    if (compressed != i) {
+                        types[compressed] = types[i];
+                    }
+                    compressed++;
                 }
             }
             return compressed;
@@ -1426,8 +1429,7 @@ public final class StackMapGenerator {
                 return;
             }
             //full frame
-            out.writeU1U2(255, offsetDelta);
-            out.writeU2(localsSize);
+            out.writeU1U2U2(255, offsetDelta, localsSize);
             for (int i=0; i<localsSize; i++) locals[i].writeTo(out, cp);
             out.writeU2(stackSize);
             for (int i=0; i<stackSize; i++) stack[i].writeTo(out, cp);
@@ -1594,13 +1596,14 @@ public final class StackMapGenerator {
             return Type.TOP_TYPE;
         }
 
-        void writeTo(BufWriter bw, ConstantPoolBuilder cp) {
-            bw.writeU1(tag);
+        void writeTo(BufWriterImpl bw, ConstantPoolBuilder cp) {
             switch (tag) {
                 case ITEM_OBJECT ->
-                    bw.writeU2(cp.classEntry(sym).index());
+                    bw.writeU1U2(tag, cp.classEntry(sym).index());
                 case ITEM_UNINITIALIZED ->
-                    bw.writeU2(bci);
+                    bw.writeU1U2(tag, bci);
+                default ->
+                    bw.writeU1(tag);
             }
         }
     }
