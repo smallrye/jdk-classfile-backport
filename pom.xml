@@ -6,7 +6,7 @@
 
     <groupId>io.github.dmlloyd</groupId>
     <artifactId>jdk-classfile-backport</artifactId>
-    <version>24.0-SNAPSHOT</version>
+    <version>24.beta5</version>
 
     <name>JDK Classfile API backport (Unofficial)</name>
     <description>An unofficial backport of the JDK Classfile API to Java 17</description>
