@@ -55,6 +55,8 @@ import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 
+import static java.util.Objects.requireNonNull;
+
 public abstract sealed class AbstractPoolEntry {
     /*
     Invariant: a {CP,BSM} entry for pool P refer only to {CP,BSM} entries
@@ -436,7 +438,7 @@ public abstract sealed class AbstractPoolEntry {
                 inflate();
             switch (state) {
                 case STRING:
-                    return stringValue.equals(s);
+                    return stringValue.equals(requireNonNull(s));
                 case CHAR:
                     if (charLen != s.length() || contentHash != s.hashCode())
                         return false;

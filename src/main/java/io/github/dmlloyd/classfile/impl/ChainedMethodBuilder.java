@@ -33,6 +33,8 @@ import io.github.dmlloyd.classfile.MethodBuilder;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 
+import static java.util.Objects.requireNonNull;
+
 public final class ChainedMethodBuilder implements MethodBuilder {
     final TerminalMethodBuilder terminal;
     final Consumer<MethodElement> consumer;
@@ -45,7 +47,7 @@ public final class ChainedMethodBuilder implements MethodBuilder {
 
     @Override
     public MethodBuilder with(MethodElement element) {
-        consumer.accept(element);
+        consumer.accept(requireNonNull(element));
         return this;
     }
 

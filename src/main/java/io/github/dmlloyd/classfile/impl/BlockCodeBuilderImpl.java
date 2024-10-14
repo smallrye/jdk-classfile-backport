@@ -33,6 +33,8 @@ import io.github.dmlloyd.classfile.instruction.LabelTarget;
 import java.util.Objects;
 import io.github.dmlloyd.classfile.Instruction;
 
+import static java.util.Objects.requireNonNull;
+
 public final class BlockCodeBuilderImpl
         extends NonterminalCodeBuilder
         implements CodeBuilder.BlockCodeBuilder {
@@ -79,7 +81,7 @@ public final class BlockCodeBuilderImpl
 
     @Override
     public CodeBuilder with(CodeElement element) {
-        parent.with(element);
+        parent.with(requireNonNull(element));
 
         hasInstructions |= element instanceof Instruction;
 

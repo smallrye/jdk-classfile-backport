@@ -31,6 +31,8 @@ import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
+import static java.util.Objects.requireNonNull;
+
 public final class ChainedClassBuilder
     implements ClassBuilder, Consumer<ClassElement> {
     private final DirectClassBuilder terminal;
@@ -44,7 +46,7 @@ public final class ChainedClassBuilder
 
     @Override
     public ClassBuilder with(ClassElement element) {
-        consumer.accept(element);
+        consumer.accept(requireNonNull(element));
         return this;
     }
 

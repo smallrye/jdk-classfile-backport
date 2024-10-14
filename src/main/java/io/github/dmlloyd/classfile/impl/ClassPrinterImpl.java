@@ -121,6 +121,7 @@ import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.*;
 import io.github.dmlloyd.classfile.CompoundElement;
 import io.github.dmlloyd.classfile.FieldModel;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
+import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.impl.ClassPrinterImpl.Style.*;
 
 public final class ClassPrinterImpl {
@@ -609,6 +610,7 @@ public final class ClassPrinterImpl {
     private record ExceptionHandler(int start, int end, int handler, String catchType) {}
 
     public static MapNode modelToTree(CompoundElement<?> model, Verbosity verbosity) {
+        requireNonNull(verbosity); // we are using == checks in implementations
         if (model instanceof ClassModel cm) return classToTree(cm, verbosity);
         else if (model instanceof FieldModel fm) return fieldToTree(fm, verbosity);
         else if (model instanceof MethodModel mm) return methodToTree(mm, verbosity);

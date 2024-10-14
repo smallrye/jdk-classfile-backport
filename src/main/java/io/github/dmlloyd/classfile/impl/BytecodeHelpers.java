@@ -47,6 +47,7 @@ import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
 import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
 
 /**
@@ -463,7 +464,7 @@ public class BytecodeHelpers {
         if (opcode == Opcode.RET && (slot & ~0xFF) == 0 ||
                 opcode == Opcode.RET_W && (slot & ~0xFFFF) == 0)
             return;
-        Objects.requireNonNull(opcode);
+        requireNonNull(opcode);
         throw slotOutOfBounds(opcode, slot);
     }
 
@@ -551,7 +552,7 @@ public class BytecodeHelpers {
         } if (constantValue instanceof DynamicConstantDesc<?> value) {
             return handleConstantDescToHandleInfo(constantPool, value);
         }
-        throw new UnsupportedOperationException("not yet: " + constantValue);
+        throw new UnsupportedOperationException("not yet: " + requireNonNull(constantValue));
     }
 
     public static ConstantDesc intrinsicConstantValue(Opcode opcode) {

@@ -42,6 +42,7 @@ import io.github.dmlloyd.classfile.constantpool.*;
 import io.github.dmlloyd.classfile.extras.constant.ConstantUtils;
 
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
+import static java.util.Objects.requireNonNull;
 
 public final class SplitConstantPool implements ConstantPoolBuilder {
 
@@ -126,6 +127,7 @@ public final class SplitConstantPool implements ConstantPoolBuilder {
 
     @Override
     public boolean canWriteDirect(ConstantPool other) {
+        requireNonNull(other);
         return this == other || parent == other;
     }
 
