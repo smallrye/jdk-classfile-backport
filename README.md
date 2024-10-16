@@ -1,8 +1,7 @@
 Unofficial JDK Classfile API Backport
 ========
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-backport/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.dmlloyd/jdk-classfile-backport)
-
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.dmlloyd/jdk-classfile-backport?color=green)](https://search.maven.org/search?q=g:io.github.dmlloyd%20AND%20a:jdk-classfile-backport)
 
 This is a backport to JDK 17 of the new classfile API found in JDK 21 and later.
 
