@@ -42,6 +42,7 @@ import static io.github.dmlloyd.classfile.TypeAnnotation.TargetInfo.*;
 import java.util.List;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+//import jdk.internal.access.SharedSecrets;
 
 public final class AnnotationReader {
     private AnnotationReader() { }

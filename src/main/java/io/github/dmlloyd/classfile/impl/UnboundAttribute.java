@@ -90,6 +90,8 @@ import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import io.github.dmlloyd.classfile.constantpool.PackageEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
+//import jdk.internal.access.SharedSecrets;
+
 import static java.util.Objects.requireNonNull;
 
 public abstract sealed class UnboundAttribute<T extends Attribute<T>>

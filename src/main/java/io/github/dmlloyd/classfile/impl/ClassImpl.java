@@ -55,6 +55,8 @@ import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.SourceDebugExtensionAttribute;
 import io.github.dmlloyd.classfile.attribute.SourceFileAttribute;
 
+//import jdk.internal.access.SharedSecrets;
+
 public final class ClassImpl
         extends AbstractElement
         implements ClassModel {

@@ -34,6 +34,8 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 
+//import jdk.internal.access.JavaLangAccess;
+//import jdk.internal.access.SharedSecrets;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_UTF8;
 
 public final class BufWriterImpl implements BufWriter {

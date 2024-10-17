@@ -51,6 +51,9 @@ import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+//import jdk.internal.access.SharedSecrets;
+//import jdk.internal.vm.annotation.ForceInline;
+//import jdk.internal.vm.annotation.Stable;
 
 import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;

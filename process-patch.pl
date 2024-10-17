@@ -36,5 +36,6 @@ while ($_ = <$git_fh>) {
     s[package java\.lang\.reflect][package io.github.dmlloyd.classfile.extras.reflect]g;
     s[package java\.lang\.constant][package io.github.dmlloyd.classfile.extras.constant]g;
     s[src/java\.base/share/classes][src/main/java]g;
+    s[(import jdk\.internal\..*)][//$1]g;
     print $_;
 }
