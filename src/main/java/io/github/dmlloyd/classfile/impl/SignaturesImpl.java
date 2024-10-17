@@ -24,15 +24,20 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Collections;
 import io.github.dmlloyd.classfile.ClassSignature;
 import io.github.dmlloyd.classfile.MethodSignature;
 import io.github.dmlloyd.classfile.Signature;
-import io.github.dmlloyd.classfile.Signature.*;
+import io.github.dmlloyd.classfile.Signature.ArrayTypeSig;
+import io.github.dmlloyd.classfile.Signature.ClassTypeSig;
+import io.github.dmlloyd.classfile.Signature.RefTypeSig;
+import io.github.dmlloyd.classfile.Signature.ThrowableSig;
+import io.github.dmlloyd.classfile.Signature.TypeArg;
+import io.github.dmlloyd.classfile.Signature.TypeParam;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public final class SignaturesImpl {
 
@@ -124,7 +129,7 @@ public final class SignaturesImpl {
     private Signature typeSig() {
         char c = sig.charAt(sigp++);
         switch (c) {
-            case 'B','C','D','F','I','J','V','S','Z': return BaseTypeSig.of(c);
+            case 'B','C','D','F','I','J','V','S','Z': return Signature.BaseTypeSig.of(c);
             default:
                 sigp--;
                 return referenceTypeSig();
@@ -236,7 +241,7 @@ public final class SignaturesImpl {
         return sigp;
     }
 
-    public static record BaseTypeSigImpl(char baseType) implements BaseTypeSig {
+    public static record BaseTypeSigImpl(char baseType) implements Signature.BaseTypeSig {
 
         @Override
         public String signatureString() {
@@ -244,7 +249,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record TypeVarSigImpl(String identifier) implements TypeVarSig {
+    public static record TypeVarSigImpl(String identifier) implements Signature.TypeVarSig {
 
         @Override
         public String signatureString() {
@@ -252,7 +257,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record ArrayTypeSigImpl(int arrayDepth, Signature elemType) implements ArrayTypeSig {
+    public static record ArrayTypeSigImpl(int arrayDepth, Signature elemType) implements Signature.ArrayTypeSig {
 
         @Override
         public Signature componentSignature() {
@@ -266,7 +271,7 @@ public final class SignaturesImpl {
     }
 
     public static record ClassTypeSigImpl(Optional<ClassTypeSig> outerType, String className, List<TypeArg> typeArgs)
-            implements ClassTypeSig {
+            implements Signature.ClassTypeSig {
 
         @Override
         public String signatureString() {

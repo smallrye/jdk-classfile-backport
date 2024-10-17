@@ -37,11 +37,10 @@ import io.github.dmlloyd.classfile.impl.ClassHierarchyImpl;
 import io.github.dmlloyd.classfile.impl.ClassHierarchyImpl.ClassLoadingClassHierarchyResolver;
 import io.github.dmlloyd.classfile.impl.ClassHierarchyImpl.StaticClassHierarchyResolver;
 import io.github.dmlloyd.classfile.impl.Util;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import static java.lang.constant.ConstantDescs.CD_Object;
 import static java.util.Objects.requireNonNull;
-
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Provides class hierarchy information for generating correct stack maps

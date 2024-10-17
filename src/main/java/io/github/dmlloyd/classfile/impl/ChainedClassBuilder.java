@@ -24,12 +24,10 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.lang.constant.MethodTypeDesc;
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 

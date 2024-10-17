@@ -24,10 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.Arrays;
-
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributeMapper;
+import java.util.Arrays;
 
 public class AttributeHolder {
     private static final Attribute<?>[] EMPTY_ATTRIBUTE_ARRAY = {};

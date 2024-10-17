@@ -24,21 +24,14 @@
  */
 package io.github.dmlloyd.classfile;
 
-import io.github.dmlloyd.classfile.constantpool.AnnotationConstantValueEntry;
-import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
-import io.github.dmlloyd.classfile.constantpool.DynamicConstantPoolEntry;
-import io.github.dmlloyd.classfile.constantpool.FloatEntry;
-import io.github.dmlloyd.classfile.constantpool.IntegerEntry;
-import io.github.dmlloyd.classfile.constantpool.LongEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.AnnotationImpl;
-import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.dmlloyd.classfile.impl.AnnotationImpl;
+import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

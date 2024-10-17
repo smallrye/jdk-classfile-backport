@@ -29,10 +29,10 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolException;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
-
 import java.util.Optional;
 import java.util.function.Function;
+
+import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

@@ -25,9 +25,11 @@
 package io.github.dmlloyd.classfile;
 
 import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.SignaturesImpl;
-import static java.util.Objects.requireNonNull;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Models the generic signature of a class file, as defined by JVMS {@jvms 4.7.9}.

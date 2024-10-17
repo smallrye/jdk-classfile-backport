@@ -24,9 +24,10 @@
  */
 package io.github.dmlloyd.classfile;
 
-import java.util.Set;
-import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Set;
+
+import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

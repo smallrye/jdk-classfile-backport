@@ -26,6 +26,7 @@ package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.AnnotationValue;
 import java.lang.constant.ConstantDesc;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

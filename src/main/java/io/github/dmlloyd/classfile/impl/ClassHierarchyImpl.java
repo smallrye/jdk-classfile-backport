@@ -30,19 +30,19 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import io.github.dmlloyd.classfile.ClassHierarchyResolver;
 import java.lang.constant.ClassDesc;
+import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
-import io.github.dmlloyd.classfile.ClassHierarchyResolver;
-
-import static java.lang.constant.ConstantDescs.CD_Object;
-import static io.github.dmlloyd.classfile.ClassFile.*;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_INTERFACE;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
+import static java.lang.constant.ConstantDescs.CD_Object;
 import static java.util.Objects.requireNonNull;
+import static io.github.dmlloyd.classfile.extras.constant.ConstantUtils.referenceClassDesc;
 
 /**
  * Class hierarchy resolution framework is answering questions about classes assignability, common classes ancestor and whether the class represents an interface.

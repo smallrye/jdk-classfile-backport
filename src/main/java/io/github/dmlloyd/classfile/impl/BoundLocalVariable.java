@@ -25,10 +25,10 @@
 
 package io.github.dmlloyd.classfile.impl;
 
-import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
+import java.lang.constant.ClassDesc;
 
 public final class BoundLocalVariable
         extends AbstractBoundLocalVariable

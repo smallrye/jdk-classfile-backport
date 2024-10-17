@@ -24,10 +24,11 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.lang.constant.ConstantDesc;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
+import java.lang.constant.ConstantDesc;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;

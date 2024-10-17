@@ -25,32 +25,9 @@
 
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.instruction.*;
+
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
-import io.github.dmlloyd.classfile.instruction.ArrayLoadInstruction;
-import io.github.dmlloyd.classfile.instruction.ArrayStoreInstruction;
-import io.github.dmlloyd.classfile.instruction.BranchInstruction;
-import io.github.dmlloyd.classfile.instruction.ConstantInstruction;
-import io.github.dmlloyd.classfile.instruction.ConvertInstruction;
-import io.github.dmlloyd.classfile.instruction.DiscontinuedInstruction;
-import io.github.dmlloyd.classfile.instruction.FieldInstruction;
-import io.github.dmlloyd.classfile.instruction.IncrementInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeDynamicInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeInstruction;
-import io.github.dmlloyd.classfile.instruction.LoadInstruction;
-import io.github.dmlloyd.classfile.instruction.LookupSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.MonitorInstruction;
-import io.github.dmlloyd.classfile.instruction.NewMultiArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewObjectInstruction;
-import io.github.dmlloyd.classfile.instruction.NewPrimitiveArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewReferenceArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NopInstruction;
-import io.github.dmlloyd.classfile.instruction.OperatorInstruction;
-import io.github.dmlloyd.classfile.instruction.ReturnInstruction;
-import io.github.dmlloyd.classfile.instruction.StackInstruction;
-import io.github.dmlloyd.classfile.instruction.StoreInstruction;
-import io.github.dmlloyd.classfile.instruction.TableSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.ThrowInstruction;
-import io.github.dmlloyd.classfile.instruction.TypeCheckInstruction;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

@@ -24,13 +24,12 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.lang.constant.ClassDesc;
-import java.util.Optional;
-import java.util.Set;
-
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Optional;
+import java.util.Set;
 
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;

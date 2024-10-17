@@ -25,21 +25,21 @@
  */
 package io.github.dmlloyd.classfile.impl.verifier;
 
-import java.lang.constant.ClassDesc;
-import java.util.LinkedList;
-import java.util.List;
-
+import io.github.dmlloyd.classfile.Attributes;
+import io.github.dmlloyd.classfile.ClassModel;
+import io.github.dmlloyd.classfile.MethodModel;
+import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.DynamicConstantPoolEntry;
 import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
 import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
+import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.constantpool.ConstantPool;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
-import io.github.dmlloyd.classfile.Attributes;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.CodeImpl;
 import io.github.dmlloyd.classfile.impl.Util;

@@ -24,7 +24,6 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
-import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
 import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
@@ -32,8 +31,10 @@ import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.PseudoInstruction;
 import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
 import io.github.dmlloyd.classfile.attribute.CharacterRangeTableAttribute;
+
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.impl.BoundCharacterRange;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A pseudo-instruction which models a single entry in the
@@ -43,6 +44,7 @@ import io.github.dmlloyd.classfile.impl.BoundCharacterRange;
  *
  * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CharacterRange extends PseudoInstruction
         permits AbstractPseudoInstruction.UnboundCharacterRange, BoundCharacterRange {
 

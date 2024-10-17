@@ -24,15 +24,14 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
+import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
@@ -54,10 +53,10 @@ public sealed interface ModuleRequireInfo
 
     /**
      * {@return the flags associated with this require declaration, as a bit mask}
-     * Valid flags include {@link ClassFile#ACC_TRANSITIVE},
-     * {@link ClassFile#ACC_STATIC_PHASE},
-     * {@link ClassFile#ACC_SYNTHETIC} and
-     * {@link ClassFile#ACC_MANDATED}
+     * Valid flags include {@link io.github.dmlloyd.classfile.ClassFile#ACC_TRANSITIVE},
+     * {@link io.github.dmlloyd.classfile.ClassFile#ACC_STATIC_PHASE},
+     * {@link io.github.dmlloyd.classfile.ClassFile#ACC_SYNTHETIC} and
+     * {@link io.github.dmlloyd.classfile.ClassFile#ACC_MANDATED}
      */
     int requiresFlagsMask();
 

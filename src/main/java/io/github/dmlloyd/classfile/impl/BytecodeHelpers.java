@@ -25,6 +25,10 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.BootstrapMethodEntry;
+import io.github.dmlloyd.classfile.Opcode;
+import io.github.dmlloyd.classfile.TypeKind;
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
 import java.lang.constant.ConstantDescs;
@@ -34,18 +38,6 @@ import java.lang.constant.MethodTypeDesc;
 import java.lang.invoke.MethodHandleInfo;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.dmlloyd.classfile.BootstrapMethodEntry;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
-import io.github.dmlloyd.classfile.Opcode;
-import io.github.dmlloyd.classfile.TypeKind;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;

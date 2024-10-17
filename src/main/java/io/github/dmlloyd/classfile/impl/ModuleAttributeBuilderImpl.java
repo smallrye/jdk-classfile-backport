@@ -25,16 +25,22 @@
 
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.attribute.*;
+import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
 import io.github.dmlloyd.classfile.attribute.ModuleAttribute.ModuleAttributeBuilder;
+import io.github.dmlloyd.classfile.attribute.ModuleExportInfo;
+import io.github.dmlloyd.classfile.attribute.ModuleOpenInfo;
+import io.github.dmlloyd.classfile.attribute.ModuleProvideInfo;
+import io.github.dmlloyd.classfile.attribute.ModuleRequireInfo;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
-
-import java.lang.constant.ClassDesc;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public final class ModuleAttributeBuilderImpl
         implements ModuleAttributeBuilder {

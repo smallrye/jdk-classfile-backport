@@ -25,27 +25,28 @@
 package io.github.dmlloyd.classfile;
 
 import java.io.IOException;
-import java.lang.constant.ClassDesc;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
+import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
+import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
+import io.github.dmlloyd.classfile.attribute.LocalVariableTypeInfo;
 import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
+import java.lang.constant.ClassDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import io.github.dmlloyd.classfile.impl.ClassFileImpl;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.attribute.CharacterRangeInfo;
-import io.github.dmlloyd.classfile.attribute.LocalVariableInfo;
-import io.github.dmlloyd.classfile.attribute.LocalVariableTypeInfo;
-import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
-import java.util.List;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
+
 import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.extras.constant.ConstantUtils.CD_module_info;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Represents a context for parsing, transforming, and generating classfiles.

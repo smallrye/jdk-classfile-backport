@@ -26,13 +26,12 @@
 package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedFieldBuilder;
 import io.github.dmlloyd.classfile.impl.TerminalFieldBuilder;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-
-import java.util.function.Consumer;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

@@ -24,17 +24,16 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.PackageEntry;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;

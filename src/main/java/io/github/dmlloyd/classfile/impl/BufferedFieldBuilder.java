@@ -24,15 +24,18 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.AccessFlags;
+import io.github.dmlloyd.classfile.ClassModel;
+import io.github.dmlloyd.classfile.FieldBuilder;
+import io.github.dmlloyd.classfile.FieldElement;
+import io.github.dmlloyd.classfile.FieldModel;
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.*;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import static java.util.Objects.requireNonNull;
 

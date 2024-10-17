@@ -24,10 +24,11 @@
  */
 package io.github.dmlloyd.classfile.constantpool;
 
+import java.lang.constant.ClassDesc;
+
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
-import java.lang.constant.ClassDesc;
 
 /**
  * Models a {@code CONSTANT_Fieldref_info} constant in the constant pool of a

@@ -24,47 +24,16 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.constantpool.PoolEntry;
+import io.github.dmlloyd.classfile.Instruction;
+import io.github.dmlloyd.classfile.Label;
+import io.github.dmlloyd.classfile.Opcode;
+import io.github.dmlloyd.classfile.TypeKind;
+import io.github.dmlloyd.classfile.constantpool.*;
+import io.github.dmlloyd.classfile.instruction.*;
 import java.lang.constant.ConstantDesc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import io.github.dmlloyd.classfile.Instruction;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.instruction.SwitchCase;
-import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.instruction.ArrayLoadInstruction;
-import io.github.dmlloyd.classfile.instruction.ArrayStoreInstruction;
-import io.github.dmlloyd.classfile.instruction.BranchInstruction;
-import io.github.dmlloyd.classfile.instruction.ConstantInstruction;
-import io.github.dmlloyd.classfile.instruction.ConvertInstruction;
-import io.github.dmlloyd.classfile.instruction.DiscontinuedInstruction;
-import io.github.dmlloyd.classfile.instruction.FieldInstruction;
-import io.github.dmlloyd.classfile.instruction.IncrementInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeDynamicInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeInstruction;
-import io.github.dmlloyd.classfile.instruction.LoadInstruction;
-import io.github.dmlloyd.classfile.instruction.LookupSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.MonitorInstruction;
-import io.github.dmlloyd.classfile.instruction.NewMultiArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewObjectInstruction;
-import io.github.dmlloyd.classfile.instruction.NewPrimitiveArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewReferenceArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NopInstruction;
-import io.github.dmlloyd.classfile.instruction.OperatorInstruction;
-import io.github.dmlloyd.classfile.instruction.ReturnInstruction;
-import io.github.dmlloyd.classfile.instruction.StackInstruction;
-import io.github.dmlloyd.classfile.instruction.StoreInstruction;
-import io.github.dmlloyd.classfile.instruction.TableSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.ThrowInstruction;
-import io.github.dmlloyd.classfile.instruction.TypeCheckInstruction;
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.Opcode;
-import io.github.dmlloyd.classfile.TypeKind;
 
 import static java.util.Objects.requireNonNull;
 

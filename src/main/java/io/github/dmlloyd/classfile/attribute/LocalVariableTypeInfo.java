@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+
 import io.github.dmlloyd.classfile.impl.BoundLocalVariableType;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

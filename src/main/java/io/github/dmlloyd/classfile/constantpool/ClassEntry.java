@@ -26,6 +26,7 @@ package io.github.dmlloyd.classfile.constantpool;
 
 import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
+
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

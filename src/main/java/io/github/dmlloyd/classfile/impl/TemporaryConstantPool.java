@@ -24,30 +24,8 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.*;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPool;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
-import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
-import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
-import io.github.dmlloyd.classfile.constantpool.FloatEntry;
-import io.github.dmlloyd.classfile.constantpool.IntegerEntry;
-import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.LongEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.PackageEntry;
-import io.github.dmlloyd.classfile.constantpool.PoolEntry;
-import io.github.dmlloyd.classfile.constantpool.StringEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-
+import io.github.dmlloyd.classfile.BootstrapMethodEntry;
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.lang.constant.MethodTypeDesc;
 import java.util.List;
 import java.util.Objects;

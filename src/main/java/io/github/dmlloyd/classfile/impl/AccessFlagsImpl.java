@@ -24,9 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.Set;
 import io.github.dmlloyd.classfile.AccessFlags;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Set;
 
 public final class AccessFlagsImpl extends AbstractElement
         implements AccessFlags {

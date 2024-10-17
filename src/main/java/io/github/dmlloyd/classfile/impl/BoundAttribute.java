@@ -27,15 +27,7 @@ package io.github.dmlloyd.classfile.impl;
 
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.attribute.*;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPool;
-import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.PackageEntry;
-import io.github.dmlloyd.classfile.constantpool.PoolEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

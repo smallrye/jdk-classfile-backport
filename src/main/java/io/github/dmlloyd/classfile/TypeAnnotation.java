@@ -25,10 +25,10 @@
 
 package io.github.dmlloyd.classfile;
 
-import java.util.List;
-
 import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.TargetInfoImpl;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

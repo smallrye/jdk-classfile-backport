@@ -26,13 +26,12 @@ package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.impl.BoundAttribute;
-
+import io.github.dmlloyd.classfile.constantpool.PackageEntry;
+import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 import java.util.Arrays;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.constantpool.PackageEntry;
-import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

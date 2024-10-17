@@ -24,43 +24,20 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.attribute.*;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.constantpool.ConstantPool;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.AccessFlags;
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.ClassFileVersion;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.constantpool.ConstantPool;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.Interfaces;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.Superclass;
-import io.github.dmlloyd.classfile.attribute.InnerClassesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleHashesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleMainClassAttribute;
-import io.github.dmlloyd.classfile.attribute.ModulePackagesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleResolutionAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleTargetAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceDebugExtensionAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceFileAttribute;
 
 //import jdk.internal.access.SharedSecrets;
 
 public final class ClassImpl
         extends AbstractElement
         implements ClassModel {
-
     final ClassReaderImpl reader;
     private final int attributesPos;
     private final List<MethodModel> methods;

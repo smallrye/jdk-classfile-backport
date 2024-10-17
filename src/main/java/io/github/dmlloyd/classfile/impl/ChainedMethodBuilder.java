@@ -24,14 +24,13 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.MethodBuilder;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
+import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 

@@ -26,12 +26,11 @@ package io.github.dmlloyd.classfile.impl;
 
 import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
+import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeKind;
 import io.github.dmlloyd.classfile.instruction.LabelTarget;
-
 import java.util.Objects;
-import io.github.dmlloyd.classfile.Instruction;
 
 import static java.util.Objects.requireNonNull;
 

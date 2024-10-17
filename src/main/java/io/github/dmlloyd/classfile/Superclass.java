@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+
 import io.github.dmlloyd.classfile.impl.SuperclassImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

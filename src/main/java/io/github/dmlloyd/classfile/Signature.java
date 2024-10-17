@@ -25,15 +25,16 @@
 package io.github.dmlloyd.classfile;
 
 import java.lang.constant.ClassDesc;
-
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
-import io.github.dmlloyd.classfile.impl.SignaturesImpl;
 
 import java.util.List;
-import static java.util.Objects.requireNonNull;
 import java.util.Optional;
+
+import io.github.dmlloyd.classfile.impl.SignaturesImpl;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Models generic Java type signatures, as defined in JVMS {@jvms 4.7.9.1}.

@@ -25,18 +25,10 @@
 
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.MethodTypeDesc;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.CodeTransform;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.MethodElement;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import static java.util.Objects.requireNonNull;
 

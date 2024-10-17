@@ -27,12 +27,11 @@ package io.github.dmlloyd.classfile.impl;
 import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.TypeKind;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.MethodModel;
+import io.github.dmlloyd.classfile.TypeKind;
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -25,22 +25,20 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Attribute;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
-
-import java.util.List;
 
 /**
  * Models the {@code LocalVariableTypeTable} attribute (JVMS {@jvms 4.7.14}), which can appear
  * on a {@code Code} attribute, and records debug information about local
  * variables.
  * Delivered as a {@link io.github.dmlloyd.classfile.instruction.LocalVariable} when traversing the
- * elements of a {@link CodeModel}, according to the setting of the
- * {@link ClassFile.LineNumbersOption} option.
+ * elements of a {@link io.github.dmlloyd.classfile.CodeModel}, according to the setting of the
+ * {@link io.github.dmlloyd.classfile.ClassFile.LineNumbersOption} option.
  * <p>
  * The attribute permits multiple instances in a given location.
  *

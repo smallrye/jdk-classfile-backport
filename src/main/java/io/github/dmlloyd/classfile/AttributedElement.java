@@ -24,12 +24,12 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.attribute.RecordComponentInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.dmlloyd.classfile.attribute.RecordComponentInfo;
 import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

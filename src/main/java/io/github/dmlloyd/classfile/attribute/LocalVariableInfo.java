@@ -24,8 +24,9 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.lang.constant.ClassDesc;
+
 import io.github.dmlloyd.classfile.impl.BoundLocalVariable;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;

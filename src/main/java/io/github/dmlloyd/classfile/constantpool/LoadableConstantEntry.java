@@ -24,8 +24,9 @@
  */
 package io.github.dmlloyd.classfile.constantpool;
 
-import java.lang.constant.ConstantDesc;
 import io.github.dmlloyd.classfile.TypeKind;
+import java.lang.constant.ConstantDesc;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

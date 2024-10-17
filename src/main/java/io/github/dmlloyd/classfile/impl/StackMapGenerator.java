@@ -28,7 +28,6 @@ package io.github.dmlloyd.classfile.impl;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BufWriter;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
@@ -43,9 +42,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 //import jdk.internal.util.Preconditions;
 
-import static io.github.dmlloyd.classfile.ClassFile.*;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
 import static java.lang.constant.ConstantDescs.*;
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;

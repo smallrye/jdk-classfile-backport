@@ -27,15 +27,15 @@ package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code SourceDebugExtension} attribute.
- * Delivered as a {@link ClassElement} when traversing the elements of
- * a {@link ClassModel}.
+ * Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when traversing the elements of
+ * a {@link io.github.dmlloyd.classfile.ClassModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

@@ -24,20 +24,15 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.Attributes;
+import io.github.dmlloyd.classfile.BootstrapMethodEntry;
+import io.github.dmlloyd.classfile.ClassReader;
+import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.util.Arrays;
 import java.util.List;
-
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
-import io.github.dmlloyd.classfile.constantpool.ConstantPool;
-import io.github.dmlloyd.classfile.BootstrapMethodEntry;
-import io.github.dmlloyd.classfile.attribute.BootstrapMethodsAttribute;
-import io.github.dmlloyd.classfile.constantpool.*;
 
 import io.github.dmlloyd.classfile.extras.constant.ConstantUtils;
 

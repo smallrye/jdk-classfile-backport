@@ -29,6 +29,7 @@ import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.PseudoInstruction;
 import io.github.dmlloyd.classfile.attribute.LineNumberTableAttribute;
+
 import io.github.dmlloyd.classfile.impl.LineNumberImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

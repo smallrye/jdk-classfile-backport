@@ -24,13 +24,13 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
-import java.util.Optional;
-
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.PseudoInstruction;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import java.util.Optional;
+
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

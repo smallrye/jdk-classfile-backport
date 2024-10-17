@@ -24,9 +24,9 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
 import java.util.function.Supplier;
 
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

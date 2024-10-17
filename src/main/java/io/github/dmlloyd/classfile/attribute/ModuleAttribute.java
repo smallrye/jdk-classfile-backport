@@ -24,24 +24,24 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.lang.constant.ClassDesc;
-import java.util.Collection;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.BoundAttribute;
-import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-
+import java.lang.constant.ClassDesc;
+import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
+import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
-import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+
+import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.ModuleAttributeBuilderImpl;
+import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

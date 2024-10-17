@@ -28,6 +28,7 @@ package io.github.dmlloyd.classfile.attribute;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

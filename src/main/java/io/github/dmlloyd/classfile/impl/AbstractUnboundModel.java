@@ -24,15 +24,14 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.AttributedElement;
 import io.github.dmlloyd.classfile.ClassFileElement;
 import io.github.dmlloyd.classfile.CompoundElement;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public abstract sealed class AbstractUnboundModel<E extends ClassFileElement>
         extends AbstractElement

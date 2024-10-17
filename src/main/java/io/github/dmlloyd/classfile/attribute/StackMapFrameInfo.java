@@ -25,11 +25,11 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
+import io.github.dmlloyd.classfile.Label;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import java.lang.constant.ClassDesc;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.StackMapDecoder;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

@@ -25,11 +25,11 @@
 
 package io.github.dmlloyd.classfile;
 
-import java.util.List;
-
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
 import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.BootstrapMethodEntryImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

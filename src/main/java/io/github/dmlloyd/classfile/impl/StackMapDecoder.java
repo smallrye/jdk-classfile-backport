@@ -30,7 +30,10 @@ import io.github.dmlloyd.classfile.ClassReader;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.MethodModel;
 import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo;
-import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.*;
+import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.ObjectVerificationTypeInfo;
+import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.SimpleVerificationTypeInfo;
+import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.UninitializedVerificationTypeInfo;
+import io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.VerificationTypeInfo;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import java.lang.constant.ConstantDescs;
 import java.lang.constant.MethodTypeDesc;
@@ -40,7 +43,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import static io.github.dmlloyd.classfile.ClassFile.*;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 import static io.github.dmlloyd.classfile.attribute.StackMapFrameInfo.VerificationTypeInfo.*;
 import static java.util.Objects.requireNonNull;
 

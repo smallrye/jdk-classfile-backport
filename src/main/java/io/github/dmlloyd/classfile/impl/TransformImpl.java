@@ -24,28 +24,10 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.ClassFileBuilder;
-import io.github.dmlloyd.classfile.ClassFileTransform;
+import io.github.dmlloyd.classfile.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-
-import io.github.dmlloyd.classfile.ClassBuilder;
-import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassTransform;
-import io.github.dmlloyd.classfile.ClassFileElement;
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CodeElement;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.CodeTransform;
-import io.github.dmlloyd.classfile.FieldBuilder;
-import io.github.dmlloyd.classfile.FieldElement;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.FieldTransform;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.MethodElement;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.MethodTransform;
 
 public final class TransformImpl {
     // ClassTransform

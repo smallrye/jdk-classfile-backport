@@ -25,6 +25,8 @@
 
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.*;
+import io.github.dmlloyd.classfile.instruction.*;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
 import java.lang.constant.ConstantDescs;
@@ -36,59 +38,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.BlockCodeBuilderImpl;
-import io.github.dmlloyd.classfile.impl.BytecodeHelpers;
-import io.github.dmlloyd.classfile.impl.CatchBuilderImpl;
-import io.github.dmlloyd.classfile.impl.ChainedCodeBuilder;
-import io.github.dmlloyd.classfile.impl.LabelImpl;
-import io.github.dmlloyd.classfile.impl.NonterminalCodeBuilder;
-import io.github.dmlloyd.classfile.impl.TerminalCodeBuilder;
-import io.github.dmlloyd.classfile.instruction.ArrayLoadInstruction;
-import io.github.dmlloyd.classfile.instruction.ArrayStoreInstruction;
-import io.github.dmlloyd.classfile.instruction.BranchInstruction;
-import io.github.dmlloyd.classfile.instruction.CharacterRange;
-import io.github.dmlloyd.classfile.instruction.ConstantInstruction;
-import io.github.dmlloyd.classfile.instruction.ConvertInstruction;
-import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
-import io.github.dmlloyd.classfile.instruction.FieldInstruction;
-import io.github.dmlloyd.classfile.instruction.IncrementInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeDynamicInstruction;
-import io.github.dmlloyd.classfile.instruction.InvokeInstruction;
-import io.github.dmlloyd.classfile.instruction.LineNumber;
-import io.github.dmlloyd.classfile.instruction.LoadInstruction;
-import io.github.dmlloyd.classfile.instruction.LocalVariable;
-import io.github.dmlloyd.classfile.instruction.LocalVariableType;
-import io.github.dmlloyd.classfile.instruction.LookupSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.MonitorInstruction;
-import io.github.dmlloyd.classfile.instruction.NewMultiArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewObjectInstruction;
-import io.github.dmlloyd.classfile.instruction.NewPrimitiveArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NewReferenceArrayInstruction;
-import io.github.dmlloyd.classfile.instruction.NopInstruction;
-import io.github.dmlloyd.classfile.instruction.OperatorInstruction;
-import io.github.dmlloyd.classfile.instruction.ReturnInstruction;
-import io.github.dmlloyd.classfile.instruction.StackInstruction;
-import io.github.dmlloyd.classfile.instruction.StoreInstruction;
-import io.github.dmlloyd.classfile.instruction.SwitchCase;
-import io.github.dmlloyd.classfile.instruction.TableSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.ThrowInstruction;
-import io.github.dmlloyd.classfile.instruction.TypeCheckInstruction;
+import io.github.dmlloyd.classfile.impl.*;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.impl.BytecodeHelpers.handleDescToHandleInfo;
-
-import io.github.dmlloyd.classfile.impl.TransformImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for code attributes (method bodies).  Builders are not created

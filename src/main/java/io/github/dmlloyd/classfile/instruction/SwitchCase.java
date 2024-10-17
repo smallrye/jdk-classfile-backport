@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile.instruction;
 
 import io.github.dmlloyd.classfile.Label;
+
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

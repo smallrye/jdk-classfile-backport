@@ -25,18 +25,22 @@
 
 package io.github.dmlloyd.classfile.constantpool;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.ClassReader;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Provides read access to the constant pool and bootstrap method table of a
  * classfile.
+ * @jvms 4.4 The Constant Pool
  *
  * @sealedGraph
  * @since 22
  */
+@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ConstantPool extends Iterable<PoolEntry>
         permits ClassReader, ConstantPoolBuilder {
 

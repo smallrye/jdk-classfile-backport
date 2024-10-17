@@ -29,6 +29,7 @@ import io.github.dmlloyd.classfile.AnnotationValue;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.MethodModel;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
@@ -66,5 +67,4 @@ public sealed interface AnnotationDefaultAttribute
     static AnnotationDefaultAttribute of(AnnotationValue annotationDefault) {
         return new UnboundAttribute.UnboundAnnotationDefaultAttribute(annotationDefault);
     }
-
 }

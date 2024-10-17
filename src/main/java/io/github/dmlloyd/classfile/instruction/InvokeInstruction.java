@@ -24,18 +24,18 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
-import java.lang.constant.MethodTypeDesc;
-
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.Opcode;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
 import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
 import io.github.dmlloyd.classfile.constantpool.MethodRefEntry;
 import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.lang.constant.MethodTypeDesc;
+
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;

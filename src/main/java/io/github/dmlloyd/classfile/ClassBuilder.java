@@ -25,22 +25,20 @@
 
 package io.github.dmlloyd.classfile;
 
-
+import io.github.dmlloyd.classfile.attribute.CodeAttribute;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedClassBuilder;
 import io.github.dmlloyd.classfile.impl.DirectClassBuilder;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

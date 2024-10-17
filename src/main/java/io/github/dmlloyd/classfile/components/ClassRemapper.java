@@ -24,15 +24,16 @@
  */
 package io.github.dmlloyd.classfile.components;
 
-import java.lang.constant.ClassDesc;
-import java.util.Map;
-import java.util.function.Function;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.ClassTransform;
-import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.FieldTransform;
 import io.github.dmlloyd.classfile.MethodTransform;
+import java.lang.constant.ClassDesc;
+import java.util.Map;
+import java.util.function.Function;
+
 import io.github.dmlloyd.classfile.impl.ClassRemapperImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

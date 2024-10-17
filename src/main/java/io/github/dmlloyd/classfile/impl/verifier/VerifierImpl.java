@@ -24,20 +24,23 @@
  */
 package io.github.dmlloyd.classfile.impl.verifier;
 
+import io.github.dmlloyd.classfile.ClassHierarchyResolver;
+import io.github.dmlloyd.classfile.ClassModel;
+import io.github.dmlloyd.classfile.components.ClassPrinter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-import io.github.dmlloyd.classfile.ClassHierarchyResolver;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.components.ClassPrinter;
+
 import io.github.dmlloyd.classfile.impl.ClassHierarchyImpl;
 import io.github.dmlloyd.classfile.impl.RawBytecodeHelper;
-import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
-import io.github.dmlloyd.classfile.impl.verifier.VerificationWrapper.ConstantPoolWrapper;
-import static io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType.*;
 import io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType;
+import io.github.dmlloyd.classfile.impl.verifier.VerificationWrapper.ConstantPoolWrapper;
+
+import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
 import static io.github.dmlloyd.classfile.impl.verifier.VerificationFrame.FLAG_THIS_UNINIT;
+import static io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType.T_BOOLEAN;
+import static io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType.T_LONG;
 
 /**
  * VerifierImpl performs selected checks and verifications of the class file

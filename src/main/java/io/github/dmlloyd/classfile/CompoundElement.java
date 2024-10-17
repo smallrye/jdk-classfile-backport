@@ -33,9 +33,8 @@ import java.util.Spliterators;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
-import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
+import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A {@link ClassFileElement} that has complex structure defined in terms of
@@ -52,7 +51,7 @@ import io.github.dmlloyd.classfile.impl.AbstractUnboundModel;
 @PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CompoundElement<E extends ClassFileElement>
         extends ClassFileElement, Iterable<E>
-        permits ClassModel, CodeModel, FieldModel, MethodModel, AbstractUnboundModel {
+        permits ClassModel, CodeModel, FieldModel, MethodModel, io.github.dmlloyd.classfile.impl.AbstractUnboundModel {
     /**
      * Invoke the provided handler with each element contained in this
      * compound element

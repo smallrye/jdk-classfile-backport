@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

@@ -24,9 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.List;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeAnnotation.*;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 

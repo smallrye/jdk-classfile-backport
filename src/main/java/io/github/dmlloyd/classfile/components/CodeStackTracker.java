@@ -24,11 +24,12 @@
  */
 package io.github.dmlloyd.classfile.components;
 
-import java.util.Collection;
-import java.util.Optional;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.TypeKind;
+import java.util.Collection;
+import java.util.Optional;
+
 import io.github.dmlloyd.classfile.impl.CodeStackTrackerImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

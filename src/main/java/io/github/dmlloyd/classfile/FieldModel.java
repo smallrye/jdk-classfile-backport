@@ -25,10 +25,10 @@
 
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ClassDesc;
 import java.util.Optional;
 
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BufferedFieldBuilder;
 import io.github.dmlloyd.classfile.impl.FieldImpl;
 import io.github.dmlloyd.classfile.impl.Util;

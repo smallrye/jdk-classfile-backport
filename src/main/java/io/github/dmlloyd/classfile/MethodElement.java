@@ -24,19 +24,8 @@
  */
 package io.github.dmlloyd.classfile;
 
-import io.github.dmlloyd.classfile.attribute.AnnotationDefaultAttribute;
-import io.github.dmlloyd.classfile.attribute.DeprecatedAttribute;
-import io.github.dmlloyd.classfile.attribute.ExceptionsAttribute;
-import io.github.dmlloyd.classfile.attribute.MethodParametersAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleParameterAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleParameterAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.SignatureAttribute;
-import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
-import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
+import io.github.dmlloyd.classfile.attribute.*;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

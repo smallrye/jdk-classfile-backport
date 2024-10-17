@@ -24,7 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl.verifier;
 
-import static io.github.dmlloyd.classfile.impl.verifier.VerificationType.*;
+import static io.github.dmlloyd.classfile.impl.verifier.VerificationType.ITEM_Object;
+import static io.github.dmlloyd.classfile.impl.verifier.VerificationType.ITEM_Uninitialized;
+import static io.github.dmlloyd.classfile.impl.verifier.VerificationType.ITEM_UninitializedThis;
 
 /**
  * @see <a href="https://raw.githubusercontent.com/openjdk/jdk/master/src/hotspot/share/classfile/stackMapTable.hpp">hotspot/share/classfile/stackMapTable.hpp</a>

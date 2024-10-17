@@ -29,12 +29,11 @@ import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleParameterAnnotation
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleParameterAnnotationsAttribute;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-import io.github.dmlloyd.classfile.impl.AnnotationImpl;
-import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-
 import java.lang.constant.ClassDesc;
 import java.util.List;
 
+import io.github.dmlloyd.classfile.impl.AnnotationImpl;
+import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

@@ -26,25 +26,14 @@
 
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ConstantDescs;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.ClassBuilder;
-import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.FieldBuilder;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.FieldTransform;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.MethodTransform;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import static java.util.Objects.requireNonNull;
 

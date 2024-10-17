@@ -25,14 +25,12 @@
 
 package io.github.dmlloyd.classfile;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
+import java.util.List;
+import java.util.Optional;
+
 import io.github.dmlloyd.classfile.impl.ClassImpl;
-import io.github.dmlloyd.classfile.impl.verifier.VerifierImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

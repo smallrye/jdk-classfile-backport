@@ -24,18 +24,18 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
-import java.lang.constant.ConstantDesc;
-import java.lang.constant.DirectMethodHandleDesc;
-import java.lang.constant.MethodTypeDesc;
-import java.util.List;
-import java.util.function.Function;
-
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
 import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.lang.constant.ConstantDesc;
+import java.lang.constant.DirectMethodHandleDesc;
+import java.lang.constant.MethodTypeDesc;
+import java.util.List;
+import java.util.function.Function;
+
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

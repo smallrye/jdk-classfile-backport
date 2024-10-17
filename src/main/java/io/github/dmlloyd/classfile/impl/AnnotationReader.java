@@ -25,24 +25,18 @@
 
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
 import io.github.dmlloyd.classfile.constantpool.FloatEntry;
 import io.github.dmlloyd.classfile.constantpool.IntegerEntry;
 import io.github.dmlloyd.classfile.constantpool.LongEntry;
-import io.github.dmlloyd.classfile.Annotation;
-import io.github.dmlloyd.classfile.AnnotationElement;
-import io.github.dmlloyd.classfile.AnnotationValue;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassReader;
-import io.github.dmlloyd.classfile.TypeAnnotation;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.util.List;
+
+//import jdk.internal.access.SharedSecrets;
 
 import static io.github.dmlloyd.classfile.AnnotationValue.*;
 import static io.github.dmlloyd.classfile.TypeAnnotation.TargetInfo.*;
-
-import java.util.List;
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-//import jdk.internal.access.SharedSecrets;
 
 public final class AnnotationReader {
     private AnnotationReader() { }

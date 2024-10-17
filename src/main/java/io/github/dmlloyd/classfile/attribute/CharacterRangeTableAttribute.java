@@ -25,9 +25,9 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
+import io.github.dmlloyd.classfile.Attribute;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

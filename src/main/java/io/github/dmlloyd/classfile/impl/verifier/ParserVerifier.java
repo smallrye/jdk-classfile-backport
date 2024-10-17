@@ -24,38 +24,26 @@
  */
 package io.github.dmlloyd.classfile.impl.verifier;
 
-import io.github.dmlloyd.classfile.Annotation;
-import io.github.dmlloyd.classfile.AnnotationValue;
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.attribute.*;
+import io.github.dmlloyd.classfile.constantpool.*;
 import java.lang.constant.ClassDesc;
-import static io.github.dmlloyd.classfile.extras.constant.ExtraConstantDescs.CLASS_INIT_NAME;
-import static io.github.dmlloyd.classfile.extras.constant.ExtraConstantDescs.INIT_NAME;
+import java.lang.constant.ConstantDescs;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.AttributedElement;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.ClassFileElement;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.CompoundElement;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.TypeAnnotation;
-import io.github.dmlloyd.classfile.TypeKind;
-import io.github.dmlloyd.classfile.attribute.*;
-import io.github.dmlloyd.classfile.constantpool.*;
-import java.lang.constant.ConstantDescs;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
-import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
+
+import static io.github.dmlloyd.classfile.extras.constant.ExtraConstantDescs.CLASS_INIT_NAME;
+import static io.github.dmlloyd.classfile.extras.constant.ExtraConstantDescs.INIT_NAME;
 
 /**
  * ParserVerifier performs selected checks of the class file format according to

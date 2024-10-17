@@ -24,16 +24,16 @@
  */
 package io.github.dmlloyd.classfile.components;
 
+import io.github.dmlloyd.classfile.ClassModel;
+import io.github.dmlloyd.classfile.CodeModel;
+import io.github.dmlloyd.classfile.CompoundElement;
+import io.github.dmlloyd.classfile.FieldModel;
+import io.github.dmlloyd.classfile.MethodModel;
 import java.lang.constant.ConstantDesc;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.FieldModel;
-import io.github.dmlloyd.classfile.MethodModel;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.CompoundElement;
 
 import io.github.dmlloyd.classfile.impl.ClassPrinterImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

@@ -25,13 +25,12 @@
 
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.CustomAttribute;
 import io.github.dmlloyd.classfile.FieldBuilder;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.FieldModel;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 

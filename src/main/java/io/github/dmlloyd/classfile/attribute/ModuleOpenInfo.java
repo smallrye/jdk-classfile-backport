@@ -24,16 +24,14 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.PackageEntry;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
@@ -56,8 +54,8 @@ public sealed interface ModuleOpenInfo
 
     /**
      * {@return the flags associated with this open declaration, as a bit mask}
-     * Valid flags include {@link ClassFile#ACC_SYNTHETIC} and
-     * {@link ClassFile#ACC_MANDATED}
+     * Valid flags include {@link io.github.dmlloyd.classfile.ClassFile#ACC_SYNTHETIC} and
+     * {@link io.github.dmlloyd.classfile.ClassFile#ACC_MANDATED}
      */
     int opensFlagsMask();
 

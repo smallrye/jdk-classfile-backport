@@ -25,10 +25,10 @@
 
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.MethodTypeDesc;
 import java.util.Optional;
 
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.BufferedMethodBuilder;
 import io.github.dmlloyd.classfile.impl.MethodImpl;
 import io.github.dmlloyd.classfile.impl.Util;

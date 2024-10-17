@@ -25,14 +25,12 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-
-import java.util.Arrays;
-
 import io.github.dmlloyd.classfile.BufWriter;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
+import java.util.Arrays;
 
 //import jdk.internal.access.JavaLangAccess;
 //import jdk.internal.access.SharedSecrets;

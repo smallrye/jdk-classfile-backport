@@ -24,10 +24,9 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import java.lang.constant.ClassDesc;
 import java.util.function.Consumer;
-
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 
 import io.github.dmlloyd.classfile.impl.TransformImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

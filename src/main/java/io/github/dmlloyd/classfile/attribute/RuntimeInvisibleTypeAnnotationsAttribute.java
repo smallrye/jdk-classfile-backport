@@ -25,14 +25,14 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
-import java.util.List;
-
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
 import io.github.dmlloyd.classfile.TypeAnnotation;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

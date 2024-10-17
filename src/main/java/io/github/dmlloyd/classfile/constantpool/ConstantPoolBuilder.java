@@ -24,26 +24,21 @@
  */
 package io.github.dmlloyd.classfile.constantpool;
 
-import java.lang.constant.ClassDesc;
-import java.lang.constant.ConstantDesc;
-import java.lang.constant.DirectMethodHandleDesc;
-import java.lang.constant.DynamicCallSiteDesc;
-import java.lang.constant.DynamicConstantDesc;
-import java.lang.constant.MethodTypeDesc;
-import java.util.List;
-
 import io.github.dmlloyd.classfile.BootstrapMethodEntry;
 import io.github.dmlloyd.classfile.ClassBuilder;
 import io.github.dmlloyd.classfile.ClassModel;
-import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
-import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
+import java.lang.constant.*;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry.ClassEntryImpl;
-import io.github.dmlloyd.classfile.impl.AbstractPoolEntry.NameAndTypeEntryImpl;
+import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
 import io.github.dmlloyd.classfile.impl.SplitConstantPool;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
+
 import static java.util.Objects.requireNonNull;
 
 /**

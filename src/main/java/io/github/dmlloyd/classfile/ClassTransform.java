@@ -24,11 +24,11 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.impl.TransformImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

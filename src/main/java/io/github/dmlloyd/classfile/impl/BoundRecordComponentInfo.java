@@ -24,12 +24,11 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.List;
-
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassReader;
 import io.github.dmlloyd.classfile.attribute.RecordComponentInfo;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.util.List;
 
 public final class BoundRecordComponentInfo
         implements RecordComponentInfo {

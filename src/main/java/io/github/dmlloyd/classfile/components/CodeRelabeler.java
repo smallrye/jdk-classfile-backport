@@ -24,14 +24,13 @@
  */
 package io.github.dmlloyd.classfile.components;
 
+import io.github.dmlloyd.classfile.CodeBuilder;
+import io.github.dmlloyd.classfile.CodeTransform;
+import io.github.dmlloyd.classfile.Label;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import io.github.dmlloyd.classfile.instruction.LabelTarget;
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CodeTransform;
-import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.impl.CodeRelabelerImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
@@ -39,13 +38,13 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * A code relabeler is a {@link CodeTransform} replacing all occurrences
- * of {@link Label} in the transformed code with new instances.
- * All {@link LabelTarget} instructions are adjusted accordingly.
+ * of {@link io.github.dmlloyd.classfile.Label} in the transformed code with new instances.
+ * All {@link io.github.dmlloyd.classfile.instruction.LabelTarget} instructions are adjusted accordingly.
  * Relabeled code graph is identical to the original.
  * <p>
  * Primary purpose of CodeRelabeler is for repeated injections of the same code blocks.
  * Repeated injection of the same code block must be relabeled, so each instance of
- * {@link Label} is bound in the target bytecode exactly once.
+ * {@link io.github.dmlloyd.classfile.Label} is bound in the target bytecode exactly once.
  *
  * @since 22
  */

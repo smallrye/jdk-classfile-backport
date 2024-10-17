@@ -24,11 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.lang.constant.MethodTypeDesc;
-
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
-
+import java.lang.constant.MethodTypeDesc;
 import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.List;
 import java.util.Optional;

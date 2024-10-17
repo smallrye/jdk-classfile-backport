@@ -27,7 +27,7 @@ package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
@@ -36,8 +36,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * Models the {@code ModuleResolution} attribute, which can
  * appear on classes that represent module descriptors.  This is a JDK-specific
  *  * attribute, which captures resolution metadata for modules.
- * Delivered as a {@link ClassElement} when
- * traversing the elements of a {@link ClassModel}.
+ * Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when
+ * traversing the elements of a {@link io.github.dmlloyd.classfile.ClassModel}.
  *
  *  <p>The specification of the {@code ModuleResolution} attribute is:
  * <pre> {@code

@@ -25,42 +25,18 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.lang.constant.ClassDesc;
-import java.lang.constant.MethodTypeDesc;
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CodeElement;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.Opcode;
-import io.github.dmlloyd.classfile.TypeKind;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.attribute.LineNumberTableAttribute;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
-import io.github.dmlloyd.classfile.constantpool.DoubleEntry;
-import io.github.dmlloyd.classfile.constantpool.FieldRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InterfaceMethodRefEntry;
-import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
-import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
-import io.github.dmlloyd.classfile.constantpool.LongEntry;
-import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
-import io.github.dmlloyd.classfile.constantpool.MethodRefEntry;
+import io.github.dmlloyd.classfile.constantpool.*;
 import io.github.dmlloyd.classfile.instruction.CharacterRange;
 import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.instruction.LocalVariableType;
 import io.github.dmlloyd.classfile.instruction.SwitchCase;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.constant.ClassDesc;
+import java.lang.constant.MethodTypeDesc;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 

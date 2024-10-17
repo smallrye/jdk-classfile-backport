@@ -24,9 +24,9 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ClassDesc;
 
-import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.AnnotationImpl;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

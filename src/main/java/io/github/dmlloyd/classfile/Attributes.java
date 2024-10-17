@@ -26,6 +26,7 @@ package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
 import io.github.dmlloyd.classfile.attribute.*;
+
 import io.github.dmlloyd.classfile.impl.AbstractAttributeMapper.*;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

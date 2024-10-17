@@ -25,13 +25,12 @@
 
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.attribute.CodeAttribute;
+import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.impl.BufferedCodeBuilder;
-import io.github.dmlloyd.classfile.impl.CodeImpl;
-import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

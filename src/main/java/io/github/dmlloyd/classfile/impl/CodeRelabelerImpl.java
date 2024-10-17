@@ -28,16 +28,7 @@ import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.components.CodeRelabeler;
-import io.github.dmlloyd.classfile.instruction.BranchInstruction;
-import io.github.dmlloyd.classfile.instruction.CharacterRange;
-import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
-import io.github.dmlloyd.classfile.instruction.LabelTarget;
-import io.github.dmlloyd.classfile.instruction.LocalVariable;
-import io.github.dmlloyd.classfile.instruction.LocalVariableType;
-import io.github.dmlloyd.classfile.instruction.LookupSwitchInstruction;
-import io.github.dmlloyd.classfile.instruction.SwitchCase;
-import io.github.dmlloyd.classfile.instruction.TableSwitchInstruction;
-
+import io.github.dmlloyd.classfile.instruction.*;
 import java.util.function.BiFunction;
 
 public record CodeRelabelerImpl(BiFunction<Label, CodeBuilder, Label> mapFunction) implements CodeRelabeler {

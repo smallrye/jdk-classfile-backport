@@ -25,15 +25,10 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassSignature;
-import io.github.dmlloyd.classfile.FieldElement;
-import io.github.dmlloyd.classfile.MethodElement;
+import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
-import io.github.dmlloyd.classfile.MethodSignature;
-import io.github.dmlloyd.classfile.Signature;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

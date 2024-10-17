@@ -24,8 +24,9 @@
  */
 package io.github.dmlloyd.classfile.constantpool;
 
-import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+
+import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

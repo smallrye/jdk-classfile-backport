@@ -24,11 +24,11 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import java.lang.constant.ClassDesc;
 import java.util.Arrays;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;

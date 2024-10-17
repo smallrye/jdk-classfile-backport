@@ -24,8 +24,8 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.Superclass;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 
 import static java.util.Objects.requireNonNull;
 

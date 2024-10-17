@@ -24,9 +24,9 @@
  */
 package io.github.dmlloyd.classfile.impl.verifier;
 
-import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
-
 import io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType;
+
+import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
 import static io.github.dmlloyd.classfile.impl.verifier.VerificationSignature.BasicType.*;
 
 /**

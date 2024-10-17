@@ -31,6 +31,7 @@ import io.github.dmlloyd.classfile.instruction.LabelTarget;
 import io.github.dmlloyd.classfile.instruction.LineNumber;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.instruction.LocalVariableType;
+
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

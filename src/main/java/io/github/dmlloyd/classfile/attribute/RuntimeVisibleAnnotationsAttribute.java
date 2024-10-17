@@ -30,11 +30,13 @@ import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.ClassElement;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.MethodElement;
+import java.util.List;
+
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
-import java.util.List;
 
 /**
  * Models the {@code RuntimeVisibleAnnotations} attribute (JVMS {@jvms 4.7.16}), which

@@ -24,30 +24,8 @@
  */
 package io.github.dmlloyd.classfile;
 
-import io.github.dmlloyd.classfile.attribute.CompilationIDAttribute;
-import io.github.dmlloyd.classfile.attribute.DeprecatedAttribute;
-import io.github.dmlloyd.classfile.attribute.EnclosingMethodAttribute;
-import io.github.dmlloyd.classfile.attribute.InnerClassesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleHashesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleMainClassAttribute;
-import io.github.dmlloyd.classfile.attribute.ModulePackagesAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleResolutionAttribute;
-import io.github.dmlloyd.classfile.attribute.ModuleTargetAttribute;
-import io.github.dmlloyd.classfile.attribute.NestHostAttribute;
-import io.github.dmlloyd.classfile.attribute.NestMembersAttribute;
-import io.github.dmlloyd.classfile.attribute.PermittedSubclassesAttribute;
-import io.github.dmlloyd.classfile.attribute.RecordAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
-import io.github.dmlloyd.classfile.attribute.SignatureAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceDebugExtensionAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceFileAttribute;
-import io.github.dmlloyd.classfile.attribute.SourceIDAttribute;
-import io.github.dmlloyd.classfile.attribute.SyntheticAttribute;
-import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
+import io.github.dmlloyd.classfile.attribute.*;
+
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**

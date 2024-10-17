@@ -29,8 +29,10 @@ import java.lang.reflect.Modifier;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import io.github.dmlloyd.classfile.impl.ClassHierarchyImpl;
 import io.github.dmlloyd.classfile.impl.Util;
+
 import static io.github.dmlloyd.classfile.impl.verifier.VerifierImpl.*;
 
 /**

@@ -25,19 +25,19 @@
 
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.ClassBuilder;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.ClassHierarchyResolver;
 import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.ClassTransform;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import io.github.dmlloyd.classfile.impl.verifier.VerifierImpl;
 
 import static java.util.Objects.requireNonNull;

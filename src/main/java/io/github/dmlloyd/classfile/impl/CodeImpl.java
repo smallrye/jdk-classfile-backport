@@ -24,13 +24,6 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Consumer;
-
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.attribute.CodeAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
@@ -38,6 +31,12 @@ import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttrib
 import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.instruction.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
 

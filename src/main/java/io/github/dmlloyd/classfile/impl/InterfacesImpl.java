@@ -24,11 +24,10 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
+import io.github.dmlloyd.classfile.Interfaces;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.Interfaces;
 
 public final class InterfacesImpl
         extends AbstractElement

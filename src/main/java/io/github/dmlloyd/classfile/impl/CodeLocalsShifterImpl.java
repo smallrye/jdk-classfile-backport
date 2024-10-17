@@ -34,7 +34,6 @@ import io.github.dmlloyd.classfile.instruction.LoadInstruction;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.instruction.LocalVariableType;
 import io.github.dmlloyd.classfile.instruction.StoreInstruction;
-
 import java.util.Arrays;
 
 public final class CodeLocalsShifterImpl implements CodeLocalsShifter {

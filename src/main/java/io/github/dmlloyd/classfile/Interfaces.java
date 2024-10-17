@@ -24,11 +24,11 @@
  */
 package io.github.dmlloyd.classfile;
 
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import java.lang.constant.ClassDesc;
 import java.util.Arrays;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.impl.InterfacesImpl;
 import io.github.dmlloyd.classfile.impl.Util;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;

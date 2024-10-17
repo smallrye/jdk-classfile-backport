@@ -24,11 +24,9 @@
  */
 package io.github.dmlloyd.classfile.attribute;
 
+import io.github.dmlloyd.classfile.Attribute;
 import java.util.List;
 
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.CodeModel;
-import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
@@ -38,8 +36,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * on a {@code Code} attribute, and records the mapping between indexes into
  * the code table and line numbers in the source file.
  * Delivered as a {@link io.github.dmlloyd.classfile.instruction.LineNumber} when traversing the
- * elements of a {@link CodeModel}, according to the setting of the
- * {@link ClassFile.LineNumbersOption} option.
+ * elements of a {@link io.github.dmlloyd.classfile.CodeModel}, according to the setting of the
+ * {@link io.github.dmlloyd.classfile.ClassFile.LineNumbersOption} option.
  * <p>
  * The attribute permits multiple instances in a given location.
  *

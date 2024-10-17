@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import static io.github.dmlloyd.classfile.ClassFile.*;
+import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
 

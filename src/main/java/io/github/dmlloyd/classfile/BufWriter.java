@@ -27,6 +27,7 @@ package io.github.dmlloyd.classfile;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
+
 import io.github.dmlloyd.classfile.impl.BufWriterImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

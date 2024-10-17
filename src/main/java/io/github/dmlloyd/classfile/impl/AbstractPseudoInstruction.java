@@ -24,17 +24,15 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import java.util.Optional;
-
-import io.github.dmlloyd.classfile.BufWriter;
+import io.github.dmlloyd.classfile.Label;
+import io.github.dmlloyd.classfile.PseudoInstruction;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.instruction.CharacterRange;
 import io.github.dmlloyd.classfile.instruction.ExceptionCatch;
 import io.github.dmlloyd.classfile.instruction.LocalVariable;
 import io.github.dmlloyd.classfile.instruction.LocalVariableType;
-import io.github.dmlloyd.classfile.Label;
-import io.github.dmlloyd.classfile.PseudoInstruction;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 

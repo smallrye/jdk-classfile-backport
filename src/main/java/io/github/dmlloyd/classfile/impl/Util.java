@@ -24,42 +24,29 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-import io.github.dmlloyd.classfile.CodeBuilder;
-import io.github.dmlloyd.classfile.CustomAttribute;
-import io.github.dmlloyd.classfile.FieldBuilder;
-import io.github.dmlloyd.classfile.MethodBuilder;
-import io.github.dmlloyd.classfile.PseudoInstruction;
+import io.github.dmlloyd.classfile.*;
+import io.github.dmlloyd.classfile.attribute.CodeAttribute;
+import io.github.dmlloyd.classfile.components.ClassPrinter;
+import io.github.dmlloyd.classfile.constantpool.ClassEntry;
+import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ClassDesc;
+import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import java.lang.constant.MethodTypeDesc;
+import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
-import io.github.dmlloyd.classfile.Attribute;
-import io.github.dmlloyd.classfile.AttributeMapper;
-import io.github.dmlloyd.classfile.Attributes;
-import io.github.dmlloyd.classfile.BufWriter;
-import io.github.dmlloyd.classfile.ClassFile;
-import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
-import io.github.dmlloyd.classfile.Opcode;
-import io.github.dmlloyd.classfile.constantpool.ClassEntry;
-import io.github.dmlloyd.classfile.constantpool.ModuleEntry;
-import io.github.dmlloyd.classfile.constantpool.NameAndTypeEntry;
-import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
-
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 //import jdk.internal.access.SharedSecrets;
 //import jdk.internal.vm.annotation.ForceInline;
 //import jdk.internal.vm.annotation.Stable;
 
 import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
-import io.github.dmlloyd.classfile.attribute.CodeAttribute;
-import io.github.dmlloyd.classfile.components.ClassPrinter;
-import java.util.function.Consumer;
-
 import static java.lang.constant.ConstantDescs.CD_double;
 import static java.lang.constant.ConstantDescs.CD_long;
 import static java.lang.constant.ConstantDescs.CD_void;

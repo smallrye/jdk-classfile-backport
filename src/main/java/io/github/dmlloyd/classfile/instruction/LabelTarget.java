@@ -28,6 +28,7 @@ import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
 import io.github.dmlloyd.classfile.PseudoInstruction;
+
 import io.github.dmlloyd.classfile.impl.LabelImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 

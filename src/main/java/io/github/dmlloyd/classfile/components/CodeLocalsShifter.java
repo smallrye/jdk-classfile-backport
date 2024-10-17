@@ -24,11 +24,12 @@
  */
 package io.github.dmlloyd.classfile.components;
 
-import java.lang.constant.MethodTypeDesc;
-import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import io.github.dmlloyd.classfile.AccessFlags;
 import io.github.dmlloyd.classfile.CodeTransform;
 import io.github.dmlloyd.classfile.TypeKind;
+import java.lang.constant.MethodTypeDesc;
+import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
+
 import io.github.dmlloyd.classfile.impl.CodeLocalsShifterImpl;
 import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
