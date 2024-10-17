@@ -33,7 +33,7 @@ import java.lang.annotation.*;
          ElementType.PACKAGE,
          ElementType.MODULE,
          ElementType.TYPE})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.SOURCE)
 public @interface PreviewFeature {
     Feature feature();
 
