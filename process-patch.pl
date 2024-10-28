@@ -32,11 +32,12 @@ while ($_ = <$git_fh>) {
     s[ClassDesc\.ofInternalName][ExtraClassDesc.ofInternalName]g;
     s[java(.)lang.classfile][io$1github$1dmlloyd$1classfile]g;
     s[jdk(.)internal.classfile][io$1github$1dmlloyd$1classfile]g;
-    s[(import jdk\.internal\.constant\.(Reference|Primitive)ClassDescImpl.*)][//$1]g;
+    s[(import jdk\.internal\.constant\.(ReferenceClass|PrimitiveClass|ClassOrInterface)DescImpl.*)][//$1]g;
     s[jdk(.)internal.constant][io$1github$1dmlloyd$1classfile$1extras$1constant]g;
     s[package java\.lang\.reflect][package io.github.dmlloyd.classfile.extras.reflect]g;
     s[package java\.lang\.constant][package io.github.dmlloyd.classfile.extras.constant]g;
     s[src/java\.base/share/classes][src/main/java]g;
     s[(import jdk\.internal\..*)][//$1]g;
+    s[(import sun\..*)][//$1]g;
     print $_;
 }

@@ -43,7 +43,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 //import jdk.internal.access.SharedSecrets;
-//import io.github.dmlloyd.classfile.extras.constant.ReferenceClassDescImpl;
+//import io.github.dmlloyd.classfile.extras.constant.ClassOrInterfaceDescImpl;
 //import jdk.internal.vm.annotation.ForceInline;
 //import jdk.internal.vm.annotation.Stable;
 

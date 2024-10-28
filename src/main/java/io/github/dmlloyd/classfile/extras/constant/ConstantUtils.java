@@ -24,6 +24,9 @@
  */
 package io.github.dmlloyd.classfile.extras.constant;
 
+//import jdk.internal.vm.annotation.Stable;
+//import sun.invoke.util.Wrapper;
+
 import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
 import java.lang.constant.MethodTypeDesc;
@@ -41,6 +44,7 @@ public final class ConstantUtils {
     public static final ClassDesc[] EMPTY_CLASSDESC = new ClassDesc[0];
     public static final int MAX_ARRAY_TYPE_DESC_DIMENSIONS = 255;
     public static final ClassDesc CD_module_info = binaryNameToDesc("module-info");
+    public static ClassDesc CD_Object_array; // set from ConstantDescs, avoid circular initialization
 
     private static final Set<String> pointyNames = Set.of(ExtraConstantDescs.INIT_NAME, ExtraConstantDescs.CLASS_INIT_NAME);
 
@@ -65,6 +69,17 @@ public final class ConstantUtils {
     }
 
     /**
+     * Creates a {@linkplain ClassDesc} from a pre-validated internal name
+     * for a class or interface type. Validated version of {@link
+     * ClassDesc#ofInternalName(String)}.
+     *
+     * @param internalName a binary name
+     */
+    public static ClassDesc internalNameToDesc(String internalName) {
+        return ClassDesc.ofDescriptor(concat("L", internalName, ";"));
+    }
+
+    /**
      * Creates a ClassDesc from a Class object, requires that this class
      * can always be described nominally, i.e. this class is not a
      * hidden class or interface or an array with a hidden component
@@ -80,6 +95,17 @@ public final class ConstantUtils {
      */
     public static ClassDesc referenceClassDesc(Class<?> type) {
         return type.describeConstable().orElseThrow();
+    }
+
+    /**
+     * Creates a {@linkplain ClassDesc} from a pre-validated descriptor string
+     * for a class or interface type or an array type.
+     *
+     * @param descriptor a field descriptor string for a class or interface type
+     * @jvms 4.3.2 Field Descriptors
+     */
+    public static ClassDesc referenceClassDesc(String descriptor) {
+        return ClassDesc.ofDescriptor(descriptor);
     }
 
     /**
@@ -112,8 +138,9 @@ public final class ConstantUtils {
     public static String validateBinaryClassName(String name) {
         for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
-            if (ch == ';' || ch == '[' || ch == '/')
-                throw new IllegalArgumentException("Invalid class name: " + name);
+            if (ch == ';' || ch == '[' || ch == '/'
+                    || ch == '.' && (i == 0 || i + 1 == name.length() || name.charAt(i - 1) == '.'))
+                throw invalidClassName(name);
         }
         return name;
     }
@@ -130,8 +157,9 @@ public final class ConstantUtils {
     public static String validateInternalClassName(String name) {
         for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
-            if (ch == ';' || ch == '[' || ch == '.')
-                throw new IllegalArgumentException("Invalid class name: " + name);
+            if (ch == ';' || ch == '[' || ch == '.'
+                    || ch == '/' && (i == 0 || i + 1 == name.length() || name.charAt(i - 1) == '/'))
+                throw invalidClassName(name);
         }
         return name;
     }
@@ -228,10 +256,24 @@ public final class ConstantUtils {
             throw new IllegalArgumentException("not a class or interface type: " + classDesc);
     }
 
-    public static int arrayDepth(String descriptorString) {
+    public static void validateArrayRank(int rank) {
+        // array rank must be representable with u1 and nonzero
+        if (rank == 0 || (rank & ~0xFF) != 0) {
+            throw new IllegalArgumentException(invalidArrayRankMessage(rank));
+        }
+    }
+
+    /**
+     * Retrieves the array depth on a trusted descriptor.
+     * Uses a simple loop with the assumption that most descriptors have
+     * 0 or very low array depths.
+     */
+    public static int arrayDepth(String descriptorString, int off) {
         int depth = 0;
-        while (descriptorString.charAt(depth) == '[')
+        while (descriptorString.charAt(off) == '[') {
             depth++;
+            off++;
+        }
         return depth;
     }
 
@@ -260,6 +302,14 @@ public final class ConstantUtils {
             case JVM_SIGNATURE_BOOLEAN -> CD_boolean;
             default -> throw badMethodDescriptor(descriptor);
         };
+    }
+
+    static String invalidArrayRankMessage(int rank) {
+        return "Array rank must be within [1, 255]: " + rank;
+    }
+
+    static IllegalArgumentException invalidClassName(String className) {
+        return new IllegalArgumentException("Invalid class name: ".concat(className));
     }
 
     static IllegalArgumentException badMethodDescriptor(String descriptor) {

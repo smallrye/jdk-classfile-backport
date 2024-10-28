@@ -43,9 +43,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+//import io.github.dmlloyd.classfile.extras.constant.ClassOrInterfaceDescImpl;
 //import jdk.internal.util.Preconditions;
 
-import static io.github.dmlloyd.classfile.ClassFile.ACC_STATIC;
+import static io.github.dmlloyd.classfile.ClassFile.*;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
 import static java.lang.constant.ConstantDescs.*;
 import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
@@ -1067,7 +1068,7 @@ public final class StackMapGenerator {
             if (desc == CD_double) return decStack1PushStack(Type.DOUBLE_TYPE, Type.DOUBLE2_TYPE);
             return desc == CD_void ? this
                     : decStack1PushStack(
-                        desc.isPrimitive()
+                    desc.isPrimitive()
                             ? (desc == CD_float ? Type.FLOAT_TYPE : Type.INTEGER_TYPE)
                             : Type.referenceType(desc));
         }
@@ -1272,7 +1273,7 @@ public final class StackMapGenerator {
                     locals[localsSize + 1] = Type.DOUBLE2_TYPE;
                     localsSize += 2;
                 } else {
-                    if (! desc.isPrimitive()) {
+                    if (!desc.isPrimitive()) {
                         type = Type.referenceType(desc);
                     } else if (desc == CD_float) {
                         type = Type.FLOAT_TYPE;
@@ -1457,14 +1458,14 @@ public final class StackMapGenerator {
         //frequently used types to reduce footprint
         static final Type OBJECT_TYPE = referenceType(CD_Object),
             THROWABLE_TYPE = referenceType(CD_Throwable),
-            INT_ARRAY_TYPE = referenceType(int[].class.describeConstable().orElseThrow()),
-            BOOLEAN_ARRAY_TYPE = referenceType(boolean[].class.describeConstable().orElseThrow()),
-            BYTE_ARRAY_TYPE = referenceType(byte[].class.describeConstable().orElseThrow()),
-            CHAR_ARRAY_TYPE = referenceType(char[].class.describeConstable().orElseThrow()),
-            SHORT_ARRAY_TYPE = referenceType(short[].class.describeConstable().orElseThrow()),
-            LONG_ARRAY_TYPE = referenceType(long[].class.describeConstable().orElseThrow()),
-            DOUBLE_ARRAY_TYPE = referenceType(double[].class.describeConstable().orElseThrow()),
-            FLOAT_ARRAY_TYPE = referenceType(float[].class.describeConstable().orElseThrow()),
+            INT_ARRAY_TYPE = referenceType(CD_int.arrayType()),
+            BOOLEAN_ARRAY_TYPE = referenceType(CD_boolean.arrayType()),
+            BYTE_ARRAY_TYPE = referenceType(CD_byte.arrayType()),
+            CHAR_ARRAY_TYPE = referenceType(CD_char.arrayType()),
+            SHORT_ARRAY_TYPE = referenceType(CD_short.arrayType()),
+            LONG_ARRAY_TYPE = referenceType(CD_long.arrayType()),
+            DOUBLE_ARRAY_TYPE = referenceType(CD_double.arrayType()),
+            FLOAT_ARRAY_TYPE = referenceType(CD_float.arrayType()),
             STRING_TYPE = referenceType(CD_String),
             CLASS_TYPE = referenceType(CD_Class),
             METHOD_HANDLE_TYPE = referenceType(CD_MethodHandle),
