@@ -52,7 +52,7 @@ public sealed interface PackageDesc
      * @see PackageDesc#ofInternalName(String)
      */
     static PackageDesc of(String name) {
-        ConstantUtils.validateBinaryPackageName(requireNonNull(name));
+        ConstantUtils.validateBinaryPackageName(name);
         return new PackageDescImpl(ConstantUtils.binaryToInternal(name));
     }
 
@@ -72,7 +72,7 @@ public sealed interface PackageDesc
      * @see PackageDesc#of(String)
      */
     static PackageDesc ofInternalName(String name) {
-        ConstantUtils.validateInternalPackageName(requireNonNull(name));
+        ConstantUtils.validateInternalPackageName(name);
         return new PackageDescImpl(name);
     }
 
