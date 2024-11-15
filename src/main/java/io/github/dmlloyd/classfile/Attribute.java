@@ -25,10 +25,10 @@
 package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.attribute.*;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a classfile attribute (JVMS {@jvms 4.7}).  Many, though not all, subtypes of
@@ -41,9 +41,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * @param <A> the attribute type
  *
  * @sealedGraph
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Attribute<A extends Attribute<A>>
         extends ClassFileElement
         permits AnnotationDefaultAttribute, BootstrapMethodsAttribute,
@@ -65,7 +64,7 @@ public sealed interface Attribute<A extends Attribute<A>>
     /**
      * {@return the name of the attribute}
      */
-    String attributeName();
+    Utf8Entry attributeName();
 
     /**
      * {@return the {@link AttributeMapper} associated with this attribute}

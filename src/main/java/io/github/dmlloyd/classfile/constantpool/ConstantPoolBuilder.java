@@ -37,7 +37,6 @@ import io.github.dmlloyd.classfile.impl.ClassReaderImpl;
 import io.github.dmlloyd.classfile.impl.SplitConstantPool;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 import static java.util.Objects.requireNonNull;
 
@@ -50,9 +49,8 @@ import static java.util.Objects.requireNonNull;
  * The {@linkplain ConstantPoolBuilder} also provides access to some of the
  * state of the {@linkplain ClassBuilder}, such as classfile processing options.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ConstantPoolBuilder
         extends ConstantPool
         permits SplitConstantPool, TemporaryConstantPool {

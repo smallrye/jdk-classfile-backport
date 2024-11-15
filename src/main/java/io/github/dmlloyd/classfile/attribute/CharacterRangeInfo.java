@@ -27,14 +27,12 @@ package io.github.dmlloyd.classfile.attribute;
 import io.github.dmlloyd.classfile.instruction.CharacterRange;
 
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a single character range in the {@link CharacterRangeTableAttribute}.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CharacterRangeInfo
         permits UnboundAttribute.UnboundCharacterRangeInfo {
 

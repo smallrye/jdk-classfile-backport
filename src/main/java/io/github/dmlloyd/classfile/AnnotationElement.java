@@ -29,7 +29,6 @@ import java.lang.constant.ClassDesc;
 
 import io.github.dmlloyd.classfile.impl.AnnotationImpl;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an element-value pair in the {@code element_value_pairs}
@@ -43,9 +42,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * @see Annotation
  * @see AnnotationValue
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface AnnotationElement
         permits AnnotationImpl.AnnotationElementImpl {
 

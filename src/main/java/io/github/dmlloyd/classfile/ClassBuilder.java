@@ -39,7 +39,6 @@ import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedClassBuilder;
 import io.github.dmlloyd.classfile.impl.DirectClassBuilder;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for classfiles.  Builders are not created directly; they are passed
@@ -50,9 +49,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  *
  * @see ClassTransform
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassBuilder
         extends ClassFileBuilder<ClassElement, ClassBuilder>
         permits ChainedClassBuilder, DirectClassBuilder {

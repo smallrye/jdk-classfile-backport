@@ -24,7 +24,8 @@
  */
 package io.github.dmlloyd.classfile;
 
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
+import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 
 /**
  * Models a non-standard attribute of a classfile.  Clients should extend
@@ -33,9 +34,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * format and the {@linkplain CustomAttribute} representation.
  * @param <T> the custom attribute type
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public abstract non-sealed class CustomAttribute<T extends CustomAttribute<T>>
         implements Attribute<T>, CodeElement, ClassElement, MethodElement, FieldElement {
 
@@ -55,8 +55,8 @@ public abstract non-sealed class CustomAttribute<T extends CustomAttribute<T>>
     }
 
     @Override
-    public final String attributeName() {
-        return mapper.name();
+    public Utf8Entry attributeName() {
+        return TemporaryConstantPool.INSTANCE.utf8Entry(mapper.name());
     }
 
     @Override

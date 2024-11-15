@@ -559,7 +559,7 @@ public final class ClassPrinterImpl {
                       list("flags", "flag", clm.flags().flags().stream().map(AccessFlag::name)),
                       leaf("superclass", clm.superclass().map(ClassEntry::asInternalName).orElse("")),
                       list("interfaces", "interface", clm.interfaces().stream().map(ClassEntry::asInternalName)),
-                      list("attributes", "attribute", clm.attributes().stream().map(Attribute::attributeName)))
+                      list("attributes", "attribute", clm.attributes().stream().map(Attribute::attributeName).map(Utf8Entry::stringValue)))
                 .with(constantPoolToTree(clm.constantPool(), verbosity))
                 .with(attributesToTree(clm.attributes(), verbosity))
                 .with(new ListNodeImpl(BLOCK, "fields", clm.fields().stream().map(f ->
@@ -658,7 +658,7 @@ public final class ClassPrinterImpl {
                                           "flag", f.flags().flags().stream().map(AccessFlag::name)),
                                   leaf("field type", f.fieldType().stringValue()),
                                   list("attributes",
-                                          "attribute", f.attributes().stream().map(Attribute::attributeName)))
+                                          "attribute", f.attributes().stream().map(Attribute::attributeName).map(Utf8Entry::stringValue)))
                             .with(attributesToTree(f.attributes(), verbosity));
     }
 
@@ -669,7 +669,7 @@ public final class ClassPrinterImpl {
                               "flag", m.flags().flags().stream().map(AccessFlag::name)),
                       leaf("method type", m.methodType().stringValue()),
                       list("attributes",
-                              "attribute", m.attributes().stream().map(Attribute::attributeName)))
+                              "attribute", m.attributes().stream().map(Attribute::attributeName).map(Utf8Entry::stringValue)))
                 .with(attributesToTree(m.attributes(), verbosity))
                 .with(codeToTree((CodeAttribute)m.code().orElse(null), verbosity));
     }
@@ -680,7 +680,7 @@ public final class ClassPrinterImpl {
             codeNode.with(leaf("max stack", com.maxStack()));
             codeNode.with(leaf("max locals", com.maxLocals()));
             codeNode.with(list("attributes",
-                    "attribute", com.attributes().stream().map(Attribute::attributeName)));
+                    "attribute", com.attributes().stream().map(Attribute::attributeName).map(Utf8Entry::stringValue)));
             var stackMap = new MapNodeImpl(BLOCK, "stack map frames");
             var visibleTypeAnnos = new LinkedHashMap<Integer, List<TypeAnnotation>>();
             var invisibleTypeAnnos = new LinkedHashMap<Integer, List<TypeAnnotation>>();
@@ -972,7 +972,7 @@ public final class ClassPrinterImpl {
                                         "name", rc.name().stringValue(),
                                         "type", rc.descriptor().stringValue()))
                                     .with(list("attributes", "attribute", rc.attributes().stream()
-                                            .map(Attribute::attributeName)))
+                                            .map(Attribute::attributeName).map(Utf8Entry::stringValue)))
                                     .with(attributesToTree(rc.attributes(), verbosity)))));
                 else if (attr instanceof AnnotationDefaultAttribute ada)
                     nodes.add(new MapNodeImpl(FLOW, "annotation default").with(elementValueToTree(ada.defaultValue())));

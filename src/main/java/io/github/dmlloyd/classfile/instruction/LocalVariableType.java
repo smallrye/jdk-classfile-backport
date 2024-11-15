@@ -36,7 +36,6 @@ import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.impl.BoundLocalVariableType;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A pseudo-instruction which models a single entry in the {@link
@@ -44,9 +43,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * traversal of the elements of a {@link CodeModel}, according to the setting of
  * the {@link ClassFile.DebugElementsOption} option.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LocalVariableType extends PseudoInstruction
         permits AbstractPseudoInstruction.UnboundLocalVariableType, BoundLocalVariableType {
     /**

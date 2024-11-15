@@ -33,7 +33,6 @@ import java.lang.constant.ClassDesc;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code ModuleMainClass} attribute (JVMS {@jvms 4.7.27}), which can
@@ -47,9 +46,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  * The attribute was introduced in the Java SE Platform version 9.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ModuleMainClassAttribute
         extends Attribute<ModuleMainClassAttribute>, ClassElement
         permits BoundAttribute.BoundModuleMainClassAttribute, UnboundAttribute.UnboundModuleMainClassAttribute {

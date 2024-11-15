@@ -32,16 +32,14 @@ import java.util.Optional;
 import io.github.dmlloyd.classfile.impl.BufferedFieldBuilder;
 import io.github.dmlloyd.classfile.impl.FieldImpl;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a field.  The contents of the field can be traversed via
  * a streaming view, or via random access (e.g.,
  * {@link #flags()}), or by freely mixing the two.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface FieldModel
         extends CompoundElement<FieldElement>, AttributedElement, ClassElement
         permits BufferedFieldBuilder.Model, FieldImpl {

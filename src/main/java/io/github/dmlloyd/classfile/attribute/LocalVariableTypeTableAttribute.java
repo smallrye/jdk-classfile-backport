@@ -30,7 +30,6 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code LocalVariableTypeTable} attribute (JVMS {@jvms 4.7.14}), which can appear
@@ -41,10 +40,11 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * {@link io.github.dmlloyd.classfile.ClassFile.LineNumbersOption} option.
  * <p>
  * The attribute permits multiple instances in a given location.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 5.0.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LocalVariableTypeTableAttribute
         extends Attribute<LocalVariableTypeTableAttribute>
         permits BoundAttribute.BoundLocalVariableTypeTableAttribute, UnboundAttribute.UnboundLocalVariableTypeTableAttribute {

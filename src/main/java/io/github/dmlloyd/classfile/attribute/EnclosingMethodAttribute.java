@@ -37,7 +37,6 @@ import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code EnclosingMethod} attribute (JVMS {@jvms 4.7.7}), which can appear
@@ -51,9 +50,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  * This attribute was introduced in the Java SE Platform version 5.0.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface EnclosingMethodAttribute
         extends Attribute<EnclosingMethodAttribute>, ClassElement
         permits BoundAttribute.BoundEnclosingMethodAttribute,

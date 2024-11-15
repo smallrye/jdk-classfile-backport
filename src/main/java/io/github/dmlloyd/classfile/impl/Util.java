@@ -274,13 +274,18 @@ public class Util {
             var clm = cc.parse(cc.build(cp.classEntry(cls), cp, clb ->
                 clb.withMethod(methodName, methodDesc, acc, mb ->
                     ((DirectMethodBuilder) mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.code()) {
-                        @Override
-                        public void writeBody(BufWriterImpl b) {
-                            b.writeU2U2(-1, -1);//max stack & locals
-                            b.writeInt(bytecode.length());
-                            b.writeBytes(bytecode.array(), 0, bytecode.length());
-                            b.writeU2U2(0, 0);//exception handlers & attributes
-                        }
+                                @Override
+                                public void writeBody(BufWriterImpl b) {
+                                    b.writeU2U2(-1, -1);//max stack & locals
+                                    b.writeInt(bytecode.length());
+                                    b.writeBytes(bytecode.array(), 0, bytecode.length());
+                                    b.writeU2U2(0, 0);//exception handlers & attributes
+                                }
+
+                                @Override
+                                public Utf8Entry attributeName() {
+                                    return cp.utf8Entry(Attributes.NAME_CODE);
+                                }
                     }))));
             ClassPrinter.toYaml(clm.methods().get(0).code().get(), ClassPrinter.Verbosity.TRACE_ALL, dump);
         } catch (Error | Exception __) {

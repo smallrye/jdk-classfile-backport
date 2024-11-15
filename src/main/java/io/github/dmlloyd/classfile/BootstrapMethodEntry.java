@@ -31,7 +31,6 @@ import io.github.dmlloyd.classfile.constantpool.MethodHandleEntry;
 import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BootstrapMethodEntryImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an entry in the bootstrap method table.  The bootstrap method table
@@ -39,9 +38,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * the {@link ConstantPool}, since the bootstrap method table is logically
  * part of the constant pool.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface BootstrapMethodEntry
         permits BootstrapMethodEntryImpl {
 

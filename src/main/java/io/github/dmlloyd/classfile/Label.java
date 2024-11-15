@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,7 +25,6 @@
 package io.github.dmlloyd.classfile;
 
 import io.github.dmlloyd.classfile.impl.LabelImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A marker for a position within the instructions of a method body.  The
@@ -40,9 +39,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * can be bound to the current position within a {@linkplain CodeBuilder} via
  * {@link CodeBuilder#labelBinding(Label)} or {@link CodeBuilder#with(ClassFileElement)}.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Label
         permits LabelImpl {
 }

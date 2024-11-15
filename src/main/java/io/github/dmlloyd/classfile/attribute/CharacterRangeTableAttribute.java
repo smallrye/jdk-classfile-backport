@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -30,7 +30,6 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * The CharacterRangeTable attribute is an optional variable-length attribute in
@@ -58,9 +57,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  * The attribute permits multiple instances in a given location.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CharacterRangeTableAttribute
         extends Attribute<CharacterRangeTableAttribute>
         permits BoundAttribute.BoundCharacterRangeTableAttribute,

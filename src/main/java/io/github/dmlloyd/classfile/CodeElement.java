@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -28,8 +28,6 @@ import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttr
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
 
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
-
 /**
  * A marker interface for elements that can appear when traversing
  * a {@link CodeModel} or be presented to a {@link CodeBuilder}. Code elements
@@ -39,9 +37,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * exception metadata, label target metadata, etc.
  *
  * @sealedGraph
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeElement extends ClassFileElement
         permits Instruction, PseudoInstruction,
                 CustomAttribute, RuntimeVisibleTypeAnnotationsAttribute, RuntimeInvisibleTypeAnnotationsAttribute,

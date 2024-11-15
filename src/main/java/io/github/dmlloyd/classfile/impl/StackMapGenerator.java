@@ -35,6 +35,7 @@ import io.github.dmlloyd.classfile.constantpool.ConstantDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.MemberRefEntry;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.util.ArrayList;
@@ -400,6 +401,11 @@ public final class StackMapGenerator {
                     fr.writeTo(b, prevFrame, cp);
                     prevFrame = fr;
                 }
+            }
+
+            @Override
+            public Utf8Entry attributeName() {
+                return cp.utf8Entry(Attributes.NAME_STACK_MAP_TABLE);
             }
         };
     }

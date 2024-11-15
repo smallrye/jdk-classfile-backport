@@ -35,9 +35,6 @@ import java.util.List;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
-
-
 /**
  * Models the {@code RuntimeVisibleAnnotations} attribute (JVMS {@jvms 4.7.16}), which
  * can appear on classes, methods, and fields. Delivered as a
@@ -50,9 +47,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  * The attribute was introduced in the Java SE Platform version 5.0.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface RuntimeVisibleAnnotationsAttribute
     extends Attribute<RuntimeVisibleAnnotationsAttribute>,
             ClassElement, MethodElement, FieldElement

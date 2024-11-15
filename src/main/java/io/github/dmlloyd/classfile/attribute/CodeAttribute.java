@@ -30,7 +30,6 @@ import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code Code} attribute (JVMS {@jvms 4.7.3}), appears on non-native,
@@ -42,9 +41,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeAttribute extends Attribute<CodeAttribute>, CodeModel
         permits BoundAttribute.BoundCodeAttribute {
 

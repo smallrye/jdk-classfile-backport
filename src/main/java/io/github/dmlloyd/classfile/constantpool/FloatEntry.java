@@ -27,16 +27,14 @@ package io.github.dmlloyd.classfile.constantpool;
 import io.github.dmlloyd.classfile.TypeKind;
 
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a {@code CONSTANT_Float_info} constant in the constant pool of a
  * classfile.
  * @jvms 4.4.4 The CONSTANT_Integer_info and CONSTANT_Float_info Structures
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface FloatEntry
         extends AnnotationConstantValueEntry, ConstantValueEntry
         permits AbstractPoolEntry.FloatEntryImpl {

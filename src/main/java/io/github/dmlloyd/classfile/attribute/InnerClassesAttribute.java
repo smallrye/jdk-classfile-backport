@@ -31,7 +31,6 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code InnerClasses} attribute (JVMS {@jvms 4.7.6}), which can
@@ -43,9 +42,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface InnerClassesAttribute
         extends Attribute<InnerClassesAttribute>, ClassElement
         permits BoundAttribute.BoundInnerClassesAttribute,

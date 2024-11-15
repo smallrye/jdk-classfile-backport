@@ -32,7 +32,6 @@ import java.util.function.Consumer;
 import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
 import io.github.dmlloyd.classfile.impl.ChainedMethodBuilder;
 import io.github.dmlloyd.classfile.impl.TerminalMethodBuilder;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for methods.  Builders are not created directly; they are passed
@@ -43,9 +42,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  *
  * @see MethodTransform
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface MethodBuilder
         extends ClassFileBuilder<MethodElement, MethodBuilder>
         permits ChainedMethodBuilder, TerminalMethodBuilder {

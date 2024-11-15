@@ -29,7 +29,6 @@ import java.lang.constant.ClassDesc;
 import java.util.function.Consumer;
 
 import io.github.dmlloyd.classfile.impl.TransformImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * A builder for a classfile or portion of a classfile.  Builders are rarely
@@ -44,9 +43,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * @see ClassFileTransform
  *
  * @sealedGraph
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ClassFileBuilder<E extends ClassFileElement, B extends ClassFileBuilder<E, B>>
         extends Consumer<E> permits ClassBuilder, FieldBuilder, MethodBuilder, CodeBuilder {
 

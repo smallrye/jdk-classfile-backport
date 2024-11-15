@@ -35,7 +35,6 @@ import java.util.List;
 import io.github.dmlloyd.classfile.impl.AnnotationImpl;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an {@code annotation} structure (JVMS {@jvms 4.7.16}) or part of a {@code
@@ -63,9 +62,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * @see RuntimeVisibleParameterAnnotationsAttribute
  * @see RuntimeInvisibleParameterAnnotationsAttribute
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface Annotation
         permits AnnotationImpl {
 

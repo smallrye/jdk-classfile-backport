@@ -32,7 +32,6 @@ import io.github.dmlloyd.classfile.TypeKind;
 
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models an array load instruction in the {@code code} array of a {@code Code}
@@ -40,9 +39,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * Opcode.Kind#ARRAY_LOAD}.  Delivered as a {@link CodeElement} when
  * traversing the elements of a {@link CodeModel}.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface ArrayLoadInstruction extends Instruction
         permits AbstractInstruction.UnboundArrayLoadInstruction {
     /**

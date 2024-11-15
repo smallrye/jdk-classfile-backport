@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -32,7 +32,6 @@ import io.github.dmlloyd.classfile.Opcode;
 
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a branching instruction (conditional or unconditional) in the {@code
@@ -40,9 +39,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * {@code kind} of {@link Opcode.Kind#BRANCH}.  Delivered as a {@link
  * CodeElement} when traversing the elements of a {@link CodeModel}.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface BranchInstruction extends Instruction
         permits AbstractInstruction.BoundBranchInstruction,
                 AbstractInstruction.UnboundBranchInstruction {

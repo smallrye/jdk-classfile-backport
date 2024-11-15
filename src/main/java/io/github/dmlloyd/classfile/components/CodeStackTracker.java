@@ -31,7 +31,6 @@ import java.util.Collection;
 import java.util.Optional;
 
 import io.github.dmlloyd.classfile.impl.CodeStackTrackerImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * {@link CodeStackTracker} is a {@link CodeTransform} tracking stack content
@@ -51,9 +50,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  *     });
  * }
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface CodeStackTracker extends CodeTransform permits CodeStackTrackerImpl {
 
     /**

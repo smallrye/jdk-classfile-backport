@@ -28,16 +28,14 @@ import io.github.dmlloyd.classfile.extras.reflect.AccessFlag;
 import java.util.Set;
 
 import io.github.dmlloyd.classfile.impl.AccessFlagsImpl;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the access flags for a class, method, or field.  Delivered as a
  * {@link ClassElement}, {@link FieldElement}, or {@link MethodElement}
  * when traversing the corresponding model type.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface AccessFlags
         extends ClassElement, MethodElement, FieldElement
         permits AccessFlagsImpl {

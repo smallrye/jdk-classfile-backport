@@ -34,7 +34,6 @@ import java.util.List;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code NestMembers} attribute (JVMS {@jvms 4.7.29}), which can
@@ -48,9 +47,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  *  The attribute was introduced in the Java SE Platform version 11.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface NestMembersAttribute extends Attribute<NestMembersAttribute>, ClassElement
         permits BoundAttribute.BoundNestMembersAttribute, UnboundAttribute.UnboundNestMembersAttribute {
 

@@ -29,7 +29,6 @@ import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models the {@code LocalVariableTable} attribute (JVMS {@jvms 4.7.13}), which can appear
@@ -41,9 +40,8 @@ import io.github.dmlloyd.classfile.extras.PreviewFeature;
  * <p>
  * The attribute permits multiple instances in a given location.
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface LocalVariableTableAttribute
         extends Attribute<LocalVariableTableAttribute>
         permits BoundAttribute.BoundLocalVariableTableAttribute, UnboundAttribute.UnboundLocalVariableTableAttribute {

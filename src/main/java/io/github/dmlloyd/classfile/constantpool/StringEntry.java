@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,16 +25,14 @@
 package io.github.dmlloyd.classfile.constantpool;
 
 import io.github.dmlloyd.classfile.impl.AbstractPoolEntry;
-import io.github.dmlloyd.classfile.extras.PreviewFeature;
 
 /**
  * Models a {@code CONSTANT_String_info} constant in the constant pool of a
  * classfile.
  * @jvms 4.4.3 The CONSTANT_String_info Structure
  *
- * @since 22
+ * @since 24
  */
-@PreviewFeature(feature = PreviewFeature.Feature.CLASSFILE_API)
 public sealed interface StringEntry
         extends ConstantValueEntry
         permits AbstractPoolEntry.StringEntryImpl {
