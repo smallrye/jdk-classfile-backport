@@ -54,6 +54,7 @@ import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_FLOAT;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_LONG;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_STRING;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
+import static java.lang.constant.ConstantDescs.BSM_NULL_CONSTANT;
 import static java.util.Objects.requireNonNull;
 import static io.github.dmlloyd.classfile.impl.ClassPrinterImpl.Style.BLOCK;
 import static io.github.dmlloyd.classfile.impl.ClassPrinterImpl.Style.FLOW;
@@ -274,7 +275,12 @@ public final class ClassPrinterImpl {
 
     private static void toYaml(int indent, boolean skipFirstIndent, Node node, Consumer<String> out) {
         if (node instanceof LeafNode leaf) {
-            out.accept(quoteAndEscapeYaml(leaf.value()));
+            var v = leaf.value();
+            if (BSM_NULL_CONSTANT.equals(v)) {
+                out.accept("null");
+            } else {
+                out.accept(quoteAndEscapeYaml(v));
+            }
         } else if (node instanceof ListNodeImpl list) {
             switch (list.style()) {
                 case FLOW -> {
@@ -326,6 +332,7 @@ public final class ClassPrinterImpl {
         String s = String.valueOf(value);
         if (value instanceof Number) return s;
         if (s.length() == 0) return "''";
+        if (s.equalsIgnoreCase("null")) return "'" + s + "'";
         var sb = new StringBuilder(s.length() << 1);
         s.chars().forEach(c -> {
             switch (c) {
@@ -354,7 +361,12 @@ public final class ClassPrinterImpl {
 
     private static void toJson(int indent, boolean skipFirstIndent, Node node, Consumer<String> out) {
         if (node instanceof LeafNode leaf) {
-            out.accept(quoteAndEscapeJson(leaf.value()));
+            var v = leaf.value();
+            if (BSM_NULL_CONSTANT.equals(v)) {
+                out.accept("null");
+            } else {
+                out.accept(quoteAndEscapeYaml(v));
+            }
         } else if (node instanceof ListNodeImpl list) {
             out.accept("[");
             boolean first = true;
@@ -426,7 +438,12 @@ public final class ClassPrinterImpl {
         var name = toXmlName(node.name().toString());
         if (node instanceof LeafNode leaf) {
             out.accept("<" + name + ">");
-            out.accept(xmlEscape(leaf.value()));
+            var v = leaf.value();
+            if (BSM_NULL_CONSTANT.equals(v)) {
+                out.accept("<null/>");
+            } else {
+                out.accept(xmlEscape(v));
+            }
         } else if (node instanceof ListNodeImpl list) {
             switch (list.style()) {
                 case FLOW -> {
@@ -529,7 +546,7 @@ public final class ClassPrinterImpl {
                         ret.accept("long");
                         ret.accept("long2");
                     }
-                    case NULL -> ret.accept("null");
+                    case NULL -> ret.accept(BSM_NULL_CONSTANT);
                     case TOP -> ret.accept("?");
                     case UNINITIALIZED_THIS -> ret.accept("THIS");
                 }
@@ -905,9 +922,9 @@ public final class ClassPrinterImpl {
                     nodes.add(map("enclosing method",
                             "class", ema.enclosingClass().name().stringValue(),
                             "method name", ema.enclosingMethodName()
-                                    .map(Utf8Entry::stringValue).orElse("null"),
+                                    .<ConstantDesc>map(Utf8Entry::stringValue).orElse(BSM_NULL_CONSTANT),
                             "method type", ema.enclosingMethodType()
-                                    .map(Utf8Entry::stringValue).orElse("null")));
+                                    .<ConstantDesc>map(Utf8Entry::stringValue).orElse(BSM_NULL_CONSTANT)));
                 else if (attr instanceof ExceptionsAttribute exa)
                     nodes.add(list("exceptions", "exc", exa.exceptions().stream()
                             .map(e -> e.name().stringValue())));
@@ -916,15 +933,15 @@ public final class ClassPrinterImpl {
                             .map(ic -> new MapNodeImpl(FLOW, "cls").with(
                                 leaf("inner class", ic.innerClass().name().stringValue()),
                                 leaf("outer class", ic.outerClass()
-                                        .map(cle -> cle.name().stringValue()).orElse("null")),
-                                leaf("inner name", ic.innerName().map(Utf8Entry::stringValue).orElse("null")),
+                                        .map(cle -> (ConstantDesc)cle.name().stringValue()).orElse(BSM_NULL_CONSTANT)),
+                                leaf("inner name", ic.innerName().<ConstantDesc>map(Utf8Entry::stringValue).orElse(BSM_NULL_CONSTANT)),
                                 list("flags", "flag", ic.flags().stream().map(AccessFlag::name))))));
                 else if (attr instanceof MethodParametersAttribute mpa) {
                     var n = new MapNodeImpl(BLOCK, "method parameters");
                     for (int i = 0; i < mpa.parameters().size(); i++) {
                         var p = mpa.parameters().get(i);
                         n.with(new MapNodeImpl(FLOW, i + 1).with(
-                                leaf("name", p.name().map(Utf8Entry::stringValue).orElse("null")),
+                                leaf("name", p.name().<ConstantDesc>map(Utf8Entry::stringValue).orElse(BSM_NULL_CONSTANT)),
                                 list("flags", "flag", p.flags().stream().map(AccessFlag::name))));
                     }
                 }
@@ -932,7 +949,7 @@ public final class ClassPrinterImpl {
                     nodes.add(new MapNodeImpl(BLOCK, "module")
                             .with(leaf("name", ma.moduleName().name().stringValue()),
                                   list("flags","flag", ma.moduleFlags().stream().map(AccessFlag::name)),
-                                  leaf("version", ma.moduleVersion().map(Utf8Entry::stringValue).orElse("null")),
+                                  leaf("version", ma.moduleVersion().<ConstantDesc>map(Utf8Entry::stringValue).orElse(BSM_NULL_CONSTANT)),
                                   list("uses", "class", ma.uses().stream().map(ce -> ce.name().stringValue())),
                                   new ListNodeImpl(BLOCK, "requires", ma.requires().stream().map(req ->
                                     new MapNodeImpl(FLOW, "req").with(
