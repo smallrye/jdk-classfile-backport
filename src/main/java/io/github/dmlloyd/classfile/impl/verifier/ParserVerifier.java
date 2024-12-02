@@ -34,10 +34,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
-import java.util.stream.Collectors;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.Util;
@@ -65,52 +64,81 @@ public record ParserVerifier(ClassModel classModel) {
 
     private void verifyConstantPool(List<VerifyError> errors) {
         for (var cpe : classModel.constantPool()) {
-            Consumer<Runnable> check = c -> {
-                try {
-                    c.run();
-                } catch (VerifyError|Exception e) {
-                    errors.add(new VerifyError("%s at constant pool index %d in %s".formatted(e.getMessage(), cpe.index(), toString(classModel))));
+            try {
+                switch (cpe.tag()) {
+                    case PoolEntry.TAG_DOUBLE -> ((DoubleEntry) cpe).doubleValue();
+                    case PoolEntry.TAG_FLOAT -> ((FloatEntry) cpe).floatValue();
+                    case PoolEntry.TAG_INTEGER -> ((IntegerEntry) cpe).intValue();
+                    case PoolEntry.TAG_LONG -> ((LongEntry) cpe).longValue();
+                    case PoolEntry.TAG_UTF8 -> ((Utf8Entry) cpe).stringValue();
+                    case PoolEntry.TAG_DYNAMIC -> ((ConstantDynamicEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_INVOKE_DYNAMIC -> ((InvokeDynamicEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_CLASS -> ((ClassEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_STRING -> ((StringEntry) cpe).stringValue();
+                    case PoolEntry.TAG_METHOD_HANDLE -> ((MethodHandleEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_METHOD_TYPE -> ((MethodTypeEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_FIELDREF -> {
+                        FieldRefEntry fre = (FieldRefEntry) cpe;
+                        try {
+                            fre.owner().asSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        try {
+                            fre.typeSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        verifyFieldName(fre.name().stringValue());
+                    }
+                    case PoolEntry.TAG_INTERFACE_METHODREF -> {
+                        InterfaceMethodRefEntry imre = (InterfaceMethodRefEntry) cpe;
+                        try {
+                            imre.owner().asSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        try {
+                            imre.typeSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        verifyMethodName(imre.name().stringValue());
+                    }
+                    case PoolEntry.TAG_METHODREF -> {
+                        MethodRefEntry mre = (MethodRefEntry) cpe;
+                        try {
+                            mre.owner().asSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        try {
+                            mre.typeSymbol();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        verifyMethodName(mre.name().stringValue());
+                    }
+                    case PoolEntry.TAG_MODULE -> ((ModuleEntry) cpe).asSymbol();
+                    case PoolEntry.TAG_NAME_AND_TYPE -> {
+                        NameAndTypeEntry nate = (NameAndTypeEntry) cpe;
+                        try {
+                            nate.name().stringValue();
+                        } catch (VerifyError|Exception e) {
+                            errors.add(cpeVerifyError(cpe, e));
+                        }
+                        nate.type().stringValue();
+                    }
+                    case PoolEntry.TAG_PACKAGE -> ((PackageEntry) cpe).asSymbol();
                 }
-            };
-            switch (cpe.tag()) {
-                case PoolEntry.TAG_DOUBLE -> check.accept(((DoubleEntry) cpe)::doubleValue);
-                case PoolEntry.TAG_FLOAT -> check.accept(((FloatEntry) cpe)::floatValue);
-                case PoolEntry.TAG_INTEGER -> check.accept(((IntegerEntry) cpe)::intValue);
-                case PoolEntry.TAG_LONG -> check.accept(((LongEntry) cpe)::longValue);
-                case PoolEntry.TAG_UTF8 -> check.accept(((Utf8Entry) cpe)::stringValue);
-                case PoolEntry.TAG_DYNAMIC -> check.accept(((ConstantDynamicEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_INVOKE_DYNAMIC -> check.accept(((InvokeDynamicEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_CLASS -> check.accept(((ClassEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_STRING -> check.accept(((StringEntry) cpe)::stringValue);
-                case PoolEntry.TAG_METHOD_HANDLE -> check.accept(((MethodHandleEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_METHOD_TYPE -> check.accept(((MethodTypeEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_FIELDREF -> {
-                    FieldRefEntry fre = (FieldRefEntry) cpe;
-                    check.accept(fre.owner()::asSymbol);
-                    check.accept(fre::typeSymbol);
-                    check.accept(() -> verifyFieldName(fre.name().stringValue()));
-                }
-                case PoolEntry.TAG_INTERFACE_METHODREF -> {
-                    InterfaceMethodRefEntry imre = (InterfaceMethodRefEntry) cpe;
-                    check.accept(imre.owner()::asSymbol);
-                    check.accept(imre::typeSymbol);
-                    check.accept(() -> verifyMethodName(imre.name().stringValue()));
-                }
-                case PoolEntry.TAG_METHODREF -> {
-                    MethodRefEntry mre = (MethodRefEntry) cpe;
-                    check.accept(mre.owner()::asSymbol);
-                    check.accept(mre::typeSymbol);
-                    check.accept(() -> verifyMethodName(mre.name().stringValue()));
-                }
-                case PoolEntry.TAG_MODULE -> check.accept(((ModuleEntry) cpe)::asSymbol);
-                case PoolEntry.TAG_NAME_AND_TYPE -> {
-                    NameAndTypeEntry nate = (NameAndTypeEntry) cpe;
-                    check.accept(nate.name()::stringValue);
-                    check.accept(() -> nate.type().stringValue());
-                }
-                case PoolEntry.TAG_PACKAGE -> check.accept(((PackageEntry) cpe)::asSymbol);
+            } catch (VerifyError|Exception e) {
+                errors.add(cpeVerifyError(cpe, e));
             }
         }
+    }
+
+    private VerifyError cpeVerifyError(final PoolEntry cpe, final Throwable e) {
+        return new VerifyError("%s at constant pool index %d in %s".formatted(e.getMessage(), cpe.index(), toString(classModel)));
     }
 
     private void verifyFieldName(String name) {
