@@ -49,8 +49,6 @@ import io.github.dmlloyd.classfile.impl.CodeStackTrackerImpl;
  *         int maxStack = stackTracker.maxStackSize().get();
  *     });
  * }
- *
- * @since 24
  */
 public sealed interface CodeStackTracker extends CodeTransform permits CodeStackTrackerImpl {
 

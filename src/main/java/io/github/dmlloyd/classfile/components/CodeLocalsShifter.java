@@ -37,8 +37,6 @@ import io.github.dmlloyd.classfile.impl.CodeLocalsShifterImpl;
  * newly allocated positions to avoid conflicts during code injection.
  * Locals pointing to the receiver or to method arguments slots are never shifted.
  * All locals pointing beyond the method arguments are re-indexed in order of appearance.
- *
- * @since 24
  */
 public sealed interface CodeLocalsShifter extends CodeTransform permits CodeLocalsShifterImpl {
 

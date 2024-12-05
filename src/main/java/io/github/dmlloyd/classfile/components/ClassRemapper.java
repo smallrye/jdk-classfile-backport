@@ -53,8 +53,6 @@ import static java.util.Objects.requireNonNull;
  * <p>
  * Arrays of reference types are always decomposed, mapped as the base reference
  * types and composed back to arrays.
- *
- * @since 24
  */
 public sealed interface ClassRemapper extends ClassTransform permits ClassRemapperImpl {
 

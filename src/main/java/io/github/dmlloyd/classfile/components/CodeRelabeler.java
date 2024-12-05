@@ -44,8 +44,6 @@ import static java.util.Objects.requireNonNull;
  * Primary purpose of CodeRelabeler is for repeated injections of the same code blocks.
  * Repeated injection of the same code block must be relabeled, so each instance of
  * {@link io.github.dmlloyd.classfile.Label} is bound in the target bytecode exactly once.
- *
- * @since 24
  */
 public sealed interface CodeRelabeler extends CodeTransform permits CodeRelabelerImpl {
 

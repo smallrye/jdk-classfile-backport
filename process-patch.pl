@@ -12,7 +12,7 @@ my $to = shift @ARGV or die $usage;
 
 open my $git_fh, "-|", "git", "diff", "-M75", $from."..".$to, "--",
     "src/java.base/share/classes/java/lang/classfile",
-    "src/java.base/share/classes/jdk/internal/classfile/impl",
+    "src/java.base/share/classes/jdk/internal/classfile",
     "src/java.base/share/classes/java/lang/reflect/AccessFlag.java",
     "src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java",
     "src/java.base/share/classes/java/lang/constant/ModuleDesc.java",
