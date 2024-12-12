@@ -24,9 +24,11 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
+import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
+import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.InvokeDynamicEntry;
 import io.github.dmlloyd.classfile.constantpool.LoadableConstantEntry;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
@@ -40,10 +42,20 @@ import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.Util;
 
 /**
- * Models an {@code invokedynamic} instruction in the {@code code} array of a
- * {@code Code} attribute.  Delivered as a {@link CodeElement} when traversing
- * the elements of a {@link CodeModel}.
+ * Models a dynamically-computed call site invocation instruction in the
+ * {@code code} array of a {@code Code} attribute.  The corresponding opcode is
+ * {@link Opcode#INVOKEDYNAMIC invokedynamic}.  Delivered as a {@link
+ * CodeElement} when traversing the elements of a {@link CodeModel}.
+ * <p>
+ * A dynamically-computed call site invocation instruction is composite:
+ * {@snippet lang=text :
+ * // @link substring="InvokeDynamicInstruction" target="#of" :
+ * InvokeDynamicInstruction(InvokeDynamicEntry invokedynamic) // @link substring="invokedynamic" target="#invokedynamic()"
+ * }
  *
+ * @see Opcode.Kind#INVOKE_DYNAMIC
+ * @see CodeBuilder#invokedynamic CodeBuilder::invokedynamic
+ * @jvms 6.5.invokedynamic <em>invokedynamic</em>
  * @since 24
  */
 public sealed interface InvokeDynamicInstruction extends Instruction
@@ -62,6 +74,10 @@ public sealed interface InvokeDynamicInstruction extends Instruction
 
     /**
      * {@return the invocation type of the call site}
+     *
+     * @apiNote
+     * A symbolic descriptor for the invocation typeis available through {@link
+     * #typeSymbol() typeSymbol()}.
      */
     default Utf8Entry type() {
         return invokedynamic().type();

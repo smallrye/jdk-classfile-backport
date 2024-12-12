@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile.instruction;
 
 import io.github.dmlloyd.classfile.ClassFile;
+import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Label;
@@ -36,11 +37,31 @@ import io.github.dmlloyd.classfile.impl.AbstractPseudoInstruction;
 import io.github.dmlloyd.classfile.impl.BoundCharacterRange;
 
 /**
- * A pseudo-instruction which models a single entry in the
- * {@link CharacterRangeTableAttribute}.  Delivered as a {@link CodeElement}
- * during traversal of the elements of a {@link CodeModel}, according to
- * the setting of the {@link ClassFile.DebugElementsOption} option.
+ * A pseudo-instruction which models a single entry in the {@link
+ * CharacterRangeTableAttribute CharacterRangeTable} attribute.  Delivered as a
+ * {@link CodeElement} during traversal of the elements of a {@link CodeModel},
+ * according to the setting of the {@link ClassFile.DebugElementsOption} option.
+ * <p>
+ * A character range entry is composite:
+ * {@snippet lang=text :
+ * // @link substring="CharacterRange" target="#of":
+ * CharacterRange(
+ *     Label startScope, // @link substring="startScope" target="#startScope"
+ *     Label endScope, // @link substring="endScope" target="#endScope"
+ *     int characterRangeStart, // @link substring="characterRangeStart" target="#characterRangeStart"
+ *     int characterRangeEnd, // @link substring="characterRangeEnd" target="#characterRangeEnd"
+ *     int flags // @link substring="flags" target="#flags"
+ * )
+ * }
+ * <p>
+ * Another model, {@link CharacterRangeInfo}, also models a character range
+ * entry;  it has no dependency on a {@code CodeModel} and represents of bci
+ * values as {@code int}s instead of {@code Label}s, and is used as components
+ * of a {@link CharacterRangeTableAttribute}.
  *
+ * @see CharacterRangeInfo
+ * @see CodeBuilder#characterRange CodeBuilder::characterRange
+ * @see ClassFile.DebugElementsOption
  * @since 24
  */
 public sealed interface CharacterRange extends PseudoInstruction

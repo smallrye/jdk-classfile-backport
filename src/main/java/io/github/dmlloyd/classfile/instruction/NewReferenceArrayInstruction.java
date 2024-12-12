@@ -24,18 +24,29 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
+import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
+import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 
 /**
- * Models a {@code anewarray} invocation instruction in the {@code code}
+ * Models a {@link Opcode#ANEWARRAY anewarray} instruction in the {@code code}
  * array of a {@code Code} attribute.  Delivered as a {@link CodeElement}
  * when traversing the elements of a {@link CodeModel}.
+ * <p>
+ * A new reference array instruction is composite:
+ * {@snippet lang=text :
+ * // @link substring="NewReferenceArrayInstruction" target="#of" :
+ * NewReferenceArrayInstruction(ClassEntry componentType) // @link substring="componentType" target="#componentType"
+ * }
  *
+ * @see Opcode.Kind#NEW_REF_ARRAY
+ * @see CodeBuilder#newarray CodeBuilder::anewarray
+ * @jvms 6.5.anewarray <em>anewarray</em>
  * @since 24
  */
 public sealed interface NewReferenceArrayInstruction extends Instruction
