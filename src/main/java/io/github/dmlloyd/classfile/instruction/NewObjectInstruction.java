@@ -24,18 +24,30 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
+import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
+import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 
 /**
- * Models a {@code new} instruction in the {@code code} array of a {@code Code}
+ * Models a {@link Opcode#NEW new} instruction in the {@code code} array of a {@code Code}
  * attribute.  Delivered as a {@link CodeElement} when traversing the elements
  * of a {@link CodeModel}.
+ * <p>
+ * A new object instruction is composite:
+ * {@snippet lang=text :
+ * // @link substring="NewObjectInstruction" target="#of" :
+ * NewObjectInstruction(ClassEntry className) // @link substring="className" target="#className"
+ * }
+ * where the {@code className} is a non-abstract class.
  *
+ * @see Opcode.Kind#NEW_OBJECT
+ * @see CodeBuilder#new_ CodeBuilder::new_
+ * @jvms 6.5.new <em>new</em>
  * @since 24
  */
 public sealed interface NewObjectInstruction extends Instruction

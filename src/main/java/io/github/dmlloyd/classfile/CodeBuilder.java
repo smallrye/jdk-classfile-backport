@@ -51,7 +51,7 @@ import static io.github.dmlloyd.classfile.impl.BytecodeHelpers.handleDescToHandl
  * #with(ClassFileElement)} or concretely by calling the various {@code withXxx}
  * methods.
  *
- * <h2>Instruction Factories</h2>
+ * <h2 id="instruction-factories">Instruction Factories</h2>
  * {@code CodeBuilder} provides convenience methods to create instructions (See
  * JVMS {@jvms 6.5} Instructions) by their mnemonic, taking necessary operands.
  * <ul>

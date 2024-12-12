@@ -24,19 +24,34 @@
  */
 package io.github.dmlloyd.classfile.instruction;
 
+import io.github.dmlloyd.classfile.CodeBuilder;
 import io.github.dmlloyd.classfile.CodeElement;
 import io.github.dmlloyd.classfile.CodeModel;
 import io.github.dmlloyd.classfile.Instruction;
+import io.github.dmlloyd.classfile.Opcode;
 import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 
 import io.github.dmlloyd.classfile.impl.AbstractInstruction;
 import io.github.dmlloyd.classfile.impl.BytecodeHelpers;
 
 /**
- * Models a {@code multianewarray} invocation instruction in the {@code code}
+ * Models a {@link Opcode#MULTIANEWARRAY multianewarray} instruction in the {@code code}
  * array of a {@code Code} attribute.  Delivered as a {@link CodeElement}
  * when traversing the elements of a {@link CodeModel}.
+ * <p>
+ * A new multi-dimensional array instruction is composite:
+ * {@snippet lang=text :
+ * // @link substring="NewMultiArrayInstruction" target="#of" :
+ * NewMultiArrayInstruction(
+ *     ClassEntry arrayType, // @link substring="arrayType" target="#arrayType"
+ *     int dimensions // @link substring="dimensions" target="#dimensions"
+ * )
+ * }
+ * where the {@code arrayType} is an array class.
  *
+ * @see Opcode.Kind#NEW_MULTI_ARRAY
+ * @see CodeBuilder#multianewarray CodeBuilder::multianewarray
+ * @jvms 6.5.multianewarray <em>multianewarray</em>
  * @since 24
  */
 public sealed interface NewMultiArrayInstruction extends Instruction
@@ -44,7 +59,7 @@ public sealed interface NewMultiArrayInstruction extends Instruction
                 AbstractInstruction.UnboundNewMultidimensionalArrayInstruction {
 
     /**
-     * {@return the type of the array, as a symbolic descriptor}
+     * {@return the type of the array}
      */
     ClassEntry arrayType();
 
