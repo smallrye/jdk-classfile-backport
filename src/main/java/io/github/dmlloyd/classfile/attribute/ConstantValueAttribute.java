@@ -69,12 +69,18 @@ public sealed interface ConstantValueAttribute
      * @param value the constant value
      */
     static ConstantValueAttribute of(ConstantDesc value) {
-        return of(
+        return of(//switch(value) {
+            //case Integer i -> TemporaryConstantPool.INSTANCE.intEntry(i);
             value instanceof Integer i ? TemporaryConstantPool.INSTANCE.intEntry(i) :
+            //case Float f -> TemporaryConstantPool.INSTANCE.floatEntry(f);
             value instanceof Float f ? TemporaryConstantPool.INSTANCE.floatEntry(f) :
+            //case Long l -> TemporaryConstantPool.INSTANCE.longEntry(l);
             value instanceof Long l ? TemporaryConstantPool.INSTANCE.longEntry(l) :
+            //case Double d -> TemporaryConstantPool.INSTANCE.doubleEntry(d);
             value instanceof Double d ? TemporaryConstantPool.INSTANCE.doubleEntry(d) :
+            //case String s -> TemporaryConstantPool.INSTANCE.stringEntry(s);
             value instanceof String s ? TemporaryConstantPool.INSTANCE.stringEntry(s) :
+            //default -> throw new IllegalArgumentException("Invalid ConstantValueAttribute value: " + value);
             BackportUtil.throwAsObj(IllegalArgumentException::new, "Invalid ConstantValueAttribute value: " + value)
         );
     }

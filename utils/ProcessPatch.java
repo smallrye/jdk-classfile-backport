@@ -34,7 +34,7 @@ public class ProcessPatch {
     public static final List<Replacement> replacements = List.of(
         new Replacement("@Stable", "/*@Stable*/"),
         new Replacement("@ForceInline", "/*@ForceInline*/"),
-        new Replacement("case [A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)* [A-Za-z_][A-Za-z0-9_]* -> .*", "//$0"),
+        new Replacement("case [A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*(?:<[^>]+>)? [A-Za-z_][A-Za-z0-9_]* ->.*", "//$0"),
         new Replacement("import jdk.internal.access.JavaLangAccess", "import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA"),
         new Replacement("import jdk.internal.util.ArraysSupport", "import static io.github.dmlloyd.classfile.impl.BackportUtil.ArraysSupport"),
         new Replacement("private static final JavaLangAccess JLA = SharedSecrets.getJavaLangAccess\\(\\);", "//$0"),

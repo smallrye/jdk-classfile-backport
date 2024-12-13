@@ -3,8 +3,6 @@ package io.github.dmlloyd.classfile.impl;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
-
 /**
  * Utilities specific to the backport.
  */
@@ -48,6 +46,10 @@ public final class BackportUtil {
 
     public static <T, E extends Exception> T throwAsObj(Function<String, E> factory, String msg) throws E {
         throw factory.apply(msg);
+    }
+
+    public static <T, E extends Exception> T throwAsObj(Supplier<E> factory) throws E {
+        throw factory.get();
     }
 
     public static <E extends Exception> int throwAsInt(Function<String, E> factory, String msg) throws E {

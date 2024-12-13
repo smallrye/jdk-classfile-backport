@@ -32,13 +32,14 @@ import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
 import java.util.Arrays;
 
-//import jdk.internal.access.JavaLangAccess;
+import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
 //import jdk.internal.access.SharedSecrets;
 //import jdk.internal.vm.annotation.ForceInline;
 
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_UTF8;
 
 public final class BufWriterImpl implements BufWriter {
+    //private static final JavaLangAccess JLA = SharedSecrets.getJavaLangAccess();
 
     private final ConstantPoolBuilder constantPool;
     private final ClassFileImpl context;
@@ -99,6 +100,7 @@ public final class BufWriterImpl implements BufWriter {
         elems[offset++] = (byte) x;
     }
 
+    /*@ForceInline*/
     @Override
     public void writeU2(int x) {
         reserveSpace(2);
@@ -109,6 +111,7 @@ public final class BufWriterImpl implements BufWriter {
         this.offset = offset + 2;
     }
 
+    /*@ForceInline*/
     public void writeU1U1(int x1, int x2) {
         reserveSpace(2);
         byte[] elems = this.elems;
@@ -396,6 +399,7 @@ public final class BufWriterImpl implements BufWriter {
         return cpIndex(entry);
     }
 
+    /*@ForceInline*/
     @Override
     public void writeIndex(PoolEntry entry) {
         writeU2(cpIndex(entry));

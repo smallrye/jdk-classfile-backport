@@ -131,7 +131,7 @@ public enum TypeKind {
     VOID(0, -1);
     // End computational types
 
-    private ClassDesc upperBound;
+    private /*@Stable*/ ClassDesc upperBound;
     private final int slots;
     private final int newarrayCode;
 

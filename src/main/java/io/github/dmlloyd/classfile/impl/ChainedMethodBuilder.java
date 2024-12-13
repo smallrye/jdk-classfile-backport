@@ -41,7 +41,12 @@ public final class ChainedMethodBuilder implements MethodBuilder {
     public ChainedMethodBuilder(MethodBuilder downstream,
                                 Consumer<MethodElement> consumer) {
         this.consumer = consumer;
-        this.terminal = downstream instanceof ChainedMethodBuilder cb ? cb.terminal : (TerminalMethodBuilder) downstream;
+        this.terminal = //switch (downstream) {
+            //case ChainedMethodBuilder cb -> cb.terminal;
+            downstream instanceof ChainedMethodBuilder cb ? cb.terminal :
+            //case TerminalMethodBuilder tb -> tb;
+            downstream instanceof TerminalMethodBuilder tb ? tb :
+            BackportUtil.throwAsObj(IllegalStateException::new);
     }
 
     @Override

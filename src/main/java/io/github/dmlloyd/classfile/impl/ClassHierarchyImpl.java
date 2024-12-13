@@ -247,7 +247,7 @@ public final class ClassHierarchyImpl {
             }
 
             return cl.isInterface() ? ClassHierarchyInfo.ofInterface()
-                    : ClassHierarchyInfo.ofClass(cl.getSuperclass().describeConstable().orElseThrow());
+                    : ClassHierarchyInfo.ofClass(referenceClassDesc(cl.getSuperclass()));
         }
     }
 }

@@ -25,6 +25,7 @@
 package io.github.dmlloyd.classfile.extras.constant;
 
 import io.github.dmlloyd.classfile.extras.constant.ConstantUtils;
+import io.github.dmlloyd.classfile.extras.constant.ModuleDescImpl;
 
 import static java.util.Objects.requireNonNull;
 

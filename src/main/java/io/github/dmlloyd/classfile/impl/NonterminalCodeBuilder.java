@@ -35,7 +35,12 @@ public abstract sealed class NonterminalCodeBuilder implements CodeBuilder
 
     public NonterminalCodeBuilder(CodeBuilder parent) {
         this.parent = parent;
-        this.terminal = parent instanceof NonterminalCodeBuilder cb ? cb.terminal : (TerminalCodeBuilder) parent;
+        this.terminal = //switch (parent) {
+            //case NonterminalCodeBuilder cb -> cb.terminal;
+            parent instanceof NonterminalCodeBuilder cb ? cb.terminal :
+            //case TerminalCodeBuilder cb -> cb;
+            parent instanceof TerminalCodeBuilder cb ? cb :
+            BackportUtil.throwAsObj(IllegalStateException::new);
     }
 
     @Override

@@ -30,13 +30,13 @@ import java.lang.invoke.TypeDescriptor;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-//import jdk.internal.access.JavaLangAccess;
+import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
 //import jdk.internal.access.SharedSecrets;
-//import jdk.internal.util.ArraysSupport;
+import static io.github.dmlloyd.classfile.impl.BackportUtil.ArraysSupport;
+//import jdk.internal.vm.annotation.Stable;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
-//import jdk.internal.vm.annotation.Stable;
 
 import static java.util.Objects.requireNonNull;
 
@@ -130,19 +130,21 @@ public abstract sealed class AbstractPoolEntry {
 
         enum State { RAW, BYTE, CHAR, STRING }
 
+        //private static final JavaLangAccess JLA = SharedSecrets.getJavaLangAccess();
+
         private State state;
         private final byte[] rawBytes; // null if initialized directly from a string
         private final int offset;
         private final int rawLen;
         // Set in any state other than RAW
-        private int contentHash;
-        private int charLen;
+        private /*@Stable*/ int contentHash;
+        private /*@Stable*/ int charLen;
         // Set in CHAR state
-        private char[] chars;
+        private /*@Stable*/ char[] chars;
         // Only set in STRING state
-        private String stringValue;
+        private /*@Stable*/ String stringValue;
         // The descriptor symbol, if this is a descriptor
-        TypeDescriptor typeSym;
+        /*@Stable*/ TypeDescriptor typeSym;
 
         Utf8EntryImpl(ConstantPool cpm, int index,
                           byte[] rawBytes, int offset, int rawLen) {
@@ -509,8 +511,8 @@ public abstract sealed class AbstractPoolEntry {
 
     public static final class ClassEntryImpl extends AbstractNamedEntry implements ClassEntry {
 
-        public ClassDesc sym;
-        private int hash;
+        public /*@Stable*/ ClassDesc sym;
+        private /*@Stable*/ int hash;
 
         ClassEntryImpl(ConstantPool cpm, int index, Utf8EntryImpl name) {
             super(cpm, TAG_CLASS, index, name);
@@ -1233,41 +1235,6 @@ public abstract sealed class AbstractPoolEntry {
                 return doubleValue() == e.doubleValue();
             }
             return false;
-        }
-    }
-
-    // this trick helps to keep a smaller diff up above
-    private static class JLA {
-        private static int countPositives(byte[] ba, int off, int len) {
-            int limit = off + len;
-            for (int i = off; i < limit; i++) {
-                if (ba[i] < 0) {
-                    return i - off;
-                }
-            }
-            return len;
-        }
-        private static void inflateBytesToChars(byte[] src, int srcOff, char[] dst, int dstOff, int len) {
-            for (int i = 0; i < len; i++) {
-                dst[dstOff++] = (char) Byte.toUnsignedInt(src[srcOff++]);
-            }
-        }
-    }
-
-    private static class ArraysSupport {
-        private static int hashCodeOfUnsigned(byte[] a, int fromIndex, int length, int initialValue) {
-            return switch (length) {
-                case 0 -> initialValue;
-                case 1 -> 31 * initialValue + Byte.toUnsignedInt(a[fromIndex]);
-                default -> unsignedHashCode(initialValue, a, fromIndex, length);
-            };
-        }
-        private static int unsignedHashCode(int result, byte[] a, int fromIndex, int length) {
-            int end = fromIndex + length;
-            for (int i = fromIndex; i < end; i++) {
-                result = 31 * result + Byte.toUnsignedInt(a[i]);
-            }
-            return result;
         }
     }
 }
