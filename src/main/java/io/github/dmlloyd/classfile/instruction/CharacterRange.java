@@ -124,15 +124,15 @@ public sealed interface CharacterRange extends PseudoInstruction
      * A flags word, indicating the kind of range.  Multiple flag bits
      * may be set.  Valid flags include:
      * <ul>
-     * <li>{@link #FLAG_STATEMENT},
-     * <li>{@link #FLAG_BLOCK},
-     * <li>{@link #FLAG_ASSIGNMENT},
-     * <li>{@link #FLAG_FLOW_CONTROLLER},
-     * <li>{@link #FLAG_FLOW_TARGET},
-     * <li>{@link #FLAG_INVOKE},
-     * <li>{@link #FLAG_CREATE},
-     * <li>{@link #FLAG_BRANCH_TRUE},
-     * <li>{@link #FLAG_BRANCH_FALSE}.
+     * <li>{@link #FLAG_STATEMENT}
+     * <li>{@link #FLAG_BLOCK}
+     * <li>{@link #FLAG_ASSIGNMENT}
+     * <li>{@link #FLAG_FLOW_CONTROLLER}
+     * <li>{@link #FLAG_FLOW_TARGET}
+     * <li>{@link #FLAG_INVOKE}
+     * <li>{@link #FLAG_CREATE}
+     * <li>{@link #FLAG_BRANCH_TRUE}
+     * <li>{@link #FLAG_BRANCH_FALSE}
      * </ul>
      *
      * @see CharacterRangeInfo#flags()

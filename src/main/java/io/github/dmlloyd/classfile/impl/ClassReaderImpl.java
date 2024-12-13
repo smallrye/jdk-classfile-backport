@@ -42,7 +42,7 @@ import java.util.function.Function;
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.*;
 
 public final class ClassReaderImpl
-    implements ClassReader {
+        implements ClassReader {
     static final int CP_ITEM_START = 10;
 
     private final byte[] buffer;

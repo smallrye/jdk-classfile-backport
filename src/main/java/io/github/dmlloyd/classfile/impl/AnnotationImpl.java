@@ -143,7 +143,7 @@ public record AnnotationImpl(Utf8Entry className, List<AnnotationElement> elemen
 
         @Override
         public short shortValue() {
-            return (short)constant().intValue();
+            return (short) constant().intValue();
         }
     }
 
@@ -156,7 +156,7 @@ public record AnnotationImpl(Utf8Entry className, List<AnnotationElement> elemen
 
         @Override
         public char charValue() {
-            return (char)constant().intValue();
+            return (char) constant().intValue();
         }
     }
 
@@ -169,7 +169,7 @@ public record AnnotationImpl(Utf8Entry className, List<AnnotationElement> elemen
 
         @Override
         public byte byteValue() {
-            return (byte)constant().intValue();
+            return (byte) constant().intValue();
         }
     }
 

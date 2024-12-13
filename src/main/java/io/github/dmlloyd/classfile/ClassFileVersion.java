@@ -30,6 +30,8 @@ import io.github.dmlloyd.classfile.impl.ClassFileVersionImpl;
  * Models the classfile version information for a class.  Delivered as a {@link
  * io.github.dmlloyd.classfile.ClassElement} when traversing the elements of a {@link
  * ClassModel}.
+ *
+ * @since 24
  */
 public sealed interface ClassFileVersion
         extends ClassElement

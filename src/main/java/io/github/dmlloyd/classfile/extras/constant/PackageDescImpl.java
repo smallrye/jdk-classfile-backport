@@ -30,7 +30,7 @@ import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
  * Implementation of {@code PackageDesc}
  * @param internalName must have been validated
  */
-record PackageDescImpl(String internalName) implements PackageDesc {
+public record PackageDescImpl(String internalName) implements PackageDesc {
 
     @Override
     public String toString() {

@@ -121,7 +121,7 @@ public final class CodeImpl
         if (!inflated) {
             if (labels == null)
                 labels = new LabelImpl[codeLength + 1];
-            if ((classReader).context().passLineNumbers())
+            if (classReader.context().passLineNumbers())
                 inflateLineNumbers();
             inflateJumpTargets();
             inflateTypeAnnotations();
@@ -166,7 +166,7 @@ public final class CodeImpl
         inflateMetadata();
         boolean doLineNumbers = (lineNumbers != null);
         generateCatchTargets(consumer);
-        if ((classReader).context().passDebugElements())
+        if (classReader.context().passDebugElements())
             generateDebugElements(consumer);
         for (int pos=codeStart; pos<codeEnd; ) {
             if (labels[pos - codeStart] != null)

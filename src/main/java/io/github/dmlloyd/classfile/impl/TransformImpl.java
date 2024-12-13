@@ -208,8 +208,8 @@ public final class TransformImpl {
 
         @Override
         public MethodTransform andThen(MethodTransform next) {
-            return (next instanceof MethodCodeTransform mct)
-                   ? new MethodCodeTransform(xform.andThen(mct.xform))
+            return (next instanceof TransformImpl.MethodCodeTransform mct)
+                   ? new TransformImpl.MethodCodeTransform(xform.andThen(mct.xform))
                    : UnresolvedMethodTransform.super.andThen(next);
 
         }

@@ -32,6 +32,6 @@ public final class SimpleTests {
             }
         }
         assertTrue(ok, "Didn't find the testParse method");
-        ClassFile.of().transform(model, ClassTransform.ACCEPT_ALL);
+        ClassFile.of().transformClass(model, ClassTransform.ACCEPT_ALL);
     }
 }

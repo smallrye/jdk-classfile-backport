@@ -270,7 +270,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record ClassTypeSigImpl(Optional<ClassTypeSig> outerType, String className, List<TypeArg> typeArgs)
+    public static record ClassTypeSigImpl(Optional<ClassTypeSig> outerType, String className, List<Signature.TypeArg> typeArgs)
             implements Signature.ClassTypeSig {
 
         @Override

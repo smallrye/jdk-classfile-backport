@@ -35,6 +35,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
+//import jdk.internal.access.SharedSecrets;
+
 import static io.github.dmlloyd.classfile.Attributes.*;
 
 public abstract sealed class BoundAttribute<T extends Attribute<T>>
@@ -212,7 +214,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundSyntheticAttribute extends BoundAttribute<SyntheticAttribute>
-        implements SyntheticAttribute {
+            implements SyntheticAttribute {
         public BoundSyntheticAttribute(ClassReader cf, AttributeMapper<SyntheticAttribute> mapper, int pos) {
             super(cf, mapper, pos);
         }
@@ -220,7 +222,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
 
     public static final class BoundLineNumberTableAttribute
             extends BoundAttribute<LineNumberTableAttribute>
-        implements LineNumberTableAttribute {
+            implements LineNumberTableAttribute {
         private List<LineNumberInfo> lineNumbers = null;
 
         public BoundLineNumberTableAttribute(ClassReader cf, AttributeMapper<LineNumberTableAttribute> mapper, int pos) {
@@ -463,7 +465,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundNestHostAttribute extends BoundAttribute<NestHostAttribute>
-        implements NestHostAttribute {
+            implements NestHostAttribute {
         public BoundNestHostAttribute(ClassReader cf, AttributeMapper<NestHostAttribute> mapper, int pos) {
             super(cf, mapper, pos);
         }
@@ -507,7 +509,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundCompilationIDAttribute extends BoundAttribute<CompilationIDAttribute>
-        implements CompilationIDAttribute {
+            implements CompilationIDAttribute {
         public BoundCompilationIDAttribute(ClassReader cf, AttributeMapper<CompilationIDAttribute> mapper, int pos) {
             super(cf, mapper, pos);
         }
@@ -531,7 +533,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundModuleResolutionAttribute extends BoundAttribute<ModuleResolutionAttribute>
-        implements ModuleResolutionAttribute {
+            implements ModuleResolutionAttribute {
         public BoundModuleResolutionAttribute(ClassReader cf, AttributeMapper<ModuleResolutionAttribute> mapper, int pos) {
             super(cf, mapper, pos);
         }
@@ -543,7 +545,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundExceptionsAttribute extends BoundAttribute<ExceptionsAttribute>
-        implements ExceptionsAttribute {
+            implements ExceptionsAttribute {
         private List<ClassEntry> exceptions = null;
 
         public BoundExceptionsAttribute(ClassReader cf, AttributeMapper<ExceptionsAttribute> mapper, int pos) {
@@ -822,7 +824,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
     }
 
     public static final class BoundRuntimeVisibleTypeAnnotationsAttribute extends BoundAttribute<RuntimeVisibleTypeAnnotationsAttribute>
-        implements RuntimeVisibleTypeAnnotationsAttribute {
+            implements RuntimeVisibleTypeAnnotationsAttribute {
 
         private final LabelContext labelContext;
 
@@ -901,7 +903,7 @@ public abstract sealed class BoundAttribute<T extends Attribute<T>>
 
     public static final class BoundRuntimeVisibleAnnotationsAttribute
             extends BoundAttribute<RuntimeVisibleAnnotationsAttribute>
-        implements RuntimeVisibleAnnotationsAttribute {
+            implements RuntimeVisibleAnnotationsAttribute {
         private List<Annotation> inflated;
 
         public BoundRuntimeVisibleAnnotationsAttribute(ClassReader cf,

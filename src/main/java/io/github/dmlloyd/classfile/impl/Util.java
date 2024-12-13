@@ -272,8 +272,8 @@ public class Util {
         try {
             var cc = ClassFile.of();
             var clm = cc.parse(cc.build(cp.classEntry(cls), cp, clb ->
-                clb.withMethod(methodName, methodDesc, acc, mb ->
-                    ((DirectMethodBuilder) mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.code()) {
+                    clb.withMethod(methodName, methodDesc, acc, mb ->
+                            ((DirectMethodBuilder)mb).writeAttribute(new UnboundAttribute.AdHocAttribute<CodeAttribute>(Attributes.code()) {
                                 @Override
                                 public void writeBody(BufWriterImpl b) {
                                     b.writeU2U2(-1, -1);//max stack & locals

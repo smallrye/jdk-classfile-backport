@@ -36,7 +36,7 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
  * Models the {@code SourceID} attribute, which can
- * appear on classes. Delivered as a {@link ClassElement} when
+ * appear on classes. Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when
  * traversing a {@link ClassModel}.
  * <p>
  * The attribute does not permit multiple instances in a given location.

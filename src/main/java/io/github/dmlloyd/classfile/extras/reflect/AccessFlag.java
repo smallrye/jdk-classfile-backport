@@ -87,11 +87,12 @@ import static java.util.Map.entry;
  * be recognized in the {@linkplain Runtime#version() current
  * version}.
  *
- * @see Modifier
+ * @see java.lang.reflect.Modifier
  * @see java.lang.module.ModuleDescriptor.Modifier
  * @see java.lang.module.ModuleDescriptor.Requires.Modifier
  * @see java.lang.module.ModuleDescriptor.Exports.Modifier
  * @see java.lang.module.ModuleDescriptor.Opens.Modifier
+ * @see java.compiler/javax.lang.model.element.Modifier
  * @since 20
  */
 @SuppressWarnings("doclint:reference") // cross-module link

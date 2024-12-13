@@ -176,7 +176,7 @@ public sealed interface ClassFile
 
     /**
      * Option describing whether to filter unresolved labels.
-     * Default is {@code FAIL_ON_DEAD_LABELS} to throw {@link IllegalArgumentException}
+     * Default is {@code FAIL_ON_DEAD_LABELS} to throw IllegalArgumentException
      * when any {@link ExceptionCatch}, {@link LocalVariableInfo},
      * {@link LocalVariableTypeInfo}, or {@link CharacterRangeInfo}
      * reference to unresolved {@link Label} during bytecode serialization.
@@ -440,16 +440,16 @@ public sealed interface ClassFile
      *
      * @implNote
      * This method behaves as if:
-     * {@snippet lang = java:
+     * {@snippet lang=java :
      *     this.build(model.thisClass(), ConstantPoolBuilder.of(model),
      *                     clb -> clb.transform(model, transform));
-     *}
+     * }
      *
      * @param model the class model to transform
      * @param transform the transform
      * @return the bytes of the new class
      */
-    default byte[] transform(ClassModel model, ClassTransform transform) {
+    default byte[] transformClass(ClassModel model, ClassTransform transform) {
         return transformClass(model, model.thisClass(), transform);
     }
 

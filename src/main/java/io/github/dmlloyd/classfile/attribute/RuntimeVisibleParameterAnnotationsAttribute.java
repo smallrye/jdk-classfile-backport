@@ -25,7 +25,6 @@
 
 package io.github.dmlloyd.classfile.attribute;
 
-
 import io.github.dmlloyd.classfile.Annotation;
 import io.github.dmlloyd.classfile.Attribute;
 import io.github.dmlloyd.classfile.MethodElement;
@@ -38,7 +37,7 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 /**
  * Models the {@code RuntimeVisibleParameterAnnotations} attribute (JVMS {@jvms 4.7.18}), which
  * can appear on methods. Delivered as a {@link io.github.dmlloyd.classfile.MethodElement}
- * when traversing a {@link io.github.dmlloyd.classfile.MethodModel}.
+ * when traversing a {@link MethodModel}.
  *
  * @apiNote The attribute does not permit multiple instances in a given location.
  * Subsequent occurrence of the attribute takes precedence during the attributed

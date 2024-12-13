@@ -29,6 +29,10 @@ import java.lang.invoke.VarHandle;
 import java.nio.ByteOrder;
 import java.util.Objects;
 
+//import jdk.internal.misc.Unsafe;
+//import jdk.internal.util.Preconditions;
+//import jdk.internal.vm.annotation.Stable;
+
 public final class RawBytecodeHelper {
 
     public static final int

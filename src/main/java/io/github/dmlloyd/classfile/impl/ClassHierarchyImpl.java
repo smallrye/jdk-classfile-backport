@@ -121,7 +121,7 @@ public final class ClassHierarchyImpl {
     public static final class CachedClassHierarchyResolver implements ClassHierarchyResolver {
         // this instance should not leak out, appears only in cache in order to utilize Map.computeIfAbsent
         // is already an invalid combination, so it can be compared with equals or as value class safely
-        private static final ClassHierarchyInfo NOPE =
+        private static final ClassHierarchyResolver.ClassHierarchyInfo NOPE =
                 new ClassHierarchyInfoImpl(null, true);
 
         private final Map<ClassDesc, ClassHierarchyInfo> resolvedCache;
@@ -162,7 +162,7 @@ public final class ClassHierarchyImpl {
         // minimal information includes: identification of the class as interface, obtaining its superclass name and identification of all potential interfaces (to avoid unnecessary future resolutions of them)
         // empty ClInfo is stored in case of an exception to avoid repeated scanning failures
         @Override
-        public ClassHierarchyInfo getClassInfo(ClassDesc classDesc) {
+        public ClassHierarchyResolver.ClassHierarchyInfo getClassInfo(ClassDesc classDesc) {
             var ci = streamProvider.apply(classDesc);
             if (ci == null) return null;
             try (var in = new DataInputStream(new BufferedInputStream(ci))) {

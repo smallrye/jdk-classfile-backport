@@ -135,7 +135,7 @@ import static io.github.dmlloyd.classfile.impl.RawBytecodeHelper.*;
  * <p>
  * Custom class hierarchy resolver has been implemented as a part of the library to avoid heavy class loading
  * and to allow stack maps generation even for code with incomplete dependency classpath.
- * However stack maps generated with {@linkplain ClassHierarchyImpl#resolve(ClassDesc) warnings of unresolved dependencies} may later fail to verify during class loading process.
+ * However stack maps generated with {@linkplain ClassHierarchyImpl#resolve(java.lang.constant.ClassDesc) warnings of unresolved dependencies} may later fail to verify during class loading process.
  * <p>
  * Focus of the whole algorithm is on high performance and low memory footprint:<ul>
  *      <li>It does not produce, collect nor visit any complex intermediate structures
