@@ -554,7 +554,7 @@ public sealed interface CodeBuilder
      */
     default CodeBuilder loadConstant(ConstantDesc value) {
         //avoid switch expressions here
-        if (value == null || value == ConstantDescs.NULL)
+        if (value == null || value.equals(ConstantDescs.NULL))
             return aconst_null();
         if (value instanceof Number) {
             if (value instanceof Integer) return loadConstant((int)    value);

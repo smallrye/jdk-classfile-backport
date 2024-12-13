@@ -243,7 +243,7 @@ public class Util {
     }
 
     public static int slotSize(ClassDesc desc) {
-        return desc == CD_void ? 0 : isDoubleSlot(desc) ? 2 : 1;
+        return desc.equals(CD_void) ? 0 : isDoubleSlot(desc) ? 2 : 1;
     }
 
     public static int paramSlotSize(ClassDesc desc) {
@@ -251,7 +251,7 @@ public class Util {
     }
 
     public static boolean isDoubleSlot(ClassDesc desc) {
-        return desc == CD_double || desc == CD_long;
+        return desc.equals(CD_double) || desc.equals(CD_long);
     }
 
     public static void dumpMethod(SplitConstantPool cp,

@@ -975,12 +975,12 @@ public final class StackMapGenerator {
         }
 
         Frame pushStack(ClassDesc desc) {
-            if (desc == CD_long)   return pushStack(Type.LONG_TYPE, Type.LONG2_TYPE);
-            if (desc == CD_double) return pushStack(Type.DOUBLE_TYPE, Type.DOUBLE2_TYPE);
-            return desc == CD_void ? this
+            if (desc.equals(CD_long))   return pushStack(Type.LONG_TYPE, Type.LONG2_TYPE);
+            if (desc.equals(CD_double)) return pushStack(Type.DOUBLE_TYPE, Type.DOUBLE2_TYPE);
+            return desc.equals(CD_void) ? this
                     : pushStack(
                     desc.isPrimitive()
-                            ? (desc == CD_float ? Type.FLOAT_TYPE : Type.INTEGER_TYPE)
+                            ? (desc.equals(CD_float) ? Type.FLOAT_TYPE : Type.INTEGER_TYPE)
                             : Type.referenceType(desc));
         }
 
@@ -1078,18 +1078,18 @@ public final class StackMapGenerator {
             }
             for (int i = 0; i < methodDesc.parameterCount(); i++) {
                 var desc = methodDesc.parameterType(i);
-                if (desc == CD_long) {
+                if (desc.equals(CD_long)) {
                     locals[localsSize    ] = Type.LONG_TYPE;
                     locals[localsSize + 1] = Type.LONG2_TYPE;
                     localsSize += 2;
-                } else if (desc == CD_double) {
+                } else if (desc.equals(CD_double)) {
                     locals[localsSize    ] = Type.DOUBLE_TYPE;
                     locals[localsSize + 1] = Type.DOUBLE2_TYPE;
                     localsSize += 2;
                 } else {
                     if (!desc.isPrimitive()) {
                         type = Type.referenceType(desc);
-                    } else if (desc == CD_float) {
+                    } else if (desc.equals(CD_float)) {
                         type = Type.FLOAT_TYPE;
                     } else {
                         type = Type.INTEGER_TYPE;
