@@ -34,14 +34,16 @@ import java.lang.constant.MethodTypeDesc;
 import java.lang.invoke.MethodType;
 import java.util.Set;
 
-import static java.lang.constant.ConstantDescs.*;
-//import jdk.internal.access.JavaLangAccess;
+import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
 //import jdk.internal.access.SharedSecrets;
+import static java.lang.constant.ConstantDescs.*;
 
 /**
  * Helper methods for the implementation of {@code java.lang.constant}.
  */
 public final class ConstantUtils {
+    //private static final JavaLangAccess JLA = SharedSecrets.getJavaLangAccess();
+
     /** an empty constant descriptor */
     public static final ConstantDesc[] EMPTY_CONSTANTDESC = new ConstantDesc[0];
     public static final ClassDesc[] EMPTY_CLASSDESC = new ClassDesc[0];

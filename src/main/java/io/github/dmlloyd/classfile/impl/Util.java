@@ -163,19 +163,11 @@ public class Util {
     }
 
     public static List<ClassEntry> entryList(List<? extends ClassDesc> list) {
-        var result = new ClassEntry[list.size()]; // null check
-        for (int i = 0; i < result.length; i++) {
-            result[i] = TemporaryConstantPool.INSTANCE.classEntry(list.get(i));
-        }
-        return List.of(result);
+        return list.stream().map(TemporaryConstantPool.INSTANCE::classEntry).toList();
     }
 
     public static List<ModuleEntry> moduleEntryList(List<? extends ModuleDesc> list) {
-        var result = new ModuleEntry[list.size()]; // null check
-        for (int i = 0; i < result.length; i++) {
-            result[i] = TemporaryConstantPool.INSTANCE.moduleEntry(TemporaryConstantPool.INSTANCE.utf8Entry(list.get(i).name()));
-        }
-        return List.of(result);
+        return list.stream().map(ModuleDesc::name).map(TemporaryConstantPool.INSTANCE::utf8Entry).map(TemporaryConstantPool.INSTANCE::moduleEntry).toList();
     }
 
     public static void checkKind(Opcode op, Opcode.Kind k) {
@@ -233,6 +225,7 @@ public class Util {
         }
     }
 
+    /*@ForceInline*/
     public static void writeAttributes(BufWriterImpl buf, List<? extends Attribute<?>> list) {
         int size = list.size();
         buf.writeU2(size);
@@ -241,6 +234,7 @@ public class Util {
         }
     }
 
+    /*@ForceInline*/
     static void writeList(BufWriterImpl buf, Writable[] array, int size) {
         buf.writeU2(size);
         for (int i = 0; i < size; i++) {
@@ -376,7 +370,7 @@ public class Util {
      * This is converted to explicit initialization to avoid bootstrap overhead.
      * Validated in UtilTest.
      */
-    static final int[] powers = new int[] {
+    static final /*@Stable*/ int[] powers = new int[] {
             0x0000001f, 0x000003c1, 0x0000745f, 0x000e1781, 0x01b4d89f, 0x34e63b41, 0x67e12cdf,
             0x94446f01, 0x50a9de01, 0x84304d01, 0x7dd7bc01, 0x8ca02b01, 0xff899a01, 0x25940901,
             0x4dbf7801, 0xe3bef001, 0xc1fe6801, 0xe87de001, 0x573d5801, 0x0e3cd001, 0x0d7c4801,

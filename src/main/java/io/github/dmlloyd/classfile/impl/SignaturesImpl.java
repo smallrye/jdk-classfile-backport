@@ -128,12 +128,13 @@ public final class SignaturesImpl {
 
     private Signature typeSig() {
         char c = sig.charAt(sigp++);
-        switch (c) {
-            case 'B','C','D','F','I','J','V','S','Z': return Signature.BaseTypeSig.of(c);
-            default:
+        return switch (c) {
+            case 'B', 'C', 'D', 'F', 'I', 'J', 'V', 'S', 'Z' -> Signature.BaseTypeSig.of(c);
+            default -> {
                 sigp--;
-                return referenceTypeSig();
-        }
+                yield referenceTypeSig();
+            }
+        };
     }
 
     private RefTypeSig referenceTypeSig() {
@@ -155,14 +156,15 @@ public final class SignaturesImpl {
 
     private TypeArg typeArg() {
         char c = sig.charAt(sigp++);
-        switch (c) {
-            case '*': return TypeArg.unbounded();
-            case '+': return TypeArg.extendsOf(referenceTypeSig());
-            case '-': return TypeArg.superOf(referenceTypeSig());
-            default:
+        return switch (c) {
+            case '*' -> TypeArg.unbounded();
+            case '+' -> TypeArg.extendsOf(referenceTypeSig());
+            case '-' -> TypeArg.superOf(referenceTypeSig());
+            default -> {
                 sigp--;
-                return TypeArg.of(referenceTypeSig());
-        }
+                yield TypeArg.of(referenceTypeSig());
+            }
+        };
     }
 
     private ClassTypeSig classTypeSig() {
@@ -241,7 +243,7 @@ public final class SignaturesImpl {
         return sigp;
     }
 
-    public static record BaseTypeSigImpl(char baseType) implements Signature.BaseTypeSig {
+    public record BaseTypeSigImpl(char baseType) implements Signature.BaseTypeSig {
 
         @Override
         public String signatureString() {
@@ -249,7 +251,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record TypeVarSigImpl(String identifier) implements Signature.TypeVarSig {
+    public record TypeVarSigImpl(String identifier) implements Signature.TypeVarSig {
 
         @Override
         public String signatureString() {
@@ -257,7 +259,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record ArrayTypeSigImpl(int arrayDepth, Signature elemType) implements Signature.ArrayTypeSig {
+    public record ArrayTypeSigImpl(int arrayDepth, Signature elemType) implements Signature.ArrayTypeSig {
 
         @Override
         public Signature componentSignature() {
@@ -270,7 +272,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record ClassTypeSigImpl(Optional<ClassTypeSig> outerType, String className, List<Signature.TypeArg> typeArgs)
+    public record ClassTypeSigImpl(Optional<ClassTypeSig> outerType, String className, List<Signature.TypeArg> typeArgs)
             implements Signature.ClassTypeSig {
 
         @Override
@@ -286,14 +288,18 @@ public final class SignaturesImpl {
                 var sb = new StringBuilder();
                 sb.append('<');
                 for (var ta : typeArgs) {
-                    if (ta instanceof TypeArg.Bounded b) {
-                        switch (b.wildcardIndicator()) {
-                            case SUPER -> sb.append('-');
-                            case EXTENDS -> sb.append('+');
+                    /*switch (ta)*/ {
+                        //case TypeArg.Bounded b -> {
+                        if (ta instanceof TypeArg.Bounded b) {
+                            switch (b.wildcardIndicator()) {
+                                case SUPER -> sb.append('-');
+                                case EXTENDS -> sb.append('+');
+                            }
+                            sb.append(b.boundType().signatureString());
                         }
-                        sb.append(b.boundType().signatureString());
-                    } else if (ta instanceof TypeArg.Unbounded __) {
-                        sb.append('*');
+                        //case TypeArg.Unbounded _ -> sb.append('*');
+                        else if (ta instanceof TypeArg.Unbounded)
+                            sb.append('*');
                     }
                 }
                 suffix = sb.append(">;").toString();
@@ -302,14 +308,14 @@ public final class SignaturesImpl {
         }
     }
 
-    public static enum UnboundedTypeArgImpl implements TypeArg.Unbounded {
+    public enum UnboundedTypeArgImpl implements TypeArg.Unbounded {
         INSTANCE;
     }
 
-    public static record TypeArgImpl(WildcardIndicator wildcardIndicator, RefTypeSig boundType) implements Signature.TypeArg.Bounded {
+    public record TypeArgImpl(WildcardIndicator wildcardIndicator, RefTypeSig boundType) implements Signature.TypeArg.Bounded {
     }
 
-    public static record TypeParamImpl(String identifier, Optional<RefTypeSig> classBound, List<RefTypeSig> interfaceBounds)
+    public record TypeParamImpl(String identifier, Optional<RefTypeSig> classBound, List<RefTypeSig> interfaceBounds)
             implements TypeParam {
     }
 
@@ -329,7 +335,7 @@ public final class SignaturesImpl {
         return sb;
     }
 
-    public static record ClassSignatureImpl(List<TypeParam> typeParameters, ClassTypeSig superclassSignature,
+    public record ClassSignatureImpl(List<TypeParam> typeParameters, ClassTypeSig superclassSignature,
             List<ClassTypeSig> superinterfaceSignatures) implements ClassSignature {
 
         @Override
@@ -342,7 +348,7 @@ public final class SignaturesImpl {
         }
     }
 
-    public static record MethodSignatureImpl(
+    public record MethodSignatureImpl(
             List<TypeParam> typeParameters,
             List<ThrowableSig> throwableSignatures,
             Signature result,

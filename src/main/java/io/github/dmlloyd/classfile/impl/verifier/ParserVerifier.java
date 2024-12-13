@@ -66,17 +66,29 @@ public record ParserVerifier(ClassModel classModel) {
         for (var cpe : classModel.constantPool()) {
             try {
                 switch (cpe.tag()) {
+                    //case DoubleEntry de -> de.doubleValue();
                     case PoolEntry.TAG_DOUBLE -> ((DoubleEntry) cpe).doubleValue();
+                    //case FloatEntry fe -> fe.floatValue();
                     case PoolEntry.TAG_FLOAT -> ((FloatEntry) cpe).floatValue();
+                    //case IntegerEntry ie -> ie.intValue();
                     case PoolEntry.TAG_INTEGER -> ((IntegerEntry) cpe).intValue();
+                    //case LongEntry le -> le.longValue();
                     case PoolEntry.TAG_LONG -> ((LongEntry) cpe).longValue();
+                    //case Utf8Entry ue -> ue.stringValue();
                     case PoolEntry.TAG_UTF8 -> ((Utf8Entry) cpe).stringValue();
+                    //case ConstantDynamicEntry cde -> cde.asSymbol();
                     case PoolEntry.TAG_DYNAMIC -> ((ConstantDynamicEntry) cpe).asSymbol();
+                    //case InvokeDynamicEntry ide -> ide.asSymbol();
                     case PoolEntry.TAG_INVOKE_DYNAMIC -> ((InvokeDynamicEntry) cpe).asSymbol();
+                    //case ClassEntry ce -> ce.asSymbol();
                     case PoolEntry.TAG_CLASS -> ((ClassEntry) cpe).asSymbol();
+                    //case StringEntry se -> se.stringValue();
                     case PoolEntry.TAG_STRING -> ((StringEntry) cpe).stringValue();
+                    //case MethodHandleEntry mhe -> mhe.asSymbol();
                     case PoolEntry.TAG_METHOD_HANDLE -> ((MethodHandleEntry) cpe).asSymbol();
+                    //case MethodTypeEntry mte -> mte.asSymbol();
                     case PoolEntry.TAG_METHOD_TYPE -> ((MethodTypeEntry) cpe).asSymbol();
+                    //case FieldRefEntry fre -> {
                     case PoolEntry.TAG_FIELDREF -> {
                         FieldRefEntry fre = (FieldRefEntry) cpe;
                         try {
@@ -91,6 +103,7 @@ public record ParserVerifier(ClassModel classModel) {
                         }
                         verifyFieldName(fre.name().stringValue());
                     }
+                    //case InterfaceMethodRefEntry imre -> {
                     case PoolEntry.TAG_INTERFACE_METHODREF -> {
                         InterfaceMethodRefEntry imre = (InterfaceMethodRefEntry) cpe;
                         try {
@@ -105,6 +118,7 @@ public record ParserVerifier(ClassModel classModel) {
                         }
                         verifyMethodName(imre.name().stringValue());
                     }
+                    //case MethodRefEntry mre -> {
                     case PoolEntry.TAG_METHODREF -> {
                         MethodRefEntry mre = (MethodRefEntry) cpe;
                         try {
@@ -119,7 +133,9 @@ public record ParserVerifier(ClassModel classModel) {
                         }
                         verifyMethodName(mre.name().stringValue());
                     }
+                    //case ModuleEntry me -> me.asSymbol();
                     case PoolEntry.TAG_MODULE -> ((ModuleEntry) cpe).asSymbol();
+                    //case NameAndTypeEntry nate -> {
                     case PoolEntry.TAG_NAME_AND_TYPE -> {
                         NameAndTypeEntry nate = (NameAndTypeEntry) cpe;
                         try {
@@ -129,6 +145,7 @@ public record ParserVerifier(ClassModel classModel) {
                         }
                         nate.type().stringValue();
                     }
+                    //case PackageEntry pe -> pe.asSymbol();
                     case PoolEntry.TAG_PACKAGE -> ((PackageEntry) cpe).asSymbol();
                 }
             } catch (VerifyError|Exception e) {
@@ -214,10 +231,16 @@ public record ParserVerifier(ClassModel classModel) {
                 verifyAttribute(ae, a, errors);
             }
         }
-        if (cfe instanceof CompoundElement<?> comp) {
-            for (var e : comp) verifyAttributes(e, errors);
-        } else if (cfe instanceof RecordAttribute ra) {
-            for(var rc : ra.components()) verifyAttributes(rc, errors);
+        /*switch (cfe)*/ {
+            //case CompoundElement<?> comp -> {
+            if (cfe instanceof CompoundElement<?> comp) {
+                for (var e : comp) verifyAttributes(e, errors);
+            }
+            //case RecordAttribute ra -> {
+            else if (cfe instanceof RecordAttribute ra) {
+                for(var rc : ra.components()) verifyAttributes(rc, errors);
+            }
+            //default -> {}
         }
     }
 
@@ -468,15 +491,17 @@ public record ParserVerifier(ClassModel classModel) {
     }
 
     private static int verificationTypeSize(StackMapFrameInfo.VerificationTypeInfo vti) {
-        if (vti instanceof StackMapFrameInfo.SimpleVerificationTypeInfo) {
-            return 1;
-        } else if (vti instanceof StackMapFrameInfo.ObjectVerificationTypeInfo ovti) {
-            ovti.classSymbol();
-            return 3;
-        } else if (vti instanceof StackMapFrameInfo.UninitializedVerificationTypeInfo) {
-            return 3;
-        } else {
-            throw new IllegalStateException();
+        /*return switch (vti)*/{
+            //case StackMapFrameInfo.SimpleVerificationTypeInfo _ -> 1;
+            if (vti instanceof StackMapFrameInfo.SimpleVerificationTypeInfo) return 1;
+            //case StackMapFrameInfo.ObjectVerificationTypeInfo ovti -> {
+            else if (vti instanceof StackMapFrameInfo.ObjectVerificationTypeInfo ovti) {
+                ovti.classSymbol();
+                return 3;
+            }
+            //case StackMapFrameInfo.UninitializedVerificationTypeInfo _ -> 3;
+            else if (vti instanceof StackMapFrameInfo.UninitializedVerificationTypeInfo) return 3;
+            else throw new IllegalStateException();
         }
     }
 
@@ -485,23 +510,22 @@ public record ParserVerifier(ClassModel classModel) {
     }
 
     private String toString(AttributedElement ae) {
-        if (ae instanceof CodeModel m) {
-            return "Code attribute for " + toString(m.parent().get());
-        } else if (ae instanceof FieldModel m) {
-            return "field %s.%s".formatted(
+        return /*switch (ae) {*/
+            //case CodeModel m -> "Code attribute for " + toString(m.parent().get());
+            ae instanceof CodeModel m ? "Code attribute for " + toString(m.parent().get()) :
+            //case FieldModel m -> "field %s.%s".formatted(
+            ae instanceof FieldModel m ? "field %s.%s".formatted(
                     className(),
-                    m.fieldName().stringValue());
-        } else if (ae instanceof MethodModel m) {
-            return "method %s::%s(%s)".formatted(
+                    m.fieldName().stringValue()) :
+            //case MethodModel m -> "method %s::%s(%s)".formatted(
+            ae instanceof MethodModel m ? "method %s::%s(%s)".formatted(
                     className(),
                     m.methodName().stringValue(),
-                    m.methodTypeSymbol().parameterList().stream().map(ClassDesc::displayName).collect(Collectors.joining(",")));
-        } else if (ae instanceof RecordComponentInfo i) {
-            return "Record component %s of class %s".formatted(
+                    m.methodTypeSymbol().parameterList().stream().map(ClassDesc::displayName).collect(Collectors.joining(","))) :
+            //case RecordComponentInfo i -> "Record component %s of class %s".formatted(
+            ae instanceof RecordComponentInfo i ? "Record component %s of class %s".formatted(
                     i.name().stringValue(),
-                    className());
-        } else {
-            return "class " + className();
-        }
+                    className()) :
+            /* default ->*/ "class " + className();
     }
 }

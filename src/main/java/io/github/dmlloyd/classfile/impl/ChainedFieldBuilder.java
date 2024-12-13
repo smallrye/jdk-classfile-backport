@@ -38,7 +38,12 @@ public final class ChainedFieldBuilder implements FieldBuilder {
     public ChainedFieldBuilder(FieldBuilder downstream,
                                Consumer<FieldElement> consumer) {
         this.consumer = consumer;
-        this.terminal = downstream instanceof ChainedFieldBuilder cb ? cb.terminal : (TerminalFieldBuilder) downstream;
+        this.terminal = //switch (downstream) {
+            //case ChainedFieldBuilder cb -> cb.terminal;
+            downstream instanceof ChainedFieldBuilder cb ? cb.terminal :
+            //case TerminalFieldBuilder tb -> tb;
+            downstream instanceof TerminalFieldBuilder tb ? tb :
+            BackportUtil.throwAsObj(IllegalStateException::new);
     }
 
     @Override

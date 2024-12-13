@@ -39,7 +39,12 @@ public final class ChainedClassBuilder
     public ChainedClassBuilder(ClassBuilder downstream,
                                Consumer<ClassElement> consumer) {
         this.consumer = consumer;
-        this.terminal = downstream instanceof ChainedClassBuilder cb ? cb.terminal : (DirectClassBuilder) downstream;
+        this.terminal = //switch (downstream) {
+            //case ChainedClassBuilder cb -> cb.terminal;
+            downstream instanceof ChainedClassBuilder cb ? cb.terminal :
+            //case DirectClassBuilder db -> db;
+            downstream instanceof DirectClassBuilder db ? db :
+            BackportUtil.throwAsObj(IllegalStateException::new);
     }
 
     @Override

@@ -261,7 +261,7 @@ public final class RawBytecodeHelper {
      * Tested in UtilTest::testOpcodeLengthTable.
      */
     // Note: Consider distinguishing non-opcode and non-fixed-length opcode
-    public static final byte[] LENGTHS = new byte[] {
+    public static final /*@Stable*/ byte[] LENGTHS = new byte[] {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             2, 3, 2, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

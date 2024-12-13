@@ -435,7 +435,7 @@ public enum AccessFlag {
     // Lambda to implement locations(ClassFileFormatVersion cffv)
     private final Function<ClassFileFormatVersion, Set<Location>> cffvToLocations;
 
-    AccessFlag(int mask,
+    private AccessFlag(int mask,
                        boolean sourceModifier,
                        Set<Location> locations,
                        Function<ClassFileFormatVersion, Set<Location>> cffvToLocations) {

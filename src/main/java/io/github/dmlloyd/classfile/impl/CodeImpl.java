@@ -254,17 +254,26 @@ public final class CodeImpl
                 //fallback to jump targets inflation without StackMapTableAttribute
                 for (int pos=codeStart; pos<codeEnd; ) {
                     var i = bcToInstruction(classReader.readU1(pos), pos);
+                    //switch (i) {
+                        //case BranchInstruction br -> br.target();
                     if (i instanceof BranchInstruction br) {
                         br.target();
-                    } else if (i instanceof DiscontinuedInstruction.JsrInstruction jsr) {
+                    }
+                        //case DiscontinuedInstruction.JsrInstruction jsr -> jsr.target();
+                    else if (i instanceof DiscontinuedInstruction.JsrInstruction jsr) {
                         jsr.target();
-                    } else if (i instanceof LookupSwitchInstruction ls) {
+                    }
+                        //case LookupSwitchInstruction ls -> {
+                    else if (i instanceof LookupSwitchInstruction ls) {
                         ls.defaultTarget();
                         ls.cases();
-                    } else if (i instanceof TableSwitchInstruction ts) {
-                        ts.defaultTarget();
-                        ts.cases();
                     }
+                        //case TableSwitchInstruction ts -> {
+                    else if (i instanceof TableSwitchInstruction ts) {
+                       ts.defaultTarget();
+                       ts.cases();
+                    }
+                        //default -> {}
                     pos += i.sizeInBytes();
                 }
             }

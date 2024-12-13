@@ -307,16 +307,24 @@ public final class AnnotationReader {
         buf.writeU1(ta.targetInfo().targetType().targetTypeValue());
 
         // target_info
+        //switch (ta.targetInfo()) {
+            //case TypeAnnotation.TypeParameterTarget tpt -> buf.writeU1(tpt.typeParameterIndex());
         if (ta.targetInfo() instanceof TypeAnnotation.TypeParameterTarget tpt) buf.writeU1(tpt.typeParameterIndex());
+            //case TypeAnnotation.SupertypeTarget st -> buf.writeU2(st.supertypeIndex());
         else if (ta.targetInfo() instanceof TypeAnnotation.SupertypeTarget st) buf.writeU2(st.supertypeIndex());
+            //case TypeAnnotation.TypeParameterBoundTarget tpbt -> {
         else if (ta.targetInfo() instanceof TypeAnnotation.TypeParameterBoundTarget tpbt) {
             buf.writeU1U1(tpbt.typeParameterIndex(), tpbt.boundIndex());
         }
-        else if (ta.targetInfo() instanceof TypeAnnotation.EmptyTarget __) {
+            //case TypeAnnotation.EmptyTarget _ -> {
+        else if (ta.targetInfo() instanceof TypeAnnotation.EmptyTarget) {
             // nothing to write
         }
+            //case TypeAnnotation.FormalParameterTarget fpt -> buf.writeU1(fpt.formalParameterIndex());
         else if (ta.targetInfo() instanceof TypeAnnotation.FormalParameterTarget fpt) buf.writeU1(fpt.formalParameterIndex());
+            //case TypeAnnotation.ThrowsTarget tt -> buf.writeU2(tt.throwsTargetIndex());
         else if (ta.targetInfo() instanceof TypeAnnotation.ThrowsTarget tt) buf.writeU2(tt.throwsTargetIndex());
+            //case TypeAnnotation.LocalVarTarget lvt -> {
         else if (ta.targetInfo() instanceof TypeAnnotation.LocalVarTarget lvt) {
             buf.writeU2(lvt.table().size());
             for (var e : lvt.table()) {
@@ -324,8 +332,11 @@ public final class AnnotationReader {
                 buf.writeU2U2U2(startPc, labelToBci(lr, e.endLabel(), ta) - startPc, e.index());
             }
         }
+            //case TypeAnnotation.CatchTarget ct -> buf.writeU2(ct.exceptionTableIndex());
         else if (ta.targetInfo() instanceof TypeAnnotation.CatchTarget ct) buf.writeU2(ct.exceptionTableIndex());
+            //case TypeAnnotation.OffsetTarget ot -> buf.writeU2(labelToBci(lr, ot.target(), ta));
         else if (ta.targetInfo() instanceof TypeAnnotation.OffsetTarget ot) buf.writeU2(labelToBci(lr, ot.target(), ta));
+            //case TypeAnnotation.TypeArgumentTarget tat -> {
         else if (ta.targetInfo() instanceof TypeAnnotation.TypeArgumentTarget tat) {
             buf.writeU2U1(labelToBci(lr, tat.target(), ta), tat.typeArgumentIndex());
         }
