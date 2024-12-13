@@ -195,7 +195,7 @@ public record ClassRemapperImpl(Function<ClassDesc, ClassDesc> mapFunction) impl
                 cob.localVariableType(c.slot(), c.name().stringValue(),
                     mapSignature(c.signatureSymbol()), c.startScope(), c.endScope());
             else if (coe instanceof LoadConstantInstruction ldc) 
-                cob.loadConstant(mapConstantValue(ldc.constantValue()));
+                cob.ldc(mapConstantValue(ldc.constantValue()));
             else if (coe instanceof RuntimeVisibleTypeAnnotationsAttribute aa) 
                 cob.with(RuntimeVisibleTypeAnnotationsAttribute.of(
                     mapTypeAnnotations(aa.annotations())));

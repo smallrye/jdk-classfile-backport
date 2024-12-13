@@ -335,7 +335,7 @@ public record ParserVerifier(ClassModel classModel) {
             sida.sourceId();
             size = 2;
         } else if (a instanceof StackMapTableAttribute smta) {
-            size = 2 + subSize(smta.entries(), frame -> stackMapFrameSize(frame));
+            size = 2 + subSize(smta.entries(), this::stackMapFrameSize);
         } else if (a instanceof SyntheticAttribute) {
             size =  0;
         } else if (a instanceof UnknownAttribute) {
