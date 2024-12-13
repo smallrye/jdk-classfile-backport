@@ -29,6 +29,7 @@ import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
 import java.lang.constant.ConstantDesc;
 
+import io.github.dmlloyd.classfile.impl.BackportUtil;
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
@@ -74,11 +75,7 @@ public sealed interface ConstantValueAttribute
             value instanceof Long l ? TemporaryConstantPool.INSTANCE.longEntry(l) :
             value instanceof Double d ? TemporaryConstantPool.INSTANCE.doubleEntry(d) :
             value instanceof String s ? TemporaryConstantPool.INSTANCE.stringEntry(s) :
-            throwIt(value)
+            BackportUtil.throwAsObj(IllegalArgumentException::new, "Invalid ConstantValueAttribute value: " + value)
         );
-    }
-
-    static ConstantValueEntry throwIt(ConstantDesc value) {
-        throw new IllegalArgumentException("Invalid ConstantValueAttribute value: " + value);
     }
 }
