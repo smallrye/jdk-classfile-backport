@@ -69,7 +69,7 @@ public sealed interface ClassRemapper extends ClassTransform permits ClassRemapp
 
     /**
      * Creates new instance of {@code ClassRemapper} instructed with a map function.
-     * Map function must return valid {@link ClassDesc} of an interface
+     * Map function must return valid {@link java.lang.constant.ClassDesc} of an interface
      * or a class, even for identity mappings.
      * @param mapFunction class map function
      * @return new instance of {@code ClassRemapper}

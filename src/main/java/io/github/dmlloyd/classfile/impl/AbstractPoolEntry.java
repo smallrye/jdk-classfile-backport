@@ -36,6 +36,7 @@ import java.util.Arrays;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
 import io.github.dmlloyd.classfile.extras.constant.PackageDesc;
+//import jdk.internal.vm.annotation.Stable;
 
 import static java.util.Objects.requireNonNull;
 
@@ -888,16 +889,16 @@ public abstract sealed class AbstractPoolEntry {
             implements MethodHandleEntry {
 
         private final int refKind;
-        private final AbstractMemberRefEntry reference;
+        private final AbstractPoolEntry.AbstractMemberRefEntry reference;
 
-        MethodHandleEntryImpl(ConstantPool cpm, int index, int hash, int refKind, AbstractMemberRefEntry
+        MethodHandleEntryImpl(ConstantPool cpm, int index, int hash, int refKind, AbstractPoolEntry.AbstractMemberRefEntry
                 reference) {
             super(cpm, index, hash);
             this.refKind = refKind;
             this.reference = reference;
         }
 
-        MethodHandleEntryImpl(ConstantPool cpm, int index, int refKind, AbstractMemberRefEntry
+        MethodHandleEntryImpl(ConstantPool cpm, int index, int refKind, AbstractPoolEntry.AbstractMemberRefEntry
                 reference) {
             super(cpm, index, hash2(TAG_METHOD_HANDLE, refKind, reference.index()));
             this.refKind = refKind;
@@ -915,7 +916,7 @@ public abstract sealed class AbstractPoolEntry {
         }
 
         @Override
-        public AbstractMemberRefEntry reference() {
+        public AbstractPoolEntry.AbstractMemberRefEntry reference() {
             return reference;
         }
 

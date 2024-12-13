@@ -24,7 +24,6 @@
  */
 package io.github.dmlloyd.classfile.impl;
 
-
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.AnnotationValue.*;
 import io.github.dmlloyd.classfile.attribute.*;

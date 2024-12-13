@@ -82,7 +82,7 @@ public class StackMapDecoder {
             if ("<init>".equals(methodName) && !ConstantDescs.CD_Object.equals(thisClass.asSymbol())) {
                 vtis[i++] = SimpleVerificationTypeInfo.UNINITIALIZED_THIS;
             } else {
-                vtis[i++] = new ObjectVerificationTypeInfoImpl(thisClass);
+                vtis[i++] = new StackMapDecoder.ObjectVerificationTypeInfoImpl(thisClass);
             }
         } else {
             vtis = new VerificationTypeInfo[methodType.parameterCount()];
@@ -95,7 +95,7 @@ public class StackMapDecoder {
                 case 'F' -> SimpleVerificationTypeInfo.FLOAT;
                 case 'D' -> SimpleVerificationTypeInfo.DOUBLE;
                 case 'V' -> throw new IllegalArgumentException("Illegal method argument type: " + arg);
-                default -> new ObjectVerificationTypeInfoImpl(TemporaryConstantPool.INSTANCE.classEntry(arg));
+                default -> new StackMapDecoder.ObjectVerificationTypeInfoImpl(TemporaryConstantPool.INSTANCE.classEntry(arg));
             };
         }
         return List.of(vtis);

@@ -991,7 +991,7 @@ public abstract sealed class UnboundAttribute<T extends Attribute<T>>
         }
     }
 
-    public record TypePathComponentImpl(Kind typePathKind, int typeArgumentIndex)
+    public record TypePathComponentImpl(TypeAnnotation.TypePathComponent.Kind typePathKind, int typeArgumentIndex)
             implements TypeAnnotation.TypePathComponent {}
 
     public static final class UnboundModuleAttribute extends UnboundAttribute<ModuleAttribute> implements ModuleAttribute {

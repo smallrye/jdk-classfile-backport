@@ -55,6 +55,11 @@ public sealed interface ConstantPool extends Iterable<PoolEntry>
     PoolEntry entryByIndex(int index);
 
     /**
+     * {@return the size of the constant pool}
+     */
+    int size();
+
+    /**
      * {@return the entry of a given type at the specified index}
      *
      * @param <T> the entry type
@@ -64,12 +69,6 @@ public sealed interface ConstantPool extends Iterable<PoolEntry>
      *         constant pool, or the entry is not of the given type
      */
     <T extends PoolEntry> T entryByIndex(int index, Class<T> cls);
-
-    /**
-     * {@return the number of entries in the constant pool}
-     * {@return the size of the constant pool}
-    */
-    int size();
 
     /**
      * {@return an iterator over pool entries}
@@ -93,6 +92,7 @@ public sealed interface ConstantPool extends Iterable<PoolEntry>
             }
         };
     }
+
 
     /**
      * {@return the {@link BootstrapMethodEntry} at the specified index within

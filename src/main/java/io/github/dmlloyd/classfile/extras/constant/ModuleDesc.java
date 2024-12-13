@@ -24,6 +24,8 @@
  */
 package io.github.dmlloyd.classfile.extras.constant;
 
+import io.github.dmlloyd.classfile.extras.constant.ConstantUtils;
+
 import static java.util.Objects.requireNonNull;
 
 /**

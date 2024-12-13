@@ -50,8 +50,8 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * @since 24
  */
 public sealed interface RuntimeVisibleAnnotationsAttribute
-    extends Attribute<RuntimeVisibleAnnotationsAttribute>,
-            ClassElement, MethodElement, FieldElement
+        extends Attribute<RuntimeVisibleAnnotationsAttribute>,
+                ClassElement, MethodElement, FieldElement
         permits BoundAttribute.BoundRuntimeVisibleAnnotationsAttribute,
                 UnboundAttribute.UnboundRuntimeVisibleAnnotationsAttribute {
 

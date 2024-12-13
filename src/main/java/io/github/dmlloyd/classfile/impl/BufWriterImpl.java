@@ -34,6 +34,8 @@ import java.util.Arrays;
 
 //import jdk.internal.access.JavaLangAccess;
 //import jdk.internal.access.SharedSecrets;
+//import jdk.internal.vm.annotation.ForceInline;
+
 import static io.github.dmlloyd.classfile.constantpool.PoolEntry.TAG_UTF8;
 
 public final class BufWriterImpl implements BufWriter {

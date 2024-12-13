@@ -30,7 +30,7 @@ import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
  * Implementation of {@code ModuleDesc}
  * @param name must have been validated
  */
-record ModuleDescImpl(String name) implements ModuleDesc {
+public record ModuleDescImpl(String name) implements ModuleDesc {
 
     @Override
     public String toString() {

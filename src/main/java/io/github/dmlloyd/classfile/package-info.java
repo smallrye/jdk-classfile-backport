@@ -131,7 +131,7 @@
  * io.github.dmlloyd.classfile.MethodElement}, is also a model in its own right ({@link
  * io.github.dmlloyd.classfile.CodeModel}) due to its complex structure.
  * <p>
- * Each standard attribute has an interface (in {@code jdk.internal.classfile.attribute})
+ * Each standard attribute has an interface (in {@code io.github.dmlloyd.classfile.attribute})
  * which exposes the contents of the attribute and provides factories to
  * construct the attribute.  For example, the {@code Signature} attribute is
  * defined by the {@link io.github.dmlloyd.classfile.attribute.SignatureAttribute} class, and
@@ -146,7 +146,7 @@
  * {@link io.github.dmlloyd.classfile.AttributeMapper#readAttribute(AttributedElement,
  * ClassReader, int)} method for mapping from the classfile format
  * to an attribute instance, and the
- * {@link io.github.dmlloyd.classfile.AttributeMapper#writeAttribute(BufWriter,
+ * {@link io.github.dmlloyd.classfile.AttributeMapper#writeAttribute(io.github.dmlloyd.classfile.BufWriter,
  * io.github.dmlloyd.classfile.Attribute)} method for mapping back to the classfile format.  It also
  * contains metadata including the attribute name, the set of classfile entities
  * where the attribute is applicable, and whether multiple attributes of the
@@ -169,20 +169,16 @@
  *
  * <h3>Options</h3>
  * <p>
- * {@link io.github.dmlloyd.classfile.ClassFile#of(ClassFile.Option[])}
+ * {@link io.github.dmlloyd.classfile.ClassFile#of(io.github.dmlloyd.classfile.ClassFile.Option[])}
  * accepts a list of options.  {@link io.github.dmlloyd.classfile.ClassFile.Option} is a base interface
  * for some statically enumerated options, as well as factories for more complex options,
  * including:
  * <ul>
- *   <li>{@link io.github.dmlloyd.classfile.ClassFile.StackMapsOption}
- * -- generate stackmaps (default is {@code STACK_MAPS_WHEN_REQUIRED})</li>
  *   <li>{@link io.github.dmlloyd.classfile.ClassFile.AttributeMapperOption#of(java.util.function.Function)}
  * -- specify format of custom attributes</li>
- *   <li>{@link io.github.dmlloyd.classfile.ClassFile.UnknownAttributesOption}
- * -- processing of unrecognized attributes (default is {@code PASS_UNKNOWN_ATTRIBUTES})</li>
- *   <li>{@link io.github.dmlloyd.classfile.ClassFile.ConstantPoolSharingOption}}
- * -- share constant pool when transforming (default is {@code SHARED_POOL})</li>
- *   <li>{@link io.github.dmlloyd.classfile.ClassFile.ClassHierarchyResolverOption#of(ClassHierarchyResolver)}
+ *   <li>{@link io.github.dmlloyd.classfile.ClassFile.AttributesProcessingOption}
+ * -- unrecognized or problematic original attributes (default is {@code PASS_ALL_ATTRIBUTES})</li>
+ *   <li>{@link io.github.dmlloyd.classfile.ClassFile.ClassHierarchyResolverOption#of(io.github.dmlloyd.classfile.ClassHierarchyResolver)}
  * -- specify a custom class hierarchy resolver used by stack map generation</li>
  *   <li>{@link io.github.dmlloyd.classfile.ClassFile.ConstantPoolSharingOption}}
  * -- share constant pool when transforming (default is {@code SHARED_POOL})</li>
@@ -231,11 +227,11 @@
  * different levels of abstraction.  For example, the {@code invokevirtual}
  * instruction invoking {@code println} could have been generated with {@link
  * io.github.dmlloyd.classfile.CodeBuilder#invokevirtual(java.lang.constant.ClassDesc,
- * String, java.lang.constant.MethodTypeDesc) CodeBuilder.invokevirtual}, {@link
+ * java.lang.String, java.lang.constant.MethodTypeDesc) CodeBuilder.invokevirtual}, {@link
  * io.github.dmlloyd.classfile.CodeBuilder#invoke(io.github.dmlloyd.classfile.Opcode,
- * java.lang.constant.ClassDesc, String, java.lang.constant.MethodTypeDesc,
+ * java.lang.constant.ClassDesc, java.lang.String, java.lang.constant.MethodTypeDesc,
  * boolean) CodeBuilder.invokeInstruction}, or {@link
- * io.github.dmlloyd.classfile.CodeBuilder#with(ClassFileElement)
+ * io.github.dmlloyd.classfile.CodeBuilder#with(io.github.dmlloyd.classfile.ClassFileElement)
  * CodeBuilder.with}.
  * <p>
  * The convenience method {@code CodeBuilder.invokevirtual} behaves as if it calls
@@ -434,7 +430,7 @@
  * create that element.  Some element kinds also have convenience methods on the
  * corresponding builder (e.g., {@link
  * io.github.dmlloyd.classfile.CodeBuilder#invokevirtual(java.lang.constant.ClassDesc,
- * String, java.lang.constant.MethodTypeDesc)}).
+ * java.lang.String, java.lang.constant.MethodTypeDesc)}).
  * <p>
  * Most symbolic information in elements is represented by constant pool entries
  * (for example, the owner of a field is represented by a {@link

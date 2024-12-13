@@ -27,7 +27,7 @@
  * <h2>Provides specific components, transformations, and tools built on top of the
  * {@link io.github.dmlloyd.classfile} library.</h2>
  *
- * The {@code jdk.internal.classfile.components} package contains specific
+ * The {@code io.github.dmlloyd.classfile.components} package contains specific
  * transformation components and utility classes helping to compose very complex
  * tasks with minimal effort.
  *

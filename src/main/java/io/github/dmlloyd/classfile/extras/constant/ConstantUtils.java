@@ -29,11 +29,14 @@ package io.github.dmlloyd.classfile.extras.constant;
 
 import java.lang.constant.ClassDesc;
 import java.lang.constant.ConstantDesc;
+import java.lang.constant.ConstantDescs;
 import java.lang.constant.MethodTypeDesc;
 import java.lang.invoke.MethodType;
 import java.util.Set;
 
 import static java.lang.constant.ConstantDescs.*;
+//import jdk.internal.access.JavaLangAccess;
+//import jdk.internal.access.SharedSecrets;
 
 /**
  * Helper methods for the implementation of {@code java.lang.constant}.

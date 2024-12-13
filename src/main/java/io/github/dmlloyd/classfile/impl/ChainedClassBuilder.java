@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 import static java.util.Objects.requireNonNull;
 
 public final class ChainedClassBuilder
-    implements ClassBuilder, Consumer<ClassElement> {
+        implements ClassBuilder, Consumer<ClassElement> {
     private final DirectClassBuilder terminal;
     private final Consumer<ClassElement> consumer;
 

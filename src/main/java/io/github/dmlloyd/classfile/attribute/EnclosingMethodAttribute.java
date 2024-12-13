@@ -48,7 +48,7 @@ import io.github.dmlloyd.classfile.impl.Util;
  * Subsequent occurrence of the attribute takes precedence during the attributed
  * element build or transformation.
  * <p>
- * This attribute was introduced in the Java SE Platform version 5.0.
+ * The attribute was introduced in the Java SE Platform version 5.0.
  *
  * @since 24
  */
