@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 
 public final class CodeStackTrackerImpl implements CodeStackTracker {
 
-    private static record Item(TypeKind type, Item next) {
+    private record Item(TypeKind type, Item next) {
     }
 
     private final class Stack extends AbstractCollection<TypeKind> {

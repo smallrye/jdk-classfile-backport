@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -31,7 +32,12 @@ public class ProcessPatch {
     ).map(Path::of).toList();
 
     public static final List<Replacement> replacements = List.of(
-        new Replacement("@Stable ", ""),
+        new Replacement("@Stable", "/*@Stable*/"),
+        new Replacement("@ForceInline", "/*@ForceInline*/"),
+        new Replacement("case [A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)* [A-Za-z_][A-Za-z0-9_]* -> .*", "//$0"),
+        new Replacement("import jdk.internal.access.JavaLangAccess", "import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA"),
+        new Replacement("import jdk.internal.util.ArraysSupport", "import static io.github.dmlloyd.classfile.impl.BackportUtil.ArraysSupport"),
+        new Replacement("private static final JavaLangAccess JLA = SharedSecrets.getJavaLangAccess\\(\\);", "//$0"),
         new Replacement("jdk\\.internal\\.javac\\.PreviewFeature", "io.github.dmlloyd.classfile.extras.PreviewFeature"),
         new Replacement("java(.)lang.reflect.(AccessFlag|ClassFileFormatVersion)", "io$1github$1dmlloyd$1classfile$1extras$1reflect$1$2"),
         new Replacement("java(.)lang.constant.(ModuleDesc|PackageDesc)", "io$1github$1dmlloyd$1classfile$1extras$1constant$1$2"),
@@ -80,9 +86,13 @@ public class ProcessPatch {
                 }
             }
             case "current" -> {
+                boolean ws = false;
+                if (iter.hasNext() && iter.next().equals("-w")) {
+                    ws = true;
+                }
                 // do a full comparison of the current status
                 for (Path path : paths) {
-                    fullDiff(path);
+                    fullDiff(path, ws);
                 }
             }
         }
@@ -95,12 +105,12 @@ public class ProcessPatch {
         return orig;
     }
 
-    private static void fullDiff(final Path path) throws IOException {
+    private static void fullDiff(final Path path, final boolean ws) throws IOException {
         Path jdkPath = Path.of("jdk").resolve(path);
         if (Files.isDirectory(jdkPath)) {
             try (DirectoryStream<Path> ds = Files.newDirectoryStream(jdkPath)) {
                 for (Path subPath : ds) {
-                    fullDiff(path.resolve(subPath.getFileName()));
+                    fullDiff(path.resolve(subPath.getFileName()), ws);
                 }
             }
         } else {
@@ -111,7 +121,17 @@ public class ProcessPatch {
                 srcPath = Path.of("/dev/null");
             }
             // the path is actually in the JDK directory
-            ProcessBuilder pb = new ProcessBuilder("git", "--no-pager", "diff", "--no-index", "-M75", "--", srcPath.toString(), "-");
+            List<String> command = new ArrayList<>(15);
+            command.add("git");
+            command.add("--no-pager");
+            command.add("diff");
+            if (ws) command.add("-w");
+            command.add("--no-index");
+            command.add("-M75");
+            command.add("--");
+            command.add(srcPath.toString());
+            command.add("-");
+            ProcessBuilder pb = new ProcessBuilder(command);
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
             pb.redirectInput(ProcessBuilder.Redirect.PIPE);
             pb.redirectOutput(ProcessBuilder.Redirect.PIPE);
