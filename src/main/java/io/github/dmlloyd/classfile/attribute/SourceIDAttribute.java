@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,8 +26,10 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
@@ -35,14 +37,21 @@ import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code SourceID} attribute, which can
- * appear on classes. Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when
- * traversing a {@link ClassModel}.
+ * Models the {@link Attributes#sourceId() SourceID} attribute, which records
+ * the last modified time of the source file from which this {@code class} file
+ * was compiled.
  * <p>
- * The attribute does not permit multiple instances in a given location.
- * Subsequent occurrence of the attribute takes precedence during the attributed
- * element build or transformation.
+ * This attribute only appears on classes, and does not permit {@linkplain
+ * AttributeMapper#allowMultiple multiple instances} in a class.  It has a
+ * data dependency on the {@linkplain AttributeStability#CP_REFS constant pool}.
+ * <p>
+ * This attribute is not predefined in the Java SE Platform.  This is a
+ * JDK-specific nonstandard attribute produced by the reference implementation
+ * of the system Java compiler, defined by the {@code jdk.compiler} module.
  *
+ * @see Attributes#sourceId()
+ * @see CompilationIDAttribute
+ * @see CharacterRangeTableAttribute
  * @since 24
  */
 public sealed interface SourceIDAttribute
@@ -51,13 +60,14 @@ public sealed interface SourceIDAttribute
 
     /**
      * {@return the source id}  The source id is the last modified time of the
-     * source file (as reported by the filesystem, in milliseconds) when the
-     * classfile is compiled.
+     * source file (as reported by the file system, in milliseconds) when this
+     * {@code class} file is compiled.
      */
     Utf8Entry sourceId();
 
     /**
      * {@return a {@code SourceID} attribute}
+     *
      * @param sourceId the source id
      */
     static SourceIDAttribute of(Utf8Entry sourceId) {
@@ -66,6 +76,7 @@ public sealed interface SourceIDAttribute
 
     /**
      * {@return a {@code SourceID} attribute}
+     *
      * @param sourceId the source id
      */
     static SourceIDAttribute of(String sourceId) {
