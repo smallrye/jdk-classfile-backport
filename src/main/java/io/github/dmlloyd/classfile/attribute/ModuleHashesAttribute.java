@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,7 +26,11 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.ClassElement;
+import io.github.dmlloyd.classfile.ClassModel;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 import java.util.List;
 
@@ -35,13 +39,11 @@ import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code ModuleHashes} attribute, which can
- * appear on classes that represent module descriptors.  This is a JDK-specific
- * attribute, which captures the hashes of a set of co-delivered modules.
- * Delivered as a {@link io.github.dmlloyd.classfile.ClassElement} when
- * traversing the elements of a {@link io.github.dmlloyd.classfile.ClassModel}.
- *
- *  <p>The specification of the {@code ModuleHashes} attribute is:
+ * Models the {@link Attributes#moduleHashes() ModuleHashes} attribute, which
+ * appears on classes that {@linkplain ClassModel#isModuleInfo() represent}
+ * module descriptors to capture the hashes of a set of co-delivered modules.
+ * <p>
+ * The specification of the {@code ModuleHashes} attribute is:
  * <pre> {@code
  *
  * ModuleHashes_attribute {
@@ -63,10 +65,17 @@ import io.github.dmlloyd.classfile.impl.UnboundAttribute;
  * }
  * } </pre>
  * <p>
- * The attribute does not permit multiple instances in a given location.
- * Subsequent occurrence of the attribute takes precedence during the attributed
- * element build or transformation.
+ * This attribute only appears on classes, and does not permit {@linkplain
+ * AttributeMapper#allowMultiple multiple instances} in a class.  It has a
+ * data dependency on the {@linkplain AttributeStability#CP_REFS constant pool}.
+ * <p>
+ * This attribute is not predefined in the Java SE Platform.  This is a
+ * JDK-specific nonstandard attribute produced by the {@code jdk.jlink} module,
+ * which defines the {@code jlink} and {@code jmod} tools.
  *
+ * @see Attributes#moduleHashes()
+ * @see ModuleResolutionAttribute
+ * @see ModuleTargetAttribute
  * @since 24
  */
 public sealed interface ModuleHashesAttribute

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,34 +22,22 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
+package io.github.dmlloyd.classfile.constantpool.snippet;
 
-package io.github.dmlloyd.classfile.attribute;
+import io.github.dmlloyd.classfile.ClassFile;
+import io.github.dmlloyd.classfile.MethodModel;
+import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
-import io.github.dmlloyd.classfile.*;
-import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+class PackageSnippets {
 
-import io.github.dmlloyd.classfile.impl.BoundAttribute;
-
-/**
- * Models an unknown attribute read from a {@code class} file.  An attribute is
- * unknown if it is not recognized by one of the mappers in {@link Attributes}
- * and is not recognized by the {@link ClassFile.AttributesProcessingOption}.
- * <p>
- * This attribute is not delivered in the traversal of a {@link CodeModel}.
- * <p>
- * An unknown attribute may appear anywhere where an attribute may appear, and
- * has an {@linkplain AttributeStability#UNKNOWN unknown} data dependency.
- *
- * @see CustomAttribute
- * @since 24
- */
-public sealed interface UnknownAttribute
-        extends Attribute<UnknownAttribute>,
-                ClassElement, MethodElement, FieldElement
-        permits BoundAttribute.BoundUnknownAttribute {
-
-    /**
-     * {@return the uninterpreted contents of the attribute payload}
-     */
-    byte[] contents();
+    // @start region=isStaticWorkMethod
+    boolean isStaticWorkMethod(MethodModel method) {
+        // check static flag first to avoid unnecessary evaluation of UTF-8 entry
+        return (method.flags().flagsMask() & ClassFile.ACC_STATIC) != 0
+                // use equalsString to avoid full conversion to String for comparison
+                // the Utf8Entry can also act as a basic CharSequence without full conversion
+                // @link substring="methodName" target="MethodModel#methodName" :
+                && method.methodName().equalsString("work"); // @link substring="equalsString" target="Utf8Entry#equalsString"
+    }
+    // @end
 }

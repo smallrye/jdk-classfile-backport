@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,8 +26,11 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+import io.github.dmlloyd.classfile.Attributes;
 import io.github.dmlloyd.classfile.ClassElement;
-import io.github.dmlloyd.classfile.ClassModel;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.constantpool.Utf8Entry;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
@@ -35,14 +38,19 @@ import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code SourceFile} attribute (JVMS {@jvms 4.7.10}), which
- * can appear on classes. Delivered as a {@link io.github.dmlloyd.classfile.ClassElement}
- * when traversing a {@link ClassModel}.
+ * Models the {@link Attributes#sourceFile() SourceFile} attribute (JVMS {@jvms
+ * 4.7.10}), which indicates the name of the source file from which this {@code
+ * class} file was compiled.
  * <p>
- * The attribute does not permit multiple instances in a given location.
- * Subsequent occurrence of the attribute takes precedence during the attributed
- * element build or transformation.
+ * This attribute only appears on classes, and does not permit {@linkplain
+ * AttributeMapper#allowMultiple multiple instances} in a class.  It has a data
+ * dependency on the {@linkplain AttributeStability#CP_REFS constant pool}.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 5.0, major
+ * version {@value ClassFile#JAVA_5_VERSION}.
  *
+ * @see Attributes#sourceFile()
+ * @jvms 4.7.10 The {@code SourceFile} Attribute
  * @since 24
  */
 public sealed interface SourceFileAttribute
@@ -56,6 +64,7 @@ public sealed interface SourceFileAttribute
 
     /**
      * {@return a source file attribute}
+     *
      * @param sourceFile the source file name
      */
     static SourceFileAttribute of(String sourceFile) {
@@ -64,6 +73,7 @@ public sealed interface SourceFileAttribute
 
     /**
      * {@return a source file attribute}
+     *
      * @param sourceFile the source file name
      */
     static SourceFileAttribute of(Utf8Entry sourceFile) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,6 +25,10 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+import io.github.dmlloyd.classfile.Attributes;
+import io.github.dmlloyd.classfile.ClassFile;
 import io.github.dmlloyd.classfile.FieldElement;
 import io.github.dmlloyd.classfile.constantpool.ConstantValueEntry;
 import java.lang.constant.ConstantDesc;
@@ -35,15 +39,19 @@ import io.github.dmlloyd.classfile.impl.TemporaryConstantPool;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code ConstantValue} attribute (JVMS {@jvms 4.7.2}), which can appear on
- * fields and indicates that the field's value is a constant.  Delivered as a
- * {@link io.github.dmlloyd.classfile.FieldElement} when traversing the elements of a
- * {@link io.github.dmlloyd.classfile.FieldModel}.
+ * Models the {@link Attributes#constantValue() ConstantValue} attribute (JVMS
+ * {@jvms 4.7.2}), which indicates this field's value is a constant and that
+ * constant value.
  * <p>
- * The attribute does not permit multiple instances in a given location.
- * Subsequent occurrence of the attribute takes precedence during the attributed
- * element build or transformation.
+ * This attribute only appears on fields, and does not permit {@linkplain
+ * AttributeMapper#allowMultiple multiple instances} in a field.  It has a
+ * data dependency on the {@linkplain AttributeStability#CP_REFS constant pool}.
+ * <p>
+ * This attribute was introduced in the Java Platform version 1.0.2, major
+ * version {@value ClassFile#JAVA_1_VERSION}.
  *
+ * @see Attributes#constantValue()
+ * @jvms 4.7.2 The {@code ConstantValue} Attribute
  * @since 24
  */
 public sealed interface ConstantValueAttribute

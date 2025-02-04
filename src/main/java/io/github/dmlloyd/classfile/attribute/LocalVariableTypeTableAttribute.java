@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,23 +26,45 @@
 package io.github.dmlloyd.classfile.attribute;
 
 import io.github.dmlloyd.classfile.Attribute;
+import io.github.dmlloyd.classfile.AttributeMapper;
+import io.github.dmlloyd.classfile.AttributeMapper.AttributeStability;
+import io.github.dmlloyd.classfile.Attributes;
+import io.github.dmlloyd.classfile.ClassFile;
+import io.github.dmlloyd.classfile.CodeBuilder;
+import io.github.dmlloyd.classfile.CodeModel;
+import io.github.dmlloyd.classfile.instruction.LocalVariableType;
 import java.util.List;
 
 import io.github.dmlloyd.classfile.impl.BoundAttribute;
 import io.github.dmlloyd.classfile.impl.UnboundAttribute;
 
 /**
- * Models the {@code LocalVariableTypeTable} attribute (JVMS {@jvms 4.7.14}), which can appear
- * on a {@code Code} attribute, and records debug information about local
- * variables.
- * Delivered as a {@link io.github.dmlloyd.classfile.instruction.LocalVariable} when traversing the
- * elements of a {@link io.github.dmlloyd.classfile.CodeModel}, according to the setting of the
- * {@link io.github.dmlloyd.classfile.ClassFile.LineNumbersOption} option.
+ * Models the {@link Attributes#localVariableTypeTable() LocalVariableTypeTable}
+ * attribute (JVMS {@jvms 4.7.14}), which records debug information about local
+ * variables with generic types.  Its entries are delivered as {@link
+ * LocalVariableType}s when traversing the elements of a {@link CodeModel},
+ * which can be toggled by {@link ClassFile.DebugElementsOption}.
  * <p>
- * The attribute permits multiple instances in a given location.
+ * This attribute only appears on {@code Code} attributes, and permits {@linkplain
+ * AttributeMapper#allowMultiple() multiple instances} in a {@code Code}
+ * attribute.  It has a data dependency on {@linkplain AttributeStability#LABELS
+ * labels}.
  * <p>
- * The attribute was introduced in the Java SE Platform version 5.0.
+ * This attribute cannot be sent to a {@link CodeBuilder}; its entries can be
+ * constructed with {@link LocalVariableType}, resulting in at most one attribute
+ * instance in the built {@code Code} attribute.
+ * <p>
+ * The attribute was introduced in the Java SE Platform version 5.0, major
+ * version {@value ClassFile#JAVA_5_VERSION}.
  *
+ * @apiNote
+ * Only local variables that have generic field types need to be described by
+ * this attribute.  If a local variable is described in a {@code
+ * LocalVariableTypeTable} attribute, it must also be described in a {@link
+ * LocalVariableTableAttribute LocalVariableTable} attribute.
+ *
+ * @see Attributes#localVariableTypeTable()
+ * @jvms 4.7.14 The {@code LocalVariableTypeTable} Attribute
  * @since 24
  */
 public sealed interface LocalVariableTypeTableAttribute
@@ -50,7 +72,7 @@ public sealed interface LocalVariableTypeTableAttribute
         permits BoundAttribute.BoundLocalVariableTypeTableAttribute, UnboundAttribute.UnboundLocalVariableTypeTableAttribute {
 
     /**
-     * {@return debug information for the local variables in this method}
+     * {@return debug information for the local variables with generic types in this method}
      */
     List<LocalVariableTypeInfo> localVariableTypes();
 
