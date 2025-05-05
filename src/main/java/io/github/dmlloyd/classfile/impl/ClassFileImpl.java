@@ -44,16 +44,16 @@ import static java.util.Objects.requireNonNull;
 
 public final class ClassFileImpl implements ClassFile {
 
-    private final Option stackMapsOption;
-    private final Option debugElementsOption;
-    private final Option lineNumbersOption;
-    private final Option attributesProcessingOption;
-    private final Option constantPoolSharingOption;
-    private final Option shortJumpsOption;
-    private final Option deadCodeOption;
-    private final Option deadLabelsOption;
-    private final Option classHierarchyResolverOption;
-    private final Option attributeMapperOption;
+    private Option stackMapsOption;
+    private Option debugElementsOption;
+    private Option lineNumbersOption;
+    private Option attributesProcessingOption;
+    private Option constantPoolSharingOption;
+    private Option shortJumpsOption;
+    private Option deadCodeOption;
+    private Option deadLabelsOption;
+    private Option classHierarchyResolverOption;
+    private Option attributeMapperOption;
 
     private ClassFileImpl(Option stackMapsOption,
                           Option debugElementsOption,

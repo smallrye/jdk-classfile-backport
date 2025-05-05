@@ -27,6 +27,7 @@ package io.github.dmlloyd.classfile;
 import io.github.dmlloyd.classfile.attribute.RuntimeInvisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.RuntimeVisibleTypeAnnotationsAttribute;
 import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
+import io.github.dmlloyd.classfile.attribute.UnknownAttribute;
 
 /**
  * Marker interface for a member element of a {@link CodeModel}.  Such an
@@ -49,5 +50,5 @@ import io.github.dmlloyd.classfile.attribute.StackMapTableAttribute;
 public sealed interface CodeElement extends ClassFileElement
         permits Instruction, PseudoInstruction,
                 CustomAttribute, RuntimeVisibleTypeAnnotationsAttribute, RuntimeInvisibleTypeAnnotationsAttribute,
-                StackMapTableAttribute {
+                StackMapTableAttribute, UnknownAttribute {
 }

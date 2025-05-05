@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package io.github.dmlloyd.classfile.components.snippet;
+package io.github.dmlloyd.classfile.components.snippets;
 
 import io.github.dmlloyd.classfile.*;
 import io.github.dmlloyd.classfile.components.ClassPrinter;

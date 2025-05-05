@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -32,6 +32,8 @@ import java.util.Arrays;
 
 import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
 //import jdk.internal.access.SharedSecrets;
+//import io.github.dmlloyd.classfile.extras.constant.ClassOrInterfaceDescImpl;
+//import io.github.dmlloyd.classfile.extras.constant.PrimitiveClassDescImpl;
 import static io.github.dmlloyd.classfile.impl.BackportUtil.ArraysSupport;
 //import jdk.internal.vm.annotation.Stable;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
@@ -74,11 +76,6 @@ public abstract sealed class AbstractPoolEntry {
 
     static int hashClassFromDescriptor(int descriptorHash) {
         return hash1(PoolEntry.TAG_CLASS, descriptorHash);
-    }
-
-    static boolean isArrayDescriptor(Utf8EntryImpl cs) {
-        // Do not throw out-of-bounds for empty strings
-        return !cs.isEmpty() && cs.charAt(0) == '[';
     }
 
     @SuppressWarnings("unchecked")
@@ -441,6 +438,79 @@ public abstract sealed class AbstractPoolEntry {
             typeSym = ret;
             return ret;
         }
+
+        @Override
+        public boolean isFieldType(ClassDesc desc) {
+            var sym = typeSym;
+            if (sym != null) {
+                return sym instanceof ClassDesc cd && cd.equals(desc);
+            }
+
+            // In parsing, Utf8Entry is not even inflated by this point
+            // We can operate on the raw byte arrays, as all ascii are compatible
+            var ret = state == State.RAW
+                    ? rawEqualsSym(desc)
+                    : equalsString(desc.descriptorString());
+            if (ret)
+                this.typeSym = desc;
+            return ret;
+        }
+
+        private boolean rawEqualsSym(ClassDesc desc) {
+            int len = rawLen;
+            if (len < 1) {
+                return false;
+            }
+            int c = rawBytes[offset];
+            if (len == 1) {
+                return desc.isPrimitive() && desc.descriptorString().charAt(0) == c;
+            } else if (c == 'L') {
+                return desc.isClassOrInterface() && equalsString(desc.descriptorString());
+            } else if (c == '[') {
+                return desc.isArray() && equalsString(desc.descriptorString());
+            } else {
+                return false;
+            }
+        }
+
+        boolean mayBeArrayDescriptor() {
+            if (state == State.RAW) {
+                return rawLen > 0 && rawBytes[offset] == '[';
+            } else {
+                return charLen > 0 && charAt(0) == '[';
+            }
+        }
+
+        @Override
+        public boolean isMethodType(MethodTypeDesc desc) {
+            var sym = typeSym;
+            if (sym != null) {
+                return sym instanceof MethodTypeDesc mtd && mtd.equals(desc);
+            }
+
+            // In parsing, Utf8Entry is not even inflated by this point
+            // We can operate on the raw byte arrays, as all ascii are compatible
+            var ret = state == State.RAW
+                    ? rawEqualsSym(desc)
+                    : equalsString(desc.descriptorString());
+            if (ret)
+                this.typeSym = desc;
+            return ret;
+        }
+
+        private boolean rawEqualsSym(MethodTypeDesc desc) {
+            if (rawLen < 3) {
+                return false;
+            }
+            var bytes = rawBytes;
+            int index = offset;
+            int c = bytes[index] | (bytes[index + 1] << Byte.SIZE);
+            if ((desc.parameterCount() == 0) != (c == ('(' | (')' << Byte.SIZE)))) {
+                // heuristic - avoid inflation for no-arg status mismatch
+                return false;
+            }
+            return (c & 0xFF) == '(' && equalsString(desc.descriptorString());
+        }
     }
 
     abstract static sealed class AbstractRefEntry<T extends PoolEntry> extends AbstractPoolEntry {
@@ -541,12 +611,34 @@ public abstract sealed class AbstractPoolEntry {
                 return sym;
             }
 
-            if (isArrayDescriptor(ref1)) {
+            if (ref1.mayBeArrayDescriptor()) {
                 sym = ref1.fieldTypeSymbol(); // array, symbol already available
             } else {
                 sym = ExtraClassDesc.ofInternalName(asInternalName()); // class or interface
             }
             return this.sym = sym;
+        }
+
+        @Override
+        public boolean matches(ClassDesc desc) {
+            var sym = this.sym;
+            if (sym != null) {
+                return sym.equals(desc);
+            }
+
+            var ret = rawEqualsSymbol(desc);
+            if (ret)
+                this.sym = desc;
+            return ret;
+        }
+
+        private boolean rawEqualsSymbol(ClassDesc desc) {
+            if (ref1.mayBeArrayDescriptor()) {
+                return desc.isArray() && ref1.isFieldType(desc);
+            } else {
+                return desc.isClassOrInterface()
+                        && ref1.equalsString(Util.toInternalName(desc));
+            }
         }
 
         @Override
@@ -574,7 +666,7 @@ public abstract sealed class AbstractPoolEntry {
             if (hash != 0)
                 return hash;
 
-            return this.hash = hashClassFromUtf8(isArrayDescriptor(ref1), ref1);
+            return this.hash = hashClassFromUtf8(ref1.mayBeArrayDescriptor(), ref1);
         }
     }
 
@@ -597,6 +689,11 @@ public abstract sealed class AbstractPoolEntry {
         @Override
         public PackageDesc asSymbol() {
             return PackageDesc.ofInternalName(asInternalName());
+        }
+
+        @Override
+        public boolean matches(PackageDesc desc) {
+            return ref1.equalsString(desc.internalName());
         }
 
         @Override
@@ -628,6 +725,11 @@ public abstract sealed class AbstractPoolEntry {
         @Override
         public ModuleDesc asSymbol() {
             return ModuleDesc.of(asInternalName());
+        }
+
+        @Override
+        public boolean matches(ModuleDesc desc) {
+            return ref1.equalsString(desc.name());
         }
 
         @Override
@@ -987,6 +1089,11 @@ public abstract sealed class AbstractPoolEntry {
         }
 
         @Override
+        public boolean matches(MethodTypeDesc desc) {
+            return ref1.isMethodType(desc);
+        }
+
+        @Override
         public boolean equals(Object o) {
             if (o == this) return true;
             if (o instanceof MethodTypeEntryImpl m) {
@@ -1017,6 +1124,11 @@ public abstract sealed class AbstractPoolEntry {
         @Override
         public String stringValue() {
             return ref1.toString();
+        }
+
+        @Override
+        public boolean equalsString(String value) {
+            return ref1.equalsString(value);
         }
 
         @Override
