@@ -11,7 +11,7 @@ public final class BackportUtil {
 
     // this trick helps to keep a smaller diff up above
     public static class JLA {
-        public static int uncheckedCountPositives(byte[] ba, int off, int len) {
+        public static int countPositives(byte[] ba, int off, int len) {
             int limit = off + len;
             for (int i = off; i < limit; i++) {
                 if (ba[i] < 0) {
@@ -20,7 +20,7 @@ public final class BackportUtil {
             }
             return len;
         }
-        public static void uncheckedInflateBytesToChars(byte[] src, int srcOff, char[] dst, int dstOff, int len) {
+        public static void inflateBytesToChars(byte[] src, int srcOff, char[] dst, int dstOff, int len) {
             for (int i = 0; i < len; i++) {
                 dst[dstOff++] = (char) Byte.toUnsignedInt(src[srcOff++]);
             }
