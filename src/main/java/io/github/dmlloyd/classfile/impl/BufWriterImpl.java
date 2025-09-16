@@ -282,9 +282,7 @@ public final class BufWriterImpl implements BufWriter {
                 utflen += 3;
             }
         }
-        if (utflen > 65535) {
-            throw new IllegalArgumentException("string too long");
-        }
+        Util.checkU2(utflen, "utf8 length");
         reserveSpace(utflen + 3);
 
         int offset = this.offset;

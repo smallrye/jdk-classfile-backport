@@ -399,12 +399,14 @@ public sealed interface ConstantPoolBuilder
 
     /**
      * {@return a {@link MethodHandleEntry} encoding a reference kind and
-     * referring to a {@link MemberRefEntry}}  The reference kind must be
+     * referring to a {@link MemberRefEntry}}  The reference kind is
      * in {@code [1, 9]}, and the {@code MemberRefEntry} is subject to
      * various restrictions based on the reference kind (JVMS {@jvms 4.4.8}).
      *
      * @param refKind the reference kind of the method handle
      * @param reference the {@code MemberRefEntry}
+     * @throws IllegalArgumentException if {@code refKind} is not {@link
+     *         io.github.dmlloyd.classfile##u1 u1}
      * @see MethodHandleInfo##refkinds Reference kinds
      * @see MethodHandleEntry#kind() MethodHandleEntry::kind
      * @see MethodHandleEntry#reference() MethodHandleEntry::reference
@@ -571,6 +573,8 @@ public sealed interface ConstantPoolBuilder
      *
      * @param methodReference the bootstrap method
      * @param arguments the arguments
+     * @throws IllegalArgumentException if the number of arguments exceeds the
+     *         limit of {@link io.github.dmlloyd.classfile##u2 u2}
      */
     default BootstrapMethodEntry bsmEntry(DirectMethodHandleDesc methodReference,
                                           List<ConstantDesc> arguments) {
@@ -586,6 +590,8 @@ public sealed interface ConstantPoolBuilder
      *
      * @param methodReference the {@code MethodHandleEntry}
      * @param arguments the list of {@code LoadableConstantEntry}
+     * @throws IllegalArgumentException if the number of arguments exceeds the
+     *         limit of {@link io.github.dmlloyd.classfile##u2 u2}
      * @see BootstrapMethodEntry#bootstrapMethod()
      *      BootstrapMethodEntry::bootstrapMethod
      * @see BootstrapMethodEntry#arguments() BootstrapMethodEntry::arguments
