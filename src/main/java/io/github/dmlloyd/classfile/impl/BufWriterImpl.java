@@ -30,6 +30,7 @@ import io.github.dmlloyd.classfile.constantpool.ClassEntry;
 import io.github.dmlloyd.classfile.constantpool.ConstantPool;
 import io.github.dmlloyd.classfile.constantpool.ConstantPoolBuilder;
 import io.github.dmlloyd.classfile.constantpool.PoolEntry;
+//import java.lang.runtime.ExactConversionsSupport;
 import java.util.Arrays;
 
 import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
@@ -271,6 +272,9 @@ public final class BufWriterImpl implements BufWriter {
 
     void writeUtfEntry(String str) {
         int strlen = str.length();
+        if (strlen > 65535) {
+            throw new IllegalArgumentException("String input too large");
+        }
         int utflen = 0;
         for (int i = 0; i < strlen; i ++) {
             char c = str.charAt(i);
