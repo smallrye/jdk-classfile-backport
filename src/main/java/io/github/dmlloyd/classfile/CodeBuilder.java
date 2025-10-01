@@ -931,10 +931,7 @@ public sealed interface CodeBuilder
      * @see LocalVariable
      */
     default CodeBuilder localVariable(int slot, String name, ClassDesc descriptor, Label startScope, Label endScope) {
-        return localVariable(slot,
-                             constantPool().utf8Entry(name),
-                             constantPool().utf8Entry(descriptor),
-                             startScope, endScope);
+        return with(LocalVariable.of(slot, name, descriptor, startScope, endScope));
     }
 
     /**
@@ -984,10 +981,7 @@ public sealed interface CodeBuilder
      * @see LocalVariableType
      */
     default CodeBuilder localVariableType(int slot, String name, Signature signature, Label startScope, Label endScope) {
-        return localVariableType(slot,
-                                 constantPool().utf8Entry(name),
-                                 constantPool().utf8Entry(signature.signatureString()),
-                                 startScope, endScope);
+        return with(LocalVariableType.of(slot, name, signature, startScope, endScope));
     }
 
     // Bytecode conveniences
