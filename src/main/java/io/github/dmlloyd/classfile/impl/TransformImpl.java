@@ -121,8 +121,8 @@ public final class TransformImpl {
         @Override
         public ClassTransform andThen(ClassTransform next) {
             // Optimized for shared _ -> true filter in ClassTransform.transformingMethods(MethodTransform)
-            if (next instanceof ClassMethodTransform(var nextTransform, var nextFilter) && filter == nextFilter)
-                return new ClassMethodTransform(transform.andThen(nextTransform), filter);
+            if (next instanceof ClassMethodTransform cmt && filter == cmt.filter)
+                return new ClassMethodTransform(transform.andThen(cmt.transform), filter);
             else
                 return UnresolvedClassTransform.super.andThen(next);
         }
@@ -144,8 +144,8 @@ public final class TransformImpl {
         @Override
         public ClassTransform andThen(ClassTransform next) {
             // Optimized for shared _ -> true filter in ClassTransform.transformingFields(FieldTransform)
-            if (next instanceof ClassFieldTransform(var nextTransform, var nextFilter) && filter == nextFilter)
-                return new ClassFieldTransform(transform.andThen(nextTransform), filter);
+            if (next instanceof ClassFieldTransform cmt && filter == cmt.filter)
+                return new ClassFieldTransform(transform.andThen(cmt.transform), filter);
             else
                 return UnresolvedClassTransform.super.andThen(next);
         }
@@ -208,8 +208,8 @@ public final class TransformImpl {
 
         @Override
         public MethodTransform andThen(MethodTransform next) {
-            return (next instanceof MethodCodeTransform(var nextXform))
-                   ? new TransformImpl.MethodCodeTransform(xform.andThen(nextXform))
+            return (next instanceof MethodCodeTransform mct)
+                   ? new TransformImpl.MethodCodeTransform(xform.andThen(mct.xform))
                    : UnresolvedMethodTransform.super.andThen(next);
 
         }

@@ -159,9 +159,9 @@ public abstract sealed class AbstractPoolEntry {
 
         Utf8EntryImpl(ConstantPool cpm, int index, String s, int contentHash) {
             // Prevent creation of unwritable entries
-            if (!ModifiedUtf.isValidLengthInConstantPool(s)) {
-                throw new IllegalArgumentException("utf8 length out of range of u2: " + ModifiedUtf.utfLen(s));
-            }
+//            if (!ModifiedUtf.isValidLengthInConstantPool(s)) {
+//                throw new IllegalArgumentException("utf8 length out of range of u2: " + ModifiedUtf.utfLen(s));
+//            }
             super(cpm, index, 0);
             this.rawBytes = null;
             this.offset = 0;
