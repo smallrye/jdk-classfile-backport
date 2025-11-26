@@ -35,6 +35,7 @@ import static io.github.dmlloyd.classfile.impl.BackportUtil.JLA;
 //import io.github.dmlloyd.classfile.extras.constant.ClassOrInterfaceDescImpl;
 //import io.github.dmlloyd.classfile.extras.constant.PrimitiveClassDescImpl;
 import static io.github.dmlloyd.classfile.impl.BackportUtil.ArraysSupport;
+//import jdk.internal.util.ModifiedUtf;
 //import jdk.internal.vm.annotation.Stable;
 import io.github.dmlloyd.classfile.extras.constant.ExtraClassDesc;
 import io.github.dmlloyd.classfile.extras.constant.ModuleDesc;
@@ -144,7 +145,7 @@ public abstract sealed class AbstractPoolEntry {
         /*@Stable*/ TypeDescriptor typeSym;
 
         Utf8EntryImpl(ConstantPool cpm, int index,
-                          byte[] rawBytes, int offset, int rawLen) {
+                      byte[] rawBytes, int offset, int rawLen) {
             super(cpm, index, 0);
             this.rawBytes = rawBytes;
             this.offset = offset;
@@ -157,6 +158,10 @@ public abstract sealed class AbstractPoolEntry {
         }
 
         Utf8EntryImpl(ConstantPool cpm, int index, String s, int contentHash) {
+            // Prevent creation of unwritable entries
+            if (!ModifiedUtf.isValidLengthInConstantPool(s)) {
+                throw new IllegalArgumentException("utf8 length out of range of u2: " + ModifiedUtf.utfLen(s));
+            }
             super(cpm, index, 0);
             this.rawBytes = null;
             this.offset = 0;
