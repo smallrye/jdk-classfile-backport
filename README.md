@@ -1,11 +1,27 @@
 Unofficial JDK Classfile API Backport
 ========
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.dmlloyd/jdk-classfile-backport?color=green)](https://search.maven.org/search?q=g:io.github.dmlloyd%20AND%20a:jdk-classfile-backport)
+[![Maven Central](https://img.shields.io/maven-central/v/io.smallrye.classfile/jdk-classfile-backport?color=green)](https://search.maven.org/search?q=g:io.smallrye.classfile%20AND%20a:jdk-classfile-backport)
 
 This is a backport to JDK 17 of the new classfile API found in JDK 21 and later.
 
-Bugs in this project should be reported to [the GitHub issue tracker](https://github.com/dmlloyd/jdk-classfile-backport/issues) first. Bugs in this project are likely to be a result of backporting. Some bugs might be relayed upstream by the project maintainer(s), subject to testing and verification; in this case, the upstream bug will be linked for easier tracking.
+Bugs in this project should be reported to [the GitHub issue tracker](https://github.com/smallrye/jdk-classfile-backport/issues) first. Bugs in this project are likely to be a result of backporting. Some bugs might be relayed upstream by the project maintainer(s), subject to testing and verification; in this case, the upstream bug will be linked for easier tracking.
+
+Relocation notice
+-----------------
+
+This project has been relocated from old to new Maven coordinates, and also has a new package name, as of version 26.
+
+Please use the new Maven coordinates in your dependency declaration:
+
+```xml
+    <dependency>
+        <groupId>io.smallrye.classfile</groupId>
+        <artifactId>jdk-classfile-backport</artifactId>
+    </dependency>
+```
+
+The classfile API now has a base package name of `io.smallrye.classfile`. Generally it is sufficient to search-and-replace the old package name (`io.github.dmlloyd.classfile`) in your projects to use the new API version.
 
 Releases
 --------
