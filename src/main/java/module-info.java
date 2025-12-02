@@ -1,9 +1,9 @@
-module io.github.dmlloyd.classfile {
-    exports io.github.dmlloyd.classfile;
-    exports io.github.dmlloyd.classfile.attribute;
-    exports io.github.dmlloyd.classfile.constantpool;
-    exports io.github.dmlloyd.classfile.extras;
-    exports io.github.dmlloyd.classfile.extras.constant;
-    exports io.github.dmlloyd.classfile.extras.reflect;
-    exports io.github.dmlloyd.classfile.instruction;
+module io.smallrye.classfile {
+    exports io.smallrye.classfile;
+    exports io.smallrye.classfile.attribute;
+    exports io.smallrye.classfile.constantpool;
+    exports io.smallrye.classfile.extras;
+    exports io.smallrye.classfile.extras.constant;
+    exports io.smallrye.classfile.extras.reflect;
+    exports io.smallrye.classfile.instruction;
 }
