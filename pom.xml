@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,7 +10,7 @@
 
     <groupId>io.smallrye.classfile</groupId>
     <artifactId>jdk-classfile-backport</artifactId>
-    <version>26.0-SNAPSHOT</version>
+    <version>26.cr1</version>
 
     <name>JDK Classfile API backport</name>
     <description>An unofficial backport of the JDK Classfile API to Java 17</description>
@@ -40,7 +38,8 @@
         <url>https://github.com/smallrye/jdk-classfile-backport</url>
         <connection>scm:git:git://github.com/smallrye/jdk-classfile-backport</connection>
         <developerConnection>scm:git:git@github.com:smallrye/jdk-classfile-backport</developerConnection>
-    </scm>
+      <tag>26.cr1</tag>
+  </scm>
 
     <developers>
         <developer>
