@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,12 +25,11 @@
  */
 package io.smallrye.classfile.impl;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import io.smallrye.classfile.ClassHierarchyResolver;
+import io.smallrye.classfile.constantpool.ClassEntry;
 import java.lang.constant.ClassDesc;
 import io.smallrye.classfile.extras.constant.ExtraClassDesc;
 import java.util.Collection;
@@ -39,7 +38,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static io.smallrye.classfile.ClassFile.ACC_INTERFACE;
-import static io.smallrye.classfile.constantpool.PoolEntry.*;
 import static java.lang.constant.ConstantDescs.CD_Object;
 import static java.util.Objects.requireNonNull;
 import static io.smallrye.classfile.extras.constant.ConstantUtils.referenceClassDesc;
@@ -165,31 +163,12 @@ public final class ClassHierarchyImpl {
         public ClassHierarchyResolver.ClassHierarchyInfo getClassInfo(ClassDesc classDesc) {
             var ci = streamProvider.apply(classDesc);
             if (ci == null) return null;
-            try (var in = new DataInputStream(new BufferedInputStream(ci))) {
-                in.skipBytes(8);
-                int cpLength = in.readUnsignedShort();
-                String[] cpStrings = new String[cpLength];
-                int[] cpClasses = new int[cpLength];
-                for (int i = 1; i < cpLength; i++) {
-                    int tag;
-                    switch (tag = in.readUnsignedByte()) {
-                        case TAG_UTF8 -> cpStrings[i] = in.readUTF();
-                        case TAG_CLASS -> cpClasses[i] = in.readUnsignedShort();
-                        case TAG_STRING, TAG_METHOD_TYPE, TAG_MODULE, TAG_PACKAGE -> in.skipBytes(2);
-                        case TAG_METHOD_HANDLE -> in.skipBytes(3);
-                        case TAG_INTEGER, TAG_FLOAT, TAG_FIELDREF, TAG_METHODREF, TAG_INTERFACE_METHODREF,
-                             TAG_NAME_AND_TYPE, TAG_DYNAMIC, TAG_INVOKE_DYNAMIC -> in.skipBytes(4);
-                        case TAG_LONG, TAG_DOUBLE -> {
-                            in.skipBytes(8);
-                            i++;
-                        }
-                        default -> throw new IllegalStateException("Bad tag (" + tag + ") at index (" + i + ")");
-                    }
-                }
-                boolean isInterface = (in.readUnsignedShort() & ACC_INTERFACE) != 0;
-                in.skipBytes(2);
-                int superIndex = in.readUnsignedShort();
-                var superClass = superIndex > 0 ? ExtraClassDesc.ofInternalName(cpStrings[cpClasses[superIndex]]) : null;
+            try (ci) {
+                var reader = new ClassReaderImpl(ci.readAllBytes(), ClassFileImpl.DEFAULT_CONTEXT);
+                boolean isInterface = (reader.flags() & ACC_INTERFACE) != 0;
+                ClassDesc superClass = reader.superclassEntry()
+                        .map(ClassEntry::asSymbol)
+                        .orElse(null);
                 return new ClassHierarchyInfoImpl(superClass, isInterface);
             } catch (IOException ioe) {
                 throw new UncheckedIOException(ioe);
