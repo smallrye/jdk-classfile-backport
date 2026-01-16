@@ -1,4 +1,4 @@
 name: JDK Classfile API backport
 release:
-  current-version: 26.cr1
-  next-version: 26.0-SNAPSHOT
+  current-version: 26.0
+  next-version: 26.1-SNAPSHOT
