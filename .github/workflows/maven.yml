@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Clone project
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: jdk-classfile-backport
 
