@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>io.smallrye</groupId>
-        <artifactId>smallrye-build-parent</artifactId>
+        <artifactId>smallrye-parent</artifactId>
         <version>50</version>
     </parent>
 
@@ -61,7 +61,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>6.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
